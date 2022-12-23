@@ -1,4 +1,4 @@
-package com.carrot.global.eroor;
+package com.carrot.global.error;
 
 public class GlobalControllerAdvice {
 }
