@@ -1,6 +1,7 @@
 package com.carrot.global.oauth2.principal;
 
 import com.carrot.global.oauth2.provider.ProviderUser;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
@@ -11,6 +12,7 @@ import java.util.Collection;
 import java.util.Map;
 
 
+@Getter
 public class PrincipalUser implements OidcUser, OAuth2User {
 
     private final ProviderUser providerUser;

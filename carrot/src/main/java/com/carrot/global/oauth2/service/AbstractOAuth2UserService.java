@@ -16,14 +16,12 @@ public abstract class AbstractOAuth2UserService {
 
     public void register(ProviderUser providerUser) {
         User user = userRepository.findByEmail(new Email(providerUser.getEmail()))
-                .orElseGet(() -> {
-                    return User.socialRegister(
-                            providerUser.getEmail(),
-                            providerUser.getUsername(),
-                            providerUser.getPicture(),
-                            providerUser.getProvider(),
-                            providerUser.getId());
-                });
+                .orElseGet(() -> User.socialRegister(
+                        providerUser.getEmail(),
+                        providerUser.getUsername(),
+                        providerUser.getPicture(),
+                        providerUser.getProvider(),
+                        providerUser.getId()));
         userRepository.save(user);
     }
 

@@ -11,6 +11,7 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 1000
+        show_sql: true
     hibernate:
       ddl-auto: none
 
