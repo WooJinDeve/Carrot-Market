@@ -9,5 +9,5 @@ public interface TokenCreator {
 
     AuthToken renewAuthToken(final String refreshToken);
 
-    Long extractPayload(final String accessToken);
+    String extractPayload(final String accessToken);
 }

@@ -42,8 +42,8 @@ public class AuthTokenCreator implements TokenCreator{
     }
 
     @Override
-    public Long extractPayload(String accessToken) {
+    public String extractPayload(String accessToken) {
         tokenProvider.validateToken(accessToken);
-        return Long.valueOf(tokenProvider.getPayload(accessToken));
+        return tokenProvider.getPayload(accessToken);
     }
 }

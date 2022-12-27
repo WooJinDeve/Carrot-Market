@@ -13,6 +13,10 @@ public enum ErrorCode {
     NICKNAME_LENGTH_VALIDATION_ERROR(BAD_REQUEST, "닉네임의 길이가 15을 초과했습니다."),
     USER_NOTFOUND_ERROR(BAD_REQUEST, "존재하지 않는 회원입니다."),
 
+    //REGION
+    REGION_LENGTH_VALIDATION_ERROR(BAD_REQUEST, "지역명은 50자를 초과할 수 없습니다."),
+
+
     //OAUTH2
     OAUTH2_TYPE_VALIDATION_ERROR(UNAUTHORIZED, "지원하지않는 소셜로그인입니다."),
 

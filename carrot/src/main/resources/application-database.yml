@@ -12,6 +12,8 @@ spring:
         format_sql: true
         default_batch_fetch_size: 1000
         show_sql: true
+        dialect: org.hibernate.spatial.dialect.mysql.MySQL5InnoDBSpatialDialect
+    database-platform: org.hibernate.spatial.dialect.mysql.MySQL5InnoDBSpatialDialect
     hibernate:
       ddl-auto: none
 

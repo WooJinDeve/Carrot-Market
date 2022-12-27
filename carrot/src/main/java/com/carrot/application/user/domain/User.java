@@ -9,6 +9,8 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -48,14 +50,17 @@ public class User extends BaseEntity {
     private String providerId;
 
     @Column(name = "deleted_at")
-    private LocalDateTime removedAt;
+    private LocalDateTime deletedAt;
 
     @Column(name = "certificated_at")
     private LocalDateTime certificatedAt;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserRegion> userRegions = new HashSet<>();
+
     @Builder
     public User(Long id, String email, String nickname, double mannerTemperature, String profileUrl,
-                UserRole role, String provider, String providerId, LocalDateTime removedAt, LocalDateTime certificatedAt) {
+                UserRole role, String provider, String providerId, LocalDateTime deletedAt, LocalDateTime certificatedAt) {
         this.id = id;
         this.email = new Email(email);
         this.nickname = new Nickname(nickname);
@@ -64,7 +69,7 @@ public class User extends BaseEntity {
         this.role = role;
         this.providerId = providerId;
         this.provider = provider;
-        this.removedAt = removedAt;
+        this.deletedAt = deletedAt;
         this.certificatedAt = certificatedAt;
     }
 
