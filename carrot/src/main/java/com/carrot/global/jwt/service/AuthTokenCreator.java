@@ -14,27 +14,27 @@ public class AuthTokenCreator implements TokenCreator{
     private final TokenRepository tokenRepository;
 
     @Override
-    public AuthToken createAuthToken(final String email) {
-        String accessToken = tokenProvider.createAccessToken(email);
-        String refreshToken = createRefreshToken(email);
+    public AuthToken createAuthToken(final String userId) {
+        String accessToken = tokenProvider.createAccessToken(userId);
+        String refreshToken = createRefreshToken(userId);
         return new AuthToken(accessToken, refreshToken);
     }
 
-    private String createRefreshToken(final String email) {
-        if (tokenRepository.exist(email)) {
-            return tokenRepository.getToken(email);
+    private String createRefreshToken(final String userId) {
+        if (tokenRepository.exist(userId)) {
+            return tokenRepository.getToken(userId);
         }
-        String refreshToken = tokenProvider.createRefreshToken(email);
-        return tokenRepository.save(email, refreshToken);
+        String refreshToken = tokenProvider.createRefreshToken(userId);
+        return tokenRepository.save(userId, refreshToken);
     }
 
     @Override
     public AuthToken renewAuthToken(String refreshToken) {
         tokenProvider.validateToken(refreshToken);
-        String email = tokenProvider.getPayload(refreshToken);
+        String userId = tokenProvider.getPayload(refreshToken);
 
-        String accessTokenForRenew = tokenProvider.createAccessToken(email);
-        String refreshTokenForRenew = tokenRepository.getToken(email);
+        String accessTokenForRenew = tokenProvider.createAccessToken(userId);
+        String refreshTokenForRenew = tokenRepository.getToken(userId);
 
         AuthToken renewalAuthToken = new AuthToken(accessTokenForRenew, refreshTokenForRenew);
         renewalAuthToken.validateHasSameRefreshToken(refreshToken);

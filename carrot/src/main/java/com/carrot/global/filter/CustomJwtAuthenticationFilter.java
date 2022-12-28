@@ -1,6 +1,5 @@
 package com.carrot.global.filter;
 
-import com.carrot.application.user.domain.Email;
 import com.carrot.application.user.domain.User;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.global.error.CarrotRuntimeException;
@@ -35,8 +34,8 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             final String token = TokenExtractor.extract(request);
-            final String email = tokenService.extractMemberEmail(token);
-            User user = userRepository.findByEmail(new Email(email))
+            final Long userId = tokenService.extractUserId(token);
+            User user = userRepository.findById(userId)
                     .orElseThrow(() -> new CarrotRuntimeException(USER_NOTFOUND_ERROR));
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

@@ -21,6 +21,7 @@ public class Nickname {
     private String nickname;
 
     public Nickname(String nickname) {
+        validateNickname(nickname);
         this.nickname = nickname;
     }
 

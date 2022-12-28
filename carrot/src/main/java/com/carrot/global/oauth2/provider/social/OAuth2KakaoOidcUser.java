@@ -1,5 +1,6 @@
 package com.carrot.global.oauth2.provider.social;
 
+import com.carrot.application.user.domain.Nickname;
 import com.carrot.global.oauth2.util.Attributes;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -17,8 +18,8 @@ public class OAuth2KakaoOidcUser extends OAuth2ProviderUser {
     }
 
     @Override
-    public String getUsername() {
-        return (String)super.getAttributes().get("nickname");
+    public Nickname getUsername() {
+        return new Nickname((String) super.getAttributes().get("nickname"));
     }
 
     @Override
