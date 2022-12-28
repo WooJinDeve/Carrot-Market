@@ -1,8 +1,0 @@
-security:
-  jwt:
-    token:
-      secret-key: carrot-simple-market-application-2022.secret-key
-      access:
-        expire-length: 3600000 #1??
-      refresh:
-        expire-length: 1210000000 #14?
