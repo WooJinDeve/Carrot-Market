@@ -23,6 +23,10 @@ public class UserValidator {
             throw new CarrotRuntimeException(USER_NOTFOUND_ERROR);
     }
 
+    public void validateUserRegionCounter(Object any, Long eq) {
+
+    }
+
     public void validateReRegister(User user){
         if (user.isDeleted()){
             user.reRegister();

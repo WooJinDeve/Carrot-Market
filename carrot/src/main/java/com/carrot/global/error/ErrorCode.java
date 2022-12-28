@@ -12,6 +12,7 @@ public enum ErrorCode {
     EMAIL_VALIDATION_ERROR(BAD_REQUEST, "이메일 형식이 잘못되었습니다."),
     NICKNAME_LENGTH_VALIDATION_ERROR(BAD_REQUEST, "닉네임의 길이가 15을 초과했습니다."),
     USER_NOTFOUND_ERROR(BAD_REQUEST, "존재하지 않는 회원입니다."),
+    USER_REGION_MAX_ERROR(BAD_REQUEST, "지역정보는 최대 2개까지 저장할 수 있습니다."),
 
     //REGION
     REGION_LENGTH_VALIDATION_ERROR(BAD_REQUEST, "지역명은 50자를 초과할 수 없습니다."),
@@ -26,7 +27,7 @@ public enum ErrorCode {
 
 
     //SERVER
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR"),;
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR");
 
 
     private final HttpStatus status;
