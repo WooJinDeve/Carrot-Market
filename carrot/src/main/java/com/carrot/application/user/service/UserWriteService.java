@@ -31,4 +31,7 @@ public class UserWriteService {
         return user.getId();
     }
 
+    public void saveUserRegion(Long userId, Long regionId) {
+
+    }
 }

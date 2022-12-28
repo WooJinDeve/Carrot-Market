@@ -1,7 +1,7 @@
 package com.carrot.presentation.response;
 
 
-import com.carrot.application.region.dto.RegionDto;
+import com.carrot.application.region.domain.Region;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,10 +15,10 @@ public class RegionSearchResponse {
     private Long id;
     private String name;
 
-    public static RegionSearchResponse fromRegionDto(RegionDto regionDto) {
+    public static RegionSearchResponse of(Region region) {
         return RegionSearchResponse.builder()
-                .id(regionDto.getId())
-                .name(regionDto.getName())
+                .id(region.getId())
+                .name(region.getName())
                 .build();
     }
 }
