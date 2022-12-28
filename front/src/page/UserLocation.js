@@ -15,11 +15,29 @@ function UserLocation () {
     const token = getToken();
     if (!token) {
       navigate("/login");
+    }else{
+      instance.get(`api/v1/locations?state=서울`)
+      .then((res) => {
+        console.log(res.data.result)
+        SetLocations(res.data.result.content)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     }
   }, [navigate]);
 
-  const locationClick = (name) => {
-    navigate("/main", { state : name });
+  const locationClick = (id) => {
+    instance.post(`api/v1/users/location`, {
+      regionId: id
+    })
+    .then((res) => {
+      console.log(res.data.result)
+      navigate("/main");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   const changeLocation = (e) => {
@@ -29,7 +47,8 @@ function UserLocation () {
   const locationSearchClick = () => {
     instance.get(`api/v1/locations?state=${state}`)
     .then((res) => {
-      SetLocations(res.data.result)
+      console.log(res.data.result)
+      SetLocations(res.data.result.content)
     })
     .catch((err) => {
       console.log(err);
@@ -49,7 +68,7 @@ function UserLocation () {
           {locations?.map(
             (location, id) => {
               return (
-                <Location key={id} onClick={() => {locationClick(location.name)}}>
+                <Location key={id} onClick={() => {locationClick(location.id)}}>
                     {location.name}
                 </Location>
               )
@@ -69,20 +88,22 @@ const Box = styled.div`
 const Content = styled.div`
   padding: 10px 20px 0;
   h1 {
+    padding: 5px 40px;
     font-weight: bold;
   }
 `;
 
 const Locations = styled.div`
   margin-top: 20px;
+  justify-content: center;
   position: absolute;
-  width: 80%;
+  width: 100%;
   left: 0;
 `;
 
 const Location = styled.div`
-  padding: 0 20px;
-  width: 80%;
+  padding: 0 60px;
+  width: 100%;
   height: 60px;
   display: flex;
   align-items: center;
