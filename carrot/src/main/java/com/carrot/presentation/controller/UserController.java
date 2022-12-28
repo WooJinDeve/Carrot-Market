@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
@@ -22,11 +24,11 @@ public class UserController {
     private final UserReadService userReadService;
 
     @GetMapping("/location")
-    public Response<UserRegionResponse> findRegion(Authentication authentication){
+    public Response<List<UserRegionResponse>> findRegion(Authentication authentication){
         LoginUser loginUser = ClassUtils.getSafeCastInstance(authentication.getPrincipal(), LoginUser.class)
                 .orElseThrow(() -> new CarrotRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR));
 
-        UserRegionResponse response = userReadService.findRegion(loginUser.getId());
+        List<UserRegionResponse> response = userReadService.findRegion(loginUser.getId());
         return Response.success(response);
     }
 

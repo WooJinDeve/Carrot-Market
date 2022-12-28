@@ -14,6 +14,7 @@ public enum ErrorCode {
     USER_REGION_MAX_ERROR(BAD_REQUEST, "지역정보는 최대 2개까지 저장할 수 있습니다."),
     USER_REGION_NOTFOUND_ERROR(NOT_FOUND, "존재하지 않는 회원의 지역정보입니다."),
     USER_REGION_VALIDATION_ERROR(UNAUTHORIZED, "해당 지역정보에 관한 권한이 없습니다."),
+    USER_REGION_DUPLICATION_ERROR(BAD_REQUEST, "같은 지역을 2번 이상 저장할 수 없습니다."),
 
     //REGION
     REGION_LENGTH_VALIDATION_ERROR(BAD_REQUEST, "지역명은 50자를 초과할 수 없습니다."),

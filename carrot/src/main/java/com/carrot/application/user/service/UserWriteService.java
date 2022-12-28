@@ -7,20 +7,23 @@ import com.carrot.application.user.domain.UserRegion;
 import com.carrot.application.user.repository.UserRegionRepository;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.global.error.ErrorCode;
 import com.carrot.global.oauth2.provider.ProviderUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.carrot.global.error.ErrorCode.USER_REGION_NOTFOUND_ERROR;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class UserWriteService {
     private final UserRepository userRepository;
-    private final UserValidator userValidator;
     private final RegionRepository regionRepository;
     private final UserRegionRepository userRegionRepository;
+    private final UserValidator userValidator;
+    private final UserRegionValidator userRegionValidator;
+
 
     public Long register(ProviderUser providerUser) {
         User user = userRepository.findByEmail(providerUser.getEmail())
@@ -40,10 +43,11 @@ public class UserWriteService {
 
     public void saveRegion(Long userId, Long regionId) {
         User user = userRepository.getById(userId);
-        Region region = regionRepository.getById(regionId);
-
         userValidator.validateDeleted(user);
-        userValidator.validateUserRegionCounter(userId);
+
+        Region region = regionRepository.getById(regionId);
+        userRegionValidator.validateByUserIdAndRegionId(user, region);
+        userRegionValidator.validateUserRegionCounter(userId);
 
         userRegionRepository.save(UserRegion.of(user, region));
     }
@@ -53,9 +57,8 @@ public class UserWriteService {
         userValidator.validateDeleted(user);
 
         UserRegion userRegion = userRegionRepository.findByUserIdAndRegionId(userId, regionId)
-                .orElseThrow(() -> new CarrotRuntimeException(ErrorCode.USER_NOTFOUND_ERROR));
-
-        userValidator.validateOwner(user, userRegion);
+                .orElseThrow(() -> new CarrotRuntimeException(USER_REGION_NOTFOUND_ERROR));
+        userRegionValidator.validateOwner(user, userRegion);
         userRegionRepository.delete(userRegion);
     }
 }
