@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    include: database, flyway, jwt, openui, oauth2
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 20
