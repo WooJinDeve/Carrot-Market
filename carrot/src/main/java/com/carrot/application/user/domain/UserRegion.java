@@ -10,6 +10,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+import java.util.Objects;
+
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -47,5 +49,9 @@ public class UserRegion extends BaseEntity {
                 .user(user)
                 .region(region)
                 .build();
+    }
+
+    public boolean isOwner(Long userId){
+        return Objects.equals(this.user.getId(), userId);
     }
 }

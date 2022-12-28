@@ -1,6 +1,6 @@
 package com.carrot.global.filter;
 
-import com.carrot.application.user.domain.User;
+import com.carrot.application.user.dto.LoginUser;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.global.error.CarrotRuntimeException;
 import com.carrot.global.jwt.service.TokenExtractor;
@@ -25,7 +25,6 @@ import static com.carrot.global.error.ErrorCode.USER_NOTFOUND_ERROR;
 @Slf4j
 @RequiredArgsConstructor
 public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
-
     private final TokenService tokenService;
     private final UserRepository userRepository;
 
@@ -33,15 +32,7 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         try {
-            final String token = TokenExtractor.extract(request);
-            final Long userId = tokenService.extractUserId(token);
-            User user = userRepository.findById(userId)
-                    .orElseThrow(() -> new CarrotRuntimeException(USER_NOTFOUND_ERROR));
-
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    user, null,
-                    List.of(new SimpleGrantedAuthority(user.getRole().toString()))
-            );
+            UsernamePasswordAuthenticationToken authentication = getUsernamePasswordAuthenticationToken(request);
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }catch (CarrotRuntimeException e){
@@ -50,5 +41,18 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         chain.doFilter(request, response);
+    }
+
+    private UsernamePasswordAuthenticationToken getUsernamePasswordAuthenticationToken(HttpServletRequest request) {
+        final String token = TokenExtractor.extract(request);
+        final Long userId = tokenService.extractUserId(token);
+
+        LoginUser loginUser = LoginUser.of(userRepository.findById(userId)
+                .orElseThrow(() -> new CarrotRuntimeException(USER_NOTFOUND_ERROR)));
+
+        return new UsernamePasswordAuthenticationToken(
+                loginUser, null,
+                List.of(new SimpleGrantedAuthority(loginUser.getRole().toString()))
+        );
     }
 }
