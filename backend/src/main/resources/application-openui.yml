@@ -1,0 +1,7 @@
+springdoc:
+  swagger-ui:
+    path: /api-docs
+    operations-sorter: method
+    tags-sorter: alpha
+  api-docs:
+    path: /api-docs/json
