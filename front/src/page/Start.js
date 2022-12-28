@@ -13,7 +13,7 @@ function Start () {
         </Intro>
         <Select>
           <WrapBottom>
-            <button><Link to="/location">시작하기</Link></button>
+            <button><Link to="/main">시작하기</Link></button>
             <p>이미 계정이 있나요? <span><Link to="/login">로그인</Link></span></p>
           </WrapBottom>
         </Select>

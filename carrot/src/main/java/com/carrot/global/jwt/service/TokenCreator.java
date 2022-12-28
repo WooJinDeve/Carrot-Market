@@ -5,9 +5,9 @@ import com.carrot.global.jwt.token.AuthToken;
 
 public interface TokenCreator {
 
-    AuthToken createAuthToken(final String email);
+    AuthToken createAuthToken(final String userId);
 
     AuthToken renewAuthToken(final String refreshToken);
 
-    Long extractPayload(final String accessToken);
+    String extractPayload(final String accessToken);
 }

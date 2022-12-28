@@ -23,7 +23,7 @@ public class PrincipalUser implements OidcUser, OAuth2User {
 
     @Override
     public String getName() {
-        return providerUser.getEmail();
+        return providerUser.getEmail().getEmail();
     }
 
     @Override

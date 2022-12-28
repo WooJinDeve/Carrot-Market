@@ -1,5 +1,7 @@
 package com.carrot.global.oauth2.provider;
 
+import com.carrot.application.user.domain.Email;
+import com.carrot.application.user.domain.Nickname;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -9,8 +11,8 @@ import java.util.Map;
 public interface ProviderUser {
 
     String getId();
-    String getUsername();
-    String getEmail();
+    Nickname getUsername();
+    Email getEmail();
     String getProvider();
     String getPicture();
     List<? extends GrantedAuthority> getAuthorities();

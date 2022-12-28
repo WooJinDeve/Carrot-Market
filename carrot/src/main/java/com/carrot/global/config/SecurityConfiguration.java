@@ -43,7 +43,6 @@ public class SecurityConfiguration {
         this.customJwtAuthenticationFilter = new CustomJwtAuthenticationFilter(tokenService, userRepository);
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(
             HttpSecurity http,
@@ -55,7 +54,7 @@ public class SecurityConfiguration {
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                    .antMatchers("**/swagger", "**/swagger-ui.html", "**/swagger-ui/**").permitAll()
                     .anyRequest().permitAll()
                     .and()
                 .formLogin().disable()

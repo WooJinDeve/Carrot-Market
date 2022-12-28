@@ -5,10 +5,12 @@ import com.carrot.application.common.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,7 +20,6 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "users")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@Where(clause = "deleted_at is NULL")
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -48,27 +49,30 @@ public class User extends BaseEntity {
     private String providerId;
 
     @Column(name = "deleted_at")
-    private LocalDateTime removedAt;
+    private LocalDateTime deletedAt;
 
     @Column(name = "certificated_at")
     private LocalDateTime certificatedAt;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserRegion> userRegions = new HashSet<>();
+
     @Builder
-    public User(Long id, String email, String nickname, double mannerTemperature, String profileUrl,
-                UserRole role, String provider, String providerId, LocalDateTime removedAt, LocalDateTime certificatedAt) {
+    public User(Long id, Email email, Nickname nickname, double mannerTemperature, String profileUrl,
+                UserRole role, String provider, String providerId, LocalDateTime deletedAt, LocalDateTime certificatedAt) {
         this.id = id;
-        this.email = new Email(email);
-        this.nickname = new Nickname(nickname);
+        this.email = email;
+        this.nickname = nickname;
         this.mannerTemperature = new MannerTemperature(mannerTemperature);
         this.profileUrl = profileUrl;
         this.role = role;
         this.providerId = providerId;
         this.provider = provider;
-        this.removedAt = removedAt;
+        this.deletedAt = deletedAt;
         this.certificatedAt = certificatedAt;
     }
 
-    public static User socialRegister(String email, String nickname, String profileUrl, String provider, String providerId) {
+    public static User socialRegister(Email email, Nickname nickname, String profileUrl, String provider, String providerId) {
         return User.builder()
                 .email(email)
                 .nickname(nickname)
@@ -78,5 +82,13 @@ public class User extends BaseEntity {
                 .mannerTemperature(MannerTemperature.create().getMannerTemperature())
                 .providerId(providerId)
                 .build();
+    }
+
+    public boolean isDeleted(){
+        return Objects.nonNull(deletedAt);
+    }
+
+    public void reRegister(){
+        this.deletedAt = null;
     }
 }

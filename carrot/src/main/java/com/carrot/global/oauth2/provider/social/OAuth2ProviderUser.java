@@ -1,5 +1,6 @@
 package com.carrot.global.oauth2.provider.social;
 
+import com.carrot.application.user.domain.Email;
 import com.carrot.global.oauth2.provider.ProviderUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,8 +28,8 @@ public abstract class OAuth2ProviderUser implements ProviderUser {
     }
 
     @Override
-    public String getEmail() {
-        return (String)attributes.get("email");
+    public Email getEmail() {
+        return new Email((String)attributes.get("email"));
     }
 
     @Override

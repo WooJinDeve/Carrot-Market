@@ -1,9 +1,11 @@
 package com.carrot.global.handler;
 
 
+import com.carrot.application.user.service.UserWriteService;
 import com.carrot.global.jwt.service.TokenCreator;
 import com.carrot.global.jwt.token.AuthToken;
 import com.carrot.global.oauth2.principal.PrincipalUser;
+import com.carrot.global.oauth2.provider.ProviderUser;
 import com.carrot.infrastructure.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,51 +27,51 @@ import static com.carrot.global.handler.HttpCookieOAuth2AuthorizationRequestRepo
 @Component
 @RequiredArgsConstructor
 public class CustomOAuth2SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+    private final TokenCreator tokenCreator;
+    private final UserWriteService userWriteService;
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+    private static final String FRONT_PROD_URL = "http://localhost:3000/oauth2/redirect";
 
-  private final TokenCreator tokenCreator;
-  private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
-  private static final String FRONT_PROD_URL = "http://localhost:3000/oauth2/redirect";
-
-  @Override
-  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-          throws ServletException, IOException {
-    if (authentication.getPrincipal() instanceof PrincipalUser){      PrincipalUser principal = (PrincipalUser) authentication.getPrincipal();
-      String email = principal.getProviderUser().getEmail();
-      log.info("[Info] success OAuth Login : {}", principal.getProviderUser().getEmail());
-
-      String targetUrl = determineTargetUrl(request, response, email);
-
-      log.info("[Info] success OAuth Url : {}", targetUrl);
-      if (response.isCommitted()) {
-        log.debug("Response has already been committed. Unable to redirect to " + targetUrl);
-        return;
-      }
-      clearAuthenticationAttributes(request, response);
-      getRedirectStrategy().sendRedirect(request, response, targetUrl);
-    }else {
-      super.onAuthenticationSuccess(request, response, authentication);
-
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        Authentication authentication)
+            throws ServletException, IOException {
+        if (authentication.getPrincipal() instanceof PrincipalUser) {
+            ProviderUser providerUser = ((PrincipalUser) authentication.getPrincipal()).getProviderUser();
+            Long userId = processOAuth2UserResister(providerUser);
+            String targetUrl = determineTargetUrl(request, response, userId);
+            getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        } else {
+            super.onAuthenticationSuccess(request, response, authentication);
+        }
     }
-  }
 
-  private String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
-                                    String email) {
+    private Long processOAuth2UserResister(ProviderUser providerUser) {
+        return userWriteService.register(providerUser);
+    }
 
-    Optional<String> redirectUri = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
-            .map(Cookie::getValue);
+    private String determineTargetUrl(HttpServletRequest request,
+                                      HttpServletResponse response,
+                                      Long userId) {
 
-    String targetUri = redirectUri.orElse(FRONT_PROD_URL);
-    AuthToken authToken = tokenCreator.createAuthToken(email);
+        Optional<String> redirectUri = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+                .map(Cookie::getValue);
 
-    return UriComponentsBuilder.fromUriString(targetUri)
-            .queryParam("refreshToken", authToken.getRefreshToken())
-            .queryParam("accessToken", authToken.getAccessToken())
-            .build().toUriString();
-  }
+        String targetUri = redirectUri.orElse(FRONT_PROD_URL);
+        AuthToken authToken = tokenCreator.createAuthToken(String.valueOf(userId));
 
-  protected void clearAuthenticationAttributes(HttpServletRequest request,
-                                               HttpServletResponse response) {
-    super.clearAuthenticationAttributes(request);
-    httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
-  }
+        clearAuthenticationAttributes(request, response);
+
+        return UriComponentsBuilder.fromUriString(targetUri)
+                .queryParam("refreshToken", authToken.getRefreshToken())
+                .queryParam("accessToken", authToken.getAccessToken())
+                .build().toUriString();
+    }
+
+    protected void clearAuthenticationAttributes(HttpServletRequest request,
+                                                 HttpServletResponse response) {
+        super.clearAuthenticationAttributes(request);
+        httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
+    }
 }
