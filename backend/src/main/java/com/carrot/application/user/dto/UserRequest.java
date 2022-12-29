@@ -20,7 +20,6 @@ public class UserRequest {
     private MannerTemperature mannerTemperature;
     private String profileUrl;
     private UserRole role;
-    private LocalDateTime certificatedAt;
     private LocalDateTime createdAt;
 
     public static UserRequest of(User user){
@@ -30,9 +29,6 @@ public class UserRequest {
                 .nickname(user.getNickname())
                 .mannerTemperature(user.getMannerTemperature())
                 .role(user.getRole())
-                .certificatedAt(user.getCertificatedAt())
-                .createdAt(user.getCreatedAt())
-                .certificatedAt(user.getCertificatedAt())
                 .createdAt(user.getCreatedAt())
                 .build();
     }

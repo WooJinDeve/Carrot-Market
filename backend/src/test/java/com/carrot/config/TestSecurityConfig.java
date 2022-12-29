@@ -41,7 +41,6 @@ public class TestSecurityConfig {
                 .role(USER)
                 .profileUrl("http://mocking.com")
                 .createdAt(LocalDateTime.now())
-                .certificatedAt(LocalDateTime.now())
                 .build();
     }
 }
