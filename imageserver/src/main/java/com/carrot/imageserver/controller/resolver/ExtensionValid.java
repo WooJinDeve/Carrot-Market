@@ -1,4 +1,4 @@
-package com.carrot.imageserver.service.resolver;
+package com.carrot.imageserver.controller.resolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

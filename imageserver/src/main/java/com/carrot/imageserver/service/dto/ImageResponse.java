@@ -1,4 +1,4 @@
-package com.carrot.imageserver.controller.response;
+package com.carrot.imageserver.service.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

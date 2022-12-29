@@ -19,6 +19,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
 
+	//image storage
+	implementation 'com.google.firebase:firebase-admin:9.1.1'
+
+
 	//extension validator
 	implementation 'commons-io:commons-io:2.11.0'
 }
