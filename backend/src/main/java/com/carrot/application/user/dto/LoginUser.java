@@ -1,6 +1,5 @@
 package com.carrot.application.user.dto;
 
-import com.carrot.application.user.domain.Email;
 import com.carrot.application.user.domain.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class LoginUser {
 
     private Long id;
-    private Email email;
+    private String email;
     private UserRole role;
     public static LoginUser of(UserRequest request){
         return LoginUser.builder()

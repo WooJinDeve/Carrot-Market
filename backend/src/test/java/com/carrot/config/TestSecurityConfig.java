@@ -1,7 +1,5 @@
 package com.carrot.config;
 
-import com.carrot.application.user.domain.Email;
-import com.carrot.application.user.domain.Nickname;
 import com.carrot.application.user.dto.UserRequest;
 import com.carrot.application.user.service.UserReadService;
 import com.carrot.global.config.SecurityConfiguration;
@@ -36,8 +34,8 @@ public class TestSecurityConfig {
     private UserRequest mockUser(){
         return UserRequest.builder()
                 .id(USER_ID)
-                .email(new Email("mock@naver.com"))
-                .nickname(new Nickname("mocking"))
+                .email("mock@naver.com")
+                .nickname("mocking")
                 .role(USER)
                 .profileUrl("http://mocking.com")
                 .createdAt(LocalDateTime.now())

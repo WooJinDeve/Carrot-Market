@@ -5,6 +5,7 @@ import com.carrot.application.user.repository.UserRegionRepository;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.presentation.response.UserRegionResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ public class UserReadService {
     }
 
 
+    @Cacheable(key = "#id", cacheNames = "MEMBER")
     public UserRequest getUser(Long id) {
         return UserRequest.of(userRepository.getById(id));
     }

@@ -15,9 +15,9 @@ public class InMemoryTokenRepository implements TokenRepository{
     private static final Map<String, String> TOKEN_REPOSITORY = new ConcurrentHashMap<>();
 
     @Override
-    public String save(String email, String refreshToken) {
-        TOKEN_REPOSITORY.put(email, refreshToken);
-        return TOKEN_REPOSITORY.get(email);
+    public String save(String id, String refreshToken) {
+        TOKEN_REPOSITORY.put(id, refreshToken);
+        return TOKEN_REPOSITORY.get(id);
     }
 
     @Override
@@ -26,18 +26,18 @@ public class InMemoryTokenRepository implements TokenRepository{
     }
 
     @Override
-    public void deleteByMemberId(String email) {
-        TOKEN_REPOSITORY.remove(email);
+    public void deleteByMemberId(String id) {
+        TOKEN_REPOSITORY.remove(id);
     }
 
     @Override
-    public boolean exist(String email) {
-        return TOKEN_REPOSITORY.containsKey(email);
+    public boolean exist(String id) {
+        return TOKEN_REPOSITORY.containsKey(id);
     }
 
     @Override
-    public String getToken(String email) {
-        Optional<String> token = Optional.ofNullable(TOKEN_REPOSITORY.get(email));
+    public String getToken(String id) {
+        Optional<String> token = Optional.ofNullable(TOKEN_REPOSITORY.get(id));
         return token.orElseThrow(() -> new CarrotRuntimeException(TOKEN_VALIDATION_ERROR));
     }
 }
