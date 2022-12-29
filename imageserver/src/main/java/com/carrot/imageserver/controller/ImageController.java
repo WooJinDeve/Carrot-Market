@@ -3,7 +3,6 @@ package com.carrot.imageserver.controller;
 import com.carrot.imageserver.controller.request.ImageRequest;
 import com.carrot.imageserver.controller.response.ImageResponse;
 import com.carrot.imageserver.global.common.Response;
-import com.carrot.imageserver.global.exception.ErrorCode;
 import com.carrot.imageserver.service.ImageService;
 import com.carrot.imageserver.service.resolver.ExtensionValid;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/storage")
+@RequestMapping("/api/v1/storage")
 public class ImageController {
 
     private final ImageService imageService;

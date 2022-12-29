@@ -1,6 +1,7 @@
 package com.carrot.imageserver.global.config.resolver;
 
 import com.carrot.imageserver.controller.request.ImageRequest;
+import com.carrot.imageserver.service.ImageValidator;
 import com.carrot.imageserver.service.resolver.ExtensionValid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -17,9 +18,7 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 public class ExtensionValidResolver implements HandlerMethodArgumentResolver {
-    private static final String TOKEN_NAME = "token";
     private static final String FILE_NAME = "files";
-
     private final ImageValidator imageValidator;
 
     @Override
@@ -37,16 +36,11 @@ public class ExtensionValidResolver implements HandlerMethodArgumentResolver {
         List<MultipartFile> files = multipartHttpServletRequest.getFiles(FILE_NAME);
         files.forEach(this::validateIsExtension);
 
-        //TODO : file validate;
-
-        String token = (String) multipartHttpServletRequest.getAttribute(TOKEN_NAME);
-        return new ImageRequest(token, files);
+        return new ImageRequest(files);
     }
 
     private void validateIsExtension(MultipartFile multipartFile){
-        System.out.println(multipartFile.getName());
-        System.out.println(multipartFile.getOriginalFilename());
-        System.out.println(multipartFile.getResource());
+        imageValidator.validate(multipartFile);
     }
 
     private MultipartHttpServletRequest getMultipartHttpServletRequest(NativeWebRequest webRequest) {

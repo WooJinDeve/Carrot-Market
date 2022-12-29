@@ -1,4 +1,4 @@
-package com.carrot.imageserver.domain;
+package com.carrot.imageserver.global.enums;
 
 import com.carrot.imageserver.global.exception.ImageExtensionException;
 

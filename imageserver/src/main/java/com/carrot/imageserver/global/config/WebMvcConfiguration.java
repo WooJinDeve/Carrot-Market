@@ -1,7 +1,7 @@
 package com.carrot.imageserver.global.config;
 
 import com.carrot.imageserver.global.config.resolver.ExtensionValidResolver;
-import com.carrot.imageserver.global.config.resolver.ImageValidator;
+import com.carrot.imageserver.service.ImageValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
