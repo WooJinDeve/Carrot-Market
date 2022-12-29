@@ -4,7 +4,6 @@ import com.carrot.application.user.dto.LoginUser;
 import com.carrot.application.user.service.UserReadService;
 import com.carrot.application.user.service.UserWriteService;
 import com.carrot.global.common.Response;
-import com.carrot.presentation.request.UserRegionRequest;
 import com.carrot.presentation.response.UserRegionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,17 +25,17 @@ public class UserController {
         return Response.success(response);
     }
 
-    @PostMapping("/location")
-    public Response<Void> saveRegion(@RequestBody UserRegionRequest request,
+    @PostMapping("/location/{id}")
+    public Response<Void> saveRegion(@PathVariable(name = "id") Long regionId,
                                      @AuthenticationPrincipal LoginUser loginUser) {
-        userWriteService.saveRegion(loginUser.getId(), request.getRegionId());
+        userWriteService.saveRegion(loginUser.getId(), regionId);
         return Response.success();
     }
 
-    @DeleteMapping("/location")
-    public Response<Void> deleteRegion(@RequestBody UserRegionRequest request,
+    @DeleteMapping("/location/{id}")
+    public Response<Void> deleteRegion(@PathVariable(name = "id") Long userRegionId,
                                        @AuthenticationPrincipal LoginUser loginUser) {
-        userWriteService.deleteRegion(loginUser.getId(), request.getRegionId());
+        userWriteService.deleteRegion(loginUser.getId(), userRegionId);
         return Response.success();
     }
 }

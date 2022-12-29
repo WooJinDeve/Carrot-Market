@@ -1,6 +1,6 @@
 package com.carrot.global.config;
 
-import com.carrot.application.user.repository.UserRepository;
+import com.carrot.application.user.service.UserReadService;
 import com.carrot.global.error.CustomAuthenticationEntryPoint;
 import com.carrot.global.filter.CustomJwtAuthenticationFilter;
 import com.carrot.global.handler.CustomOAuth2FailureHandler;
@@ -34,13 +34,13 @@ public class SecurityConfiguration {
                                  CustomOAuth2SuccessHandler customOAuth2SuccessHandler,
                                  CustomOAuth2FailureHandler customOAuth2FailureHandler,
                                  TokenService tokenService,
-                                 UserRepository userRepository) {
+                                 UserReadService userReadService) {
 
         this.customOAuth2UserService = customOAuth2UserService;
         this.customOidcUserService = customOidcUserService;
         this.customOAuth2SuccessHandler = customOAuth2SuccessHandler;
         this.customOAuth2FailureHandler = customOAuth2FailureHandler;
-        this.customJwtAuthenticationFilter = new CustomJwtAuthenticationFilter(tokenService, userRepository);
+        this.customJwtAuthenticationFilter = new CustomJwtAuthenticationFilter(tokenService, userReadService);
     }
 
     @Bean

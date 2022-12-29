@@ -1,5 +1,6 @@
 package com.carrot.application.user.service;
 
+import com.carrot.application.user.dto.UserRequest;
 import com.carrot.application.user.repository.UserRegionRepository;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.presentation.response.UserRegionResponse;
@@ -19,11 +20,14 @@ public class UserReadService {
     private final UserRegionRepository userRegionRepository;
 
 
-    public List<UserRegionResponse> findRegion(Long userId){
-        return userRegionRepository.findByIdAndFetchRegion(userId)
+    public List<UserRegionResponse> findRegion(Long id){
+        return userRegionRepository.findByIdAndFetchRegion(id)
                 .stream().map(UserRegionResponse::of)
                 .collect(Collectors.toList());
     }
 
 
+    public UserRequest getUser(Long id) {
+        return UserRequest.of(userRepository.getById(id));
+    }
 }

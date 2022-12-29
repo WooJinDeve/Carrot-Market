@@ -6,13 +6,10 @@ import com.carrot.application.user.domain.User;
 import com.carrot.application.user.domain.UserRegion;
 import com.carrot.application.user.repository.UserRegionRepository;
 import com.carrot.application.user.repository.UserRepository;
-import com.carrot.global.error.CarrotRuntimeException;
 import com.carrot.global.oauth2.provider.ProviderUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static com.carrot.global.error.ErrorCode.USER_REGION_NOTFOUND_ERROR;
 
 @Service
 @Transactional
@@ -52,12 +49,11 @@ public class UserWriteService {
         userRegionRepository.save(UserRegion.of(user, region));
     }
 
-    public void deleteRegion(Long userId, Long regionId){
+    public void deleteRegion(Long userId, Long userRegionId){
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
-        UserRegion userRegion = userRegionRepository.findByUserIdAndRegionId(userId, regionId)
-                .orElseThrow(() -> new CarrotRuntimeException(USER_REGION_NOTFOUND_ERROR));
+        UserRegion userRegion = userRegionRepository.getById(userRegionId);
         userRegionValidator.validateOwner(user, userRegion);
         userRegionRepository.delete(userRegion);
     }
