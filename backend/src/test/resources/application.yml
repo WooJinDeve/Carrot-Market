@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include: database, jwt, oauth2
+
+  flyway:
+    enabled: false

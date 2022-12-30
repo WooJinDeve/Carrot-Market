@@ -15,5 +15,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
         return findById(id)
                 .orElseThrow(() -> new CarrotRuntimeException(USER_NOTFOUND_ERROR));
     }
-
 }

@@ -1,7 +1,5 @@
 package com.carrot.application.user.dto;
 
-import com.carrot.application.user.domain.Email;
-import com.carrot.application.user.domain.User;
 import com.carrot.application.user.domain.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,13 +13,13 @@ import lombok.NoArgsConstructor;
 public class LoginUser {
 
     private Long id;
-    private Email email;
+    private String email;
     private UserRole role;
-    public static LoginUser of(User user){
+    public static LoginUser of(UserRequest request){
         return LoginUser.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .role(user.getRole())
+                .id(request.getId())
+                .email(request.getEmail())
+                .role(request.getRole())
                 .build();
     }
 

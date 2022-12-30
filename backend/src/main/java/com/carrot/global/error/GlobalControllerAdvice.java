@@ -13,14 +13,14 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(CarrotRuntimeException.class)
     public ResponseEntity<?> applicationHandler(CarrotRuntimeException e){
-        log.error("Error occurs ", e.getMessage());
+        log.error("[Error]  ", e);
         return ResponseEntity.status(e.getErrorCode().getStatus())
                 .body(Response.error(e.getErrorCode().name()));
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<?> applicationHandler(RuntimeException e){
-        log.error("Error occurs ", e.getMessage());
+        log.error("[Error] Internal Server Error ", e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Response.error(ErrorCode.INTERNAL_SERVER_ERROR.name()));
     }

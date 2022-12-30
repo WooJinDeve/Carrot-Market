@@ -1,4 +1,4 @@
 spring:
   flyway:
     enabled: true
-    baseline-on-migrate: false
+    baseline-on-migrate: true
