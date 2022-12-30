@@ -3,7 +3,7 @@ package com.carrot.config;
 import com.carrot.application.user.dto.UserRequest;
 import com.carrot.application.user.service.UserReadService;
 import com.carrot.global.config.SecurityConfiguration;
-import com.carrot.global.jwt.service.TokenService;
+import com.carrot.infrastructure.jwt.service.TokenService;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.event.annotation.BeforeTestMethod;

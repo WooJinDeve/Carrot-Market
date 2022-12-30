@@ -1,4 +1,4 @@
-package com.carrot.global.jwt.repository;
+package com.carrot.infrastructure.jwt.repository;
 
 public interface TokenRepository {
 

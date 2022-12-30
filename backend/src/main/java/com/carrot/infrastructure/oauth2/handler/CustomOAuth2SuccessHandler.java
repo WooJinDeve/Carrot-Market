@@ -1,11 +1,11 @@
-package com.carrot.global.handler;
+package com.carrot.infrastructure.oauth2.handler;
 
 
 import com.carrot.application.user.service.UserWriteService;
-import com.carrot.global.jwt.service.TokenCreator;
-import com.carrot.global.jwt.token.AuthToken;
-import com.carrot.global.oauth2.principal.PrincipalUser;
-import com.carrot.global.oauth2.provider.ProviderUser;
+import com.carrot.infrastructure.jwt.service.TokenCreator;
+import com.carrot.infrastructure.jwt.token.AuthToken;
+import com.carrot.infrastructure.oauth2.principal.PrincipalUser;
+import com.carrot.infrastructure.oauth2.provider.ProviderUser;
 import com.carrot.infrastructure.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-import static com.carrot.global.handler.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.carrot.infrastructure.oauth2.handler.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Slf4j
 @Component

@@ -1,8 +1,8 @@
-package com.carrot.global.jwt.service;
+package com.carrot.infrastructure.jwt.service;
 
 
-import com.carrot.global.jwt.token.AuthToken;
-import com.carrot.global.jwt.repository.TokenRepository;
+import com.carrot.infrastructure.jwt.token.AuthToken;
+import com.carrot.infrastructure.jwt.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

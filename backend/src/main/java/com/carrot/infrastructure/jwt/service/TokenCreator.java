@@ -1,7 +1,7 @@
-package com.carrot.global.jwt.service;
+package com.carrot.infrastructure.jwt.service;
 
 
-import com.carrot.global.jwt.token.AuthToken;
+import com.carrot.infrastructure.jwt.token.AuthToken;
 
 public interface TokenCreator {
 

@@ -1,8 +1,8 @@
-package com.carrot.global.oauth2.service;
+package com.carrot.infrastructure.oauth2.service;
 
-import com.carrot.global.oauth2.principal.PrincipalUser;
-import com.carrot.global.oauth2.provider.ProviderUser;
-import com.carrot.global.oauth2.provider.ProviderUserRequest;
+import com.carrot.infrastructure.oauth2.principal.PrincipalUser;
+import com.carrot.infrastructure.oauth2.provider.ProviderUser;
+import com.carrot.infrastructure.oauth2.provider.ProviderUserRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

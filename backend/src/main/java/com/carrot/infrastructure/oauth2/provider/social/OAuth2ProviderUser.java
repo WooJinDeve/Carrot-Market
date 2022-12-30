@@ -1,7 +1,7 @@
-package com.carrot.global.oauth2.provider.social;
+package com.carrot.infrastructure.oauth2.provider.social;
 
 import com.carrot.application.user.domain.Email;
-import com.carrot.global.oauth2.provider.ProviderUser;
+import com.carrot.infrastructure.oauth2.provider.ProviderUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

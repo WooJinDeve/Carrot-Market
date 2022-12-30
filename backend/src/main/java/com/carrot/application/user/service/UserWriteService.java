@@ -6,7 +6,7 @@ import com.carrot.application.user.domain.User;
 import com.carrot.application.user.domain.UserRegion;
 import com.carrot.application.user.repository.UserRegionRepository;
 import com.carrot.application.user.repository.UserRepository;
-import com.carrot.global.oauth2.provider.ProviderUser;
+import com.carrot.infrastructure.oauth2.provider.ProviderUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +33,6 @@ public class UserWriteService {
                                         providerUser.getId())
                         )
                 );
-
         userValidator.validateReRegister(user);
         return user.getId();
     }

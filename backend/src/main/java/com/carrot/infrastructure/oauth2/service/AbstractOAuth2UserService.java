@@ -1,8 +1,8 @@
-package com.carrot.global.oauth2.service;
+package com.carrot.infrastructure.oauth2.service;
 
-import com.carrot.global.oauth2.converter.DelegatingProviderUserConverter;
-import com.carrot.global.oauth2.provider.ProviderUser;
-import com.carrot.global.oauth2.provider.ProviderUserRequest;
+import com.carrot.infrastructure.oauth2.converter.DelegatingProviderUserConverter;
+import com.carrot.infrastructure.oauth2.provider.ProviderUser;
+import com.carrot.infrastructure.oauth2.provider.ProviderUserRequest;
 import lombok.Getter;
 
 @Getter

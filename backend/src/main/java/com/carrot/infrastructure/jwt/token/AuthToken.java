@@ -1,4 +1,4 @@
-package com.carrot.global.jwt.token;
+package com.carrot.infrastructure.jwt.token;
 
 import com.carrot.global.error.CarrotRuntimeException;
 import lombok.Builder;

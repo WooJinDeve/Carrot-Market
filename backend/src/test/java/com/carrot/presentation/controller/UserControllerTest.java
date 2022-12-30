@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -31,7 +32,7 @@ public class UserControllerTest extends ControllerTest {
     @MockBean
     private UserWriteService userWriteService;
 
-    @DisplayName("[View][POST] 사용자 거래 지역정보 저장 - 정상호출")
+    @DisplayName("[POST] 사용자 거래 지역정보 저장 - 정상호출")
     @Test
     @WithMockUser
     void 사용자_거래_지역정보_저장() throws Exception {
@@ -50,7 +51,7 @@ public class UserControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("[View][POST] 사용자 거래 지역정보 저장 - 예외발생")
+    @DisplayName("[POST] 사용자 거래 지역정보 저장 - 예외발생")
     @Test
     @WithMockUser
     void 사용자의_거래_지역이_2개를_초과하는_경우() throws Exception {
@@ -69,7 +70,21 @@ public class UserControllerTest extends ControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DisplayName("[View][POST] 사용자 거래 지역정보 저장 - 예외발생")
+    @DisplayName("[POST] 사용자 거래 지역정보 저장 - 예외발생")
+    @Test
+    @WithAnonymousUser
+    void 사용자_거래_지역정보_저장시_로그인을_하지않은_경우() throws Exception {
+        //given
+        Long regionId = 1L;
+
+        final ResultActions perform = mockMvc.perform(post("/api/v1/users/location/{id}", regionId));
+
+        //then
+        perform.andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @DisplayName("[POST] 사용자 거래 지역정보 저장 - 예외발생")
     @Test
     @WithMockUser
     void 동일지역_저장을_요청한_경우() throws Exception {
@@ -87,7 +102,7 @@ public class UserControllerTest extends ControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DisplayName("[View][DELETE] - 사용자 거래 지역정보 삭제 - 요청성공")
+    @DisplayName("[DELETE] - 사용자 거래 지역정보 삭제 - 요청성공")
     @Test
     @WithMockUser
     void 사용자_거래_지역정보_삭제() throws Exception {
@@ -106,7 +121,7 @@ public class UserControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("[View][DELETE] - 사용자 거래 지역정보 삭제 - 예외발생")
+    @DisplayName("[DELETE] - 사용자 거래 지역정보 삭제 - 예외발생")
     @Test
     @WithMockUser
     void 해당_지역정보가_존재하지_않을_경우() throws Exception {
@@ -125,7 +140,7 @@ public class UserControllerTest extends ControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @DisplayName("[View][DELETE] - 사용자 거래 지역정보 삭제 - 예외발생")
+    @DisplayName("[DELETE] - 사용자 거래 지역정보 삭제 - 예외발생")
     @Test
     @WithMockUser
     void 지역정보_삭제시_타인이_삭제요청할_경우() throws Exception {
@@ -137,6 +152,21 @@ public class UserControllerTest extends ControllerTest {
 
         final ResultActions perform = mockMvc.perform(delete("/api/v1/users/location/{id}", userRegionId)
                 .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
+
+        //then
+        perform.andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @DisplayName("[DELETE] - 사용자 거래 지역정보 삭제 - 예외발생")
+    @Test
+    @WithAnonymousUser
+    void 사용자_거래_지역정보_삭제시_로그인을_하지않은_경우() throws Exception {
+        //given
+        Long userRegionId = 1L;
+
+        //when
+        final ResultActions perform = mockMvc.perform(delete("/api/v1/users/location/{id}", userRegionId));
 
         //then
         perform.andDo(print())

@@ -1,4 +1,4 @@
-package com.carrot.global.oauth2.util;
+package com.carrot.infrastructure.util;
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
 

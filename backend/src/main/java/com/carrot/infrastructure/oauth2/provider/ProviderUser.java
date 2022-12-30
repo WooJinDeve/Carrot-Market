@@ -1,4 +1,4 @@
-package com.carrot.global.oauth2.provider;
+package com.carrot.infrastructure.oauth2.provider;
 
 import com.carrot.application.user.domain.Email;
 import com.carrot.application.user.domain.Nickname;

@@ -1,6 +1,6 @@
-package com.carrot.global.oauth2.principal;
+package com.carrot.infrastructure.oauth2.principal;
 
-import com.carrot.global.oauth2.provider.ProviderUser;
+import com.carrot.infrastructure.oauth2.provider.ProviderUser;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;

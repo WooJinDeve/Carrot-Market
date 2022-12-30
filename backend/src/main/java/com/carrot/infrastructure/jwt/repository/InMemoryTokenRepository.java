@@ -1,4 +1,4 @@
-package com.carrot.global.jwt.repository;
+package com.carrot.infrastructure.jwt.repository;
 
 import com.carrot.global.error.CarrotRuntimeException;
 import org.springframework.stereotype.Component;

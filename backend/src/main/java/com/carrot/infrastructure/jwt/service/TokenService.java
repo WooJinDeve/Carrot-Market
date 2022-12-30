@@ -1,4 +1,4 @@
-package com.carrot.global.jwt.service;
+package com.carrot.infrastructure.jwt.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

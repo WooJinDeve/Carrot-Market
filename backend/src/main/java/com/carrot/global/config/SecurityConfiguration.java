@@ -3,12 +3,12 @@ package com.carrot.global.config;
 import com.carrot.application.user.service.UserReadService;
 import com.carrot.global.error.CustomAuthenticationEntryPoint;
 import com.carrot.global.filter.CustomJwtAuthenticationFilter;
-import com.carrot.global.handler.CustomOAuth2FailureHandler;
-import com.carrot.global.handler.CustomOAuth2SuccessHandler;
-import com.carrot.global.handler.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.carrot.global.jwt.service.TokenService;
-import com.carrot.global.oauth2.service.CustomOAuth2UserService;
-import com.carrot.global.oauth2.service.CustomOidcUserService;
+import com.carrot.infrastructure.oauth2.handler.CustomOAuth2FailureHandler;
+import com.carrot.infrastructure.oauth2.handler.CustomOAuth2SuccessHandler;
+import com.carrot.infrastructure.oauth2.handler.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.carrot.infrastructure.jwt.service.TokenService;
+import com.carrot.infrastructure.oauth2.service.CustomOAuth2UserService;
+import com.carrot.infrastructure.oauth2.service.CustomOidcUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +26,6 @@ public class SecurityConfiguration {
     private final CustomOidcUserService customOidcUserService;
     private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
     private final CustomOAuth2FailureHandler customOAuth2FailureHandler;
-
     private final CustomJwtAuthenticationFilter customJwtAuthenticationFilter;
 
     public SecurityConfiguration(CustomOAuth2UserService customOAuth2UserService,
@@ -55,7 +54,7 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests()
                     .antMatchers("**/swagger", "**/swagger-ui.html", "**/swagger-ui/**").permitAll()
-                    .anyRequest().permitAll()
+                    .anyRequest().authenticated()
                     .and()
                 .formLogin().disable()
                 .oauth2Login()

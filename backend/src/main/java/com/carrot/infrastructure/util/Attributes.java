@@ -1,4 +1,4 @@
-package com.carrot.global.oauth2.util;
+package com.carrot.infrastructure.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

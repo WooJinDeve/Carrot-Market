@@ -1,4 +1,4 @@
-package com.carrot.global.oauth2.converter;
+package com.carrot.infrastructure.oauth2.converter;
 
 import lombok.Getter;
 

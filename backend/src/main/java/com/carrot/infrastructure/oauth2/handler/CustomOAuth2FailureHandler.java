@@ -1,4 +1,4 @@
-package com.carrot.global.handler;
+package com.carrot.infrastructure.oauth2.handler;
 
 
 import com.carrot.infrastructure.util.CookieUtil;
@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.carrot.global.handler.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
-
 @Component
 @RequiredArgsConstructor
 public class CustomOAuth2FailureHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -24,7 +22,7 @@ public class CustomOAuth2FailureHandler extends SimpleUrlAuthenticationFailureHa
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        String targetUrl = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+        String targetUrl = CookieUtil.getCookie(request, HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue)
                 .orElse(("/"));
 

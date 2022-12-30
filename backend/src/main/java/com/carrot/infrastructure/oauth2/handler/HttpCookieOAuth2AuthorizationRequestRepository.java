@@ -1,4 +1,4 @@
-package com.carrot.global.handler;
+package com.carrot.infrastructure.oauth2.handler;
 
 import com.carrot.infrastructure.util.CookieUtil;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
