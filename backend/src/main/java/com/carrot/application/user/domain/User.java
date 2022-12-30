@@ -51,15 +51,12 @@ public class User extends BaseEntity {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "certificated_at")
-    private LocalDateTime certificatedAt;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserRegion> userRegions = new HashSet<>();
 
     @Builder
     public User(Long id, Email email, Nickname nickname, double mannerTemperature, String profileUrl,
-                UserRole role, String provider, String providerId, LocalDateTime deletedAt, LocalDateTime certificatedAt) {
+                UserRole role, String provider, String providerId, LocalDateTime deletedAt) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
@@ -69,7 +66,6 @@ public class User extends BaseEntity {
         this.providerId = providerId;
         this.provider = provider;
         this.deletedAt = deletedAt;
-        this.certificatedAt = certificatedAt;
     }
 
     public static User socialRegister(Email email, Nickname nickname, String profileUrl, String provider, String providerId) {

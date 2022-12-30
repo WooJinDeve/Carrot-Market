@@ -28,9 +28,7 @@ function UserLocation () {
   }, [navigate]);
 
   const locationClick = (id) => {
-    instance.post(`api/v1/users/location`, {
-      regionId: id
-    })
+    instance.post(`api/v1/users/location/${id}`)
     .then((res) => {
       console.log(res.data.result)
       navigate("/main");

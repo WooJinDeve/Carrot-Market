@@ -9,7 +9,6 @@ create table if not exists users
     provider_id        varchar(255) null,
     role               varchar(255) NOT NULL,
     deleted_at         datetime  null,
-    certificated_at    datetime  null,
     created_at          datetime  NOT NULL,
     updated_at          datetime  NOT NULL
 ) engine = InnoDB;

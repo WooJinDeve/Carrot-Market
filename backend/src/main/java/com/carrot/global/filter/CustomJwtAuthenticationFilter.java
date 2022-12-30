@@ -1,10 +1,10 @@
 package com.carrot.global.filter;
 
 import com.carrot.application.user.dto.LoginUser;
-import com.carrot.application.user.repository.UserRepository;
+import com.carrot.application.user.service.UserReadService;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.global.jwt.service.TokenExtractor;
-import com.carrot.global.jwt.service.TokenService;
+import com.carrot.infrastructure.jwt.service.TokenExtractor;
+import com.carrot.infrastructure.jwt.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,13 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.carrot.global.error.ErrorCode.USER_NOTFOUND_ERROR;
-
 @Slf4j
 @RequiredArgsConstructor
 public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
-    private final UserRepository userRepository;
+    private final UserReadService userReadService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -47,8 +45,7 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
         final String token = TokenExtractor.extract(request);
         final Long userId = tokenService.extractUserId(token);
 
-        LoginUser loginUser = LoginUser.of(userRepository.findById(userId)
-                .orElseThrow(() -> new CarrotRuntimeException(USER_NOTFOUND_ERROR)));
+        LoginUser loginUser = LoginUser.of(userReadService.getUser(userId));
 
         return new UsernamePasswordAuthenticationToken(
                 loginUser, null,
