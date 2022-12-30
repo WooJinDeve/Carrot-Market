@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UserValidatorTest extends ServiceTest {
     @InjectMocks private UserValidator userValidator;
 
-    @DisplayName("[SUCCESS] 유저 재가입을 검증한 후, 재가입을 시도한다.")
+    @DisplayName("[Success] 유저 재가입을 검증한 후, 재가입을 시도한다.")
     @Test
     void 유저_재가입검증() {
         //given
@@ -31,7 +31,7 @@ public class UserValidatorTest extends ServiceTest {
         assertThat(fixture.getDeletedAt()).isNull();
     }
 
-    @DisplayName("[SUCCESS] 유저 재가입을 검증한 후, 탈퇴회원이 아닌 경우 로직을 실행하지 않는다.")
+    @DisplayName("[Success] 유저 재가입을 검증한 후, 탈퇴회원이 아닌 경우 로직을 실행하지 않는다.")
     @Test
     void 유저_재가입검증_탈퇴회원아닌_경우_리턴() {
         //given
@@ -56,7 +56,7 @@ public class UserValidatorTest extends ServiceTest {
         assertThat(USER_NOTFOUND_ERROR).isEqualTo(e.getErrorCode());
     }
 
-    @DisplayName("[Error] 탈퇴 회원을 검증시, 탈퇴 회원아 아닌경우 리턴한다.")
+    @DisplayName("[Success] 탈퇴 회원을 검증시, 탈퇴 회원아 아닌경우 리턴한다.")
     @Test
     void 탈퇴_회원을_검증시_탈퇴회원이_아닌경우() throws Exception {
         //then
