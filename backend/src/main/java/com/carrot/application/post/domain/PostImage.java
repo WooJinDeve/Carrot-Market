@@ -1,6 +1,7 @@
 package com.carrot.application.post.domain;
 
 import com.carrot.application.common.BaseEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -32,4 +33,23 @@ public class PostImage extends BaseEntity {
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
+
+    @Builder
+    public PostImage(Long id, Post post, String originName, String imageUrl) {
+        this.id = id;
+        this.post = post;
+        this.originName = originName;
+        this.imageUrl = imageUrl;
+    }
+
+    public static PostImage of(String originName, String imageUrl){
+        return PostImage.builder()
+                .originName(originName)
+                .imageUrl(imageUrl)
+                .build();
+    }
+
+    public void addPost(Post post) {
+        this.post = post;
+    }
 }

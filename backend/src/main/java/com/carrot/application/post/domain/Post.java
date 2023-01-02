@@ -7,6 +7,7 @@ import com.carrot.global.error.CarrotRuntimeException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Table(name = "post")
 @Getter
+@SQLDelete(sql = "UPDATE USER SET deleted_at = NOW() WHERE id = ?")
 @NoArgsConstructor(access = PROTECTED)
 public class Post extends BaseEntity {
 
@@ -71,13 +73,37 @@ public class Post extends BaseEntity {
         this.user = user;
         this.region = region;
         this.content = content;
-        this.hits = hits;
+        this.hits = Objects.isNull(hits) ? 0 : 1;
         this.thumbnail = thumbnail;
         this.category = category;
-        this.chatNum = chatNum;
-        this.articleNum = articleNum;
+        this.chatNum = Objects.isNull(chatNum) ? 0 : 1;
+        this.articleNum = Objects.isNull(articleNum) ? 0 : 1;
         this.deletedAt = deletedAt;
     }
+
+    public static Post of(Region region, String title, String content, Integer price,
+                          Category category, String thumbnail){
+        return Post.builder()
+                .region(region)
+                .content(new Content(title, content, price))
+                .category(category)
+                .thumbnail(thumbnail)
+                .build();
+    }
+
+    public void update(String title, String content, Integer price, Category category, String thumbnail) {
+        this.content = new Content(title, content ,price);
+        this.category = category;
+        this.thumbnail = thumbnail;
+    }
+
+    public void addPostImages(PostImage postImage){
+        if (this.postImages.contains(postImage))
+            postImages.remove(postImage);
+        this.postImages.add(postImage);
+        postImage.addPost(this);
+    }
+
 
     public void verifyOverflowHits(Integer hits){
         this.hits += hits;

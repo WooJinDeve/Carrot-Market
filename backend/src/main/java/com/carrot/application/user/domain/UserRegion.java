@@ -37,18 +37,33 @@ public class UserRegion extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Region region;
 
+    private boolean represent;
+
     @Builder
-    public UserRegion(Long id, User user, Region region) {
+    public UserRegion(Long id, User user, Region region, boolean represent) {
         this.id = id;
         this.user = user;
         this.region = region;
+        this.represent = represent;
     }
 
-    public static UserRegion of(User user, Region region) {
+    public static UserRegion main(User user, Region region) {
         return UserRegion.builder()
                 .user(user)
                 .region(region)
                 .build();
+    }
+
+    public static UserRegion sub(User user, Region region, boolean represent){
+        return UserRegion.builder()
+                .user(user)
+                .region(region)
+                .represent(represent)
+                .build();
+    }
+
+    public boolean isRepresentative(){
+        return this.represent;
     }
 
     public boolean isOwner(Long userId){

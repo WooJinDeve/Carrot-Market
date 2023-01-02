@@ -25,9 +25,10 @@ create table if not exists region
 
 create table if not exists user_region
 (
-    user_region_id     bigint PRIMARY KEY AUTO_INCREMENT,
-    user_id            bigint NOT NULL,
-    region_id          bigint NOT NULL,
+    user_region_id      bigint PRIMARY KEY AUTO_INCREMENT,
+    user_id             bigint NOT NULL,
+    region_id           bigint NOT NULL,
+    represent           bit Not Null,
     created_at          datetime  NOT NULL,
     updated_at          datetime  NOT NULL
 ) engine = InnoDB;
@@ -39,6 +40,7 @@ create table if not exists post
     region_id              bigint NOT NULL,
     title                  varchar(50) NOT NULL,
     content                LONGTEXT NOT NULL,
+    price                  int NOT NULL,
     thumbnail              varchar(255) NOT NULL,
     category               varchar(255) NOT NULL,
     hits                   int NOT NULL,
