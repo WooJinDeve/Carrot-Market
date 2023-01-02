@@ -1,10 +1,13 @@
 package com.carrot.application.post.domain;
 
+import com.carrot.global.convert.StringToCategoryConverter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 
 import java.util.Arrays;
 
 @Getter
+@JsonDeserialize(converter = StringToCategoryConverter.class)
 public enum Category {
     DIGITAL("디지털기기"),
     APPLIANCES("생활가전"),

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.carrot.presentation.request.PostDto.PostSaveRequest;
-import static com.carrot.presentation.request.PostDto.PostUpdateRequest;
+import static com.carrot.presentation.request.PostRequest.PostSaveRequest;
+import static com.carrot.presentation.request.PostRequest.PostUpdateRequest;
 
 @RestController
 @RequiredArgsConstructor

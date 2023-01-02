@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-public class PostDto {
+public class PostRequest {
 
     @Getter
     @NoArgsConstructor
@@ -26,13 +26,11 @@ public class PostDto {
         @Min(value = 0)
         private Integer price;
 
-        @NotBlank
         private Category category;
 
         @NotBlank
         private String thumbnail;
 
-        @NotBlank
         private List<ImageSaveRequest> imageRequest;
     }
 
@@ -55,11 +53,9 @@ public class PostDto {
         @NotBlank
         private String content;
 
-
         @Min(value = 0)
         private Integer price;
 
-        @NotBlank
         private Category category;
 
         @NotBlank

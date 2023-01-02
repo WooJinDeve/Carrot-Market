@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static com.carrot.presentation.request.PostDto.PostSaveRequest;
+import static com.carrot.presentation.request.PostRequest.PostSaveRequest;
 import static com.carrot.testutil.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
 import static com.carrot.testutil.fixture.TokenFixture.BEARER_TOKEN;
 import static org.mockito.ArgumentMatchers.eq;
