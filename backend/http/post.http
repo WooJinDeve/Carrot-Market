@@ -1,0 +1,13 @@
+### 게시물 등록
+POST {{ local-api }}/api/v1/posts
+Authorization: Bearer {{ access_token }}
+Content-Type: application/json
+
+{
+  "title": {{ title }},
+  "content" : {{ content }},
+  "price" : {{ price }},
+  "category" : {{ category }},
+  "thumbnail" : {{ thumbnail }},
+  "imageRequest" : {{imageRequest}}
+}

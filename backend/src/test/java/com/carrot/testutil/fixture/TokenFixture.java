@@ -1,7 +1,7 @@
 package com.carrot.testutil.fixture;
 
 public class TokenFixture {
-    public static final String ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjcyMzYzNTIyLCJleHAiOjE2NzM1NzM1MjJ9.DVaTiEnuB5Gfr8fyrFKaIDcZAQwKMNobTaFpT2NcuF8";
+    public static final String ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjcyNjQxMzM0LCJleHAiOjE2NzM4NTEzMzR9.13hh2Z9Rtjjcblhy0qSlRXLk6P4EXy_FfhbT4APiv6k";
 
     public static final String BEARER_TOKEN = "Bearer " + ACCESS_TOKEN;
 
