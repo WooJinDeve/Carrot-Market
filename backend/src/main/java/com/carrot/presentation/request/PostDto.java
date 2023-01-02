@@ -3,6 +3,7 @@ package com.carrot.presentation.request;
 import com.carrot.application.post.domain.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
@@ -12,6 +13,7 @@ import java.util.List;
 public class PostDto {
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class PostSaveRequest {
         @NotBlank
@@ -35,6 +37,7 @@ public class PostDto {
     }
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class ImageSaveRequest{
         private String imageUrl;
@@ -42,6 +45,7 @@ public class PostDto {
     }
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class PostUpdateRequest {
         @NotBlank

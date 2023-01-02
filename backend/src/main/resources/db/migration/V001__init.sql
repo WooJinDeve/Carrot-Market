@@ -18,9 +18,9 @@ create table if not exists region
     region_id          bigint PRIMARY KEY AUTO_INCREMENT,
     region_code        varchar(255) UNIQUE NOT NULL,
     region_name        varchar(50) NOT NULL,
-    location           point NOT NULL,
-    created_at          datetime  NOT NULL,
-    updated_at          datetime NOT NULL
+    location           GEOMETRY NOT NULL,
+    created_at         datetime  NOT NULL,
+    updated_at         datetime NOT NULL
 ) engine = InnoDB;
 
 create table if not exists user_region
@@ -61,6 +61,7 @@ create table if not exists post_image
     updated_at             datetime  NOT NULL
 ) engine = InnoDB;
 
+CREATE INDEX idx__name on region (region_name)
 
 ALTER TABLE user_region
     ADD FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE;
@@ -69,7 +70,7 @@ ALTER TABLE user_region
     ADD FOREIGN KEY (region_id) REFERENCES region (region_id) ON DELETE CASCADE;
 
 ALTER TABLE post
-    ADD FOREIGN KEY (region_id) REFERENCES region (region_id) ON DELETE CASCADE;
+    ADD FOREIGN KEY (region_id) REFERENCES region (region_id);
 
 ALTER TABLE post
     ADD FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE;

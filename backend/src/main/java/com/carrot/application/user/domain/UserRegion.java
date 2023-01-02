@@ -51,14 +51,15 @@ public class UserRegion extends BaseEntity {
         return UserRegion.builder()
                 .user(user)
                 .region(region)
+                .represent(true)
                 .build();
     }
 
-    public static UserRegion sub(User user, Region region, boolean represent){
+    public static UserRegion sub(User user, Region region){
         return UserRegion.builder()
                 .user(user)
                 .region(region)
-                .represent(represent)
+                .represent(false)
                 .build();
     }
 
