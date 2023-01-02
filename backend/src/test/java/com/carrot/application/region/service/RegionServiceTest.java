@@ -32,6 +32,4 @@ public class RegionServiceTest extends ServiceTest {
 
         assertDoesNotThrow(() -> regionService.search(state, pageable));
     }
-
-
 }

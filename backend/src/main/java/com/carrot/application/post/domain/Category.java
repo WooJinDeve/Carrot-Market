@@ -2,6 +2,8 @@ package com.carrot.application.post.domain;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 public enum Category {
     DIGITAL("디지털기기"),
@@ -17,5 +19,16 @@ public enum Category {
     private final String name;
     Category(String name) {
         this.name = name;
+    }
+
+    public static Category findByCategoryName(String name){
+        return Arrays.stream(values())
+                .filter(c -> c.hasName(name))
+                .findAny()
+                .orElse(null);
+    }
+
+    private boolean hasName(String name){
+        return this.name.equals(name);
     }
 }
