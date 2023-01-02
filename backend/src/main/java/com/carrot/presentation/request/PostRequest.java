@@ -2,6 +2,7 @@ package com.carrot.presentation.request;
 
 import com.carrot.application.post.domain.Category;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -13,6 +14,7 @@ import java.util.List;
 public class PostRequest {
 
     @Getter
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostSaveRequest {
