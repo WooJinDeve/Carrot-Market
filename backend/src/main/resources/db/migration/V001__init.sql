@@ -32,8 +32,45 @@ create table if not exists user_region
     updated_at          datetime  NOT NULL
 ) engine = InnoDB;
 
+create table if not exists post
+(
+    post_id                bigint PRIMARY KEY AUTO_INCREMENT,
+    user_id                bigint NOT NULL,
+    region_id              bigint NOT NULL,
+    title                  varchar(50) NOT NULL,
+    content                LONGTEXT NOT NULL,
+    thumbnail              varchar(255) NOT NULL,
+    category               varchar(255) NOT NULL,
+    hits                   int NOT NULL,
+    chat_num               int NOT NULL,
+    article_num            int NOT NULL,
+    deleted_at             datetime  null,
+    created_at             datetime  NOT NULL,
+    updated_at             datetime  NOT NULL
+) engine = InnoDB;
+
+create table if not exists post_image
+(
+    post_image_id          bigint PRIMARY KEY AUTO_INCREMENT,
+    post_id                bigint NOT NULL,
+    origin_name            varchar(255) NOT NULL,
+    image_url              varchar(255) NOT NULL,
+    created_at             datetime  NOT NULL,
+    updated_at             datetime  NOT NULL
+) engine = InnoDB;
+
+
 ALTER TABLE user_region
     ADD FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE;
 
 ALTER TABLE user_region
     ADD FOREIGN KEY (region_id) REFERENCES region (region_id) ON DELETE CASCADE;
+
+ALTER TABLE post
+    ADD FOREIGN KEY (region_id) REFERENCES region (region_id) ON DELETE CASCADE;
+
+ALTER TABLE post
+    ADD FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE post_image
+    ADD FOREIGN KEY (post_id) REFERENCES post (post_id) ON DELETE CASCADE;
