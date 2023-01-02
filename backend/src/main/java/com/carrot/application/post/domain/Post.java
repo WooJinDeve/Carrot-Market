@@ -65,11 +65,12 @@ public class Post extends BaseEntity {
     private List<PostImage> postImages = new ArrayList<>();
 
     @Builder
-    public Post(Long id, User user, Region region, Integer hits, String thumbnail, Category category,
-                Integer chatNum, Integer articleNum, LocalDateTime deletedAt) {
+    public Post(Long id, User user, Region region, Content content, Integer hits, String thumbnail,
+                Category category, Integer chatNum, Integer articleNum, LocalDateTime deletedAt) {
         this.id = id;
         this.user = user;
         this.region = region;
+        this.content = content;
         this.hits = hits;
         this.thumbnail = thumbnail;
         this.category = category;
@@ -78,7 +79,7 @@ public class Post extends BaseEntity {
         this.deletedAt = deletedAt;
     }
 
-    private void verifyOverflowHits(Integer hits){
+    public void verifyOverflowHits(Integer hits){
         this.hits += hits;
         if (this.hits < 0)
             throw new CarrotRuntimeException(POST_HITS_OVERFLOW_ERROR);
