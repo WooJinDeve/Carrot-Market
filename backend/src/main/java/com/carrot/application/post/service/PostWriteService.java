@@ -35,12 +35,12 @@ public class PostWriteService {
         UserRegion userRegion = user.getRepresentUserRegion();
         Region region = regionRepository.getById(userRegion.getRegion().getId());
 
-        Post post = convertToPost(region, request);
+        Post post = convertToPost(user, region, request);
         return postRepository.save(post).getId();
     }
 
-    private Post convertToPost(Region region, PostSaveRequest request) {
-        Post post = Post.of(region, request.getTitle(), request.getContent(),
+    private Post convertToPost(User user, Region region, PostSaveRequest request) {
+        Post post = Post.of(user, region, request.getTitle(), request.getContent(),
                 request.getPrice(), request.getCategory(), request.getThumbnail());
 
         convertToPostImages(request.getImageRequest()).forEach(post::addPostImages);

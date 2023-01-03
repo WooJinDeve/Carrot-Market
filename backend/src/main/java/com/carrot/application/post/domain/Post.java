@@ -81,9 +81,10 @@ public class Post extends BaseEntity {
         this.deletedAt = deletedAt;
     }
 
-    public static Post of(Region region, String title, String content, Integer price,
-                          Category category, String thumbnail){
+    public static Post of(User user, Region region, String title, String content,
+                          Integer price, Category category, String thumbnail){
         return Post.builder()
+                .user(user)
                 .region(region)
                 .content(new Content(title, content, price))
                 .category(category)

@@ -1,6 +1,9 @@
 package com.carrot.testutil.fixture;
 
 import com.carrot.application.post.domain.Category;
+import com.carrot.application.post.domain.Post;
+import com.carrot.application.region.domain.Region;
+import com.carrot.application.user.domain.User;
 
 import java.util.List;
 
@@ -20,6 +23,12 @@ public class PostFixture {
             new ImageSaveRequest(BASIC_IMAGE1, BASIC_ORIGIN1),
             new ImageSaveRequest(BASIC_IMAGE2, BASIC_ORIGIN2)
     );
+
+
+    public static Post get(User user, Region region, PostSaveRequest request){
+        return Post.of(user, region, request.getTitle(), request.getContent(), request.getPrice(),
+                request.getCategory(), request.getThumbnail());
+    }
 
     public static PostSaveRequest getSaveRequest(String title, String content) {
         return PostSaveRequest.builder()

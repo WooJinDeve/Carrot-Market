@@ -79,7 +79,7 @@ public class PostControllerTest extends ControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DisplayName("[POST] 게시물 수정 요청 - 요청실패")
+    @DisplayName("[PUT] 게시물 수정 요청 - 요청실패")
     @Test
     @WithMockUser
     public void 게시물_수정_요청() throws Exception {
