@@ -73,11 +73,11 @@ public class Post extends BaseEntity {
         this.user = user;
         this.region = region;
         this.content = content;
-        this.hits = Objects.isNull(hits) ? 0 : 1;
+        this.hits = Objects.isNull(hits) ? 0 : hits;
         this.thumbnail = thumbnail;
         this.category = category;
-        this.chatNum = Objects.isNull(chatNum) ? 0 : 1;
-        this.articleNum = Objects.isNull(articleNum) ? 0 : 1;
+        this.chatNum = Objects.isNull(chatNum) ? 0 : chatNum;
+        this.articleNum = Objects.isNull(articleNum) ? 0 : articleNum;
         this.deletedAt = deletedAt;
     }
 
