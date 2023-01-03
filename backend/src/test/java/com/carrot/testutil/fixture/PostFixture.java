@@ -5,6 +5,7 @@ import com.carrot.application.post.domain.Post;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.user.domain.User;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.carrot.presentation.request.PostRequest.*;
@@ -24,6 +25,13 @@ public class PostFixture {
             new ImageSaveRequest(BASIC_IMAGE2, BASIC_ORIGIN2)
     );
 
+    public static Post get(Long id, User user, LocalDateTime deletedAt){
+        return Post.builder()
+                .id(id)
+                .user(user)
+                .deletedAt(deletedAt)
+                .build();
+    }
 
     public static Post get(User user, Region region, PostSaveRequest request){
         return Post.of(user, region, request.getTitle(), request.getContent(), request.getPrice(),

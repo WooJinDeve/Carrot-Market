@@ -19,7 +19,6 @@ class PostTest {
     void 조회수_증가_요청() {
         //given
         Post post = Post.builder()
-                .hits(0)
                 .build();
         int actual = 1;
 
