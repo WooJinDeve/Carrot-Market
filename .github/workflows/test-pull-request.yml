@@ -1,22 +1,26 @@
 name: Pull Request 시 테스트 결과 반환
 
 on:
+  push:
+    branches:
+      - main
+      - deve
+    paths: 'backend/**'
   pull_request:
     branches:
       - main
-      - dev
-    paths:
-      - backend/**
-      - .github/** # Github Actions 작업을 위한 포함
+      - deve
+    paths: 'backend/**'
+      
+defaults:
+  run:
+    working-directory: ./backend
 
 jobs:
   build:
+  
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./backend
-
+    
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
@@ -44,4 +48,4 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          files: ./build/test-results/test/*.xml
+          files: '**/build/test-results/test/TEST-*.xml'
