@@ -4,8 +4,7 @@ import com.carrot.application.post.domain.Category;
 
 import java.util.List;
 
-import static com.carrot.presentation.request.PostRequest.ImageSaveRequest;
-import static com.carrot.presentation.request.PostRequest.PostSaveRequest;
+import static com.carrot.presentation.request.PostRequest.*;
 
 public class PostFixture {
 
@@ -30,6 +29,16 @@ public class PostFixture {
                 .thumbnail(BASIC_THUMBNAIL)
                 .category(Category.DIGITAL)
                 .imageRequest(BASIC_IMAGES)
+                .build();
+    }
+
+    public static PostUpdateRequest getUpdateRequest(String title, String content) {
+        return PostUpdateRequest.builder()
+                .title(title)
+                .content(content)
+                .price(BASIC_PRICE)
+                .thumbnail(BASIC_THUMBNAIL)
+                .category(Category.DIGITAL)
                 .build();
     }
 }

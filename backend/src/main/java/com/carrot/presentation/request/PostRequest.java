@@ -45,6 +45,7 @@ public class PostRequest {
     }
 
     @Getter
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostUpdateRequest {
