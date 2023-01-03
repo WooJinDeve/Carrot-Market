@@ -29,6 +29,8 @@ out/
 
 ### application.yml ###
 application-oauth2.yml
+http-client.env.json
+http-client.private.env.json
 
 ### NetBeans ###
 /nbproject/private/

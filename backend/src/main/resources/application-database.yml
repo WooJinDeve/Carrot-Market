@@ -16,6 +16,7 @@ spring:
     database-platform: org.hibernate.spatial.dialect.mysql.MySQL5InnoDBSpatialDialect
     hibernate:
       ddl-auto: none
+    generate-ddl: false
 
   redis:
     host: localhost
