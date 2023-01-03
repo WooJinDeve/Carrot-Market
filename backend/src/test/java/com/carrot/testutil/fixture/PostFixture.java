@@ -25,6 +25,12 @@ public class PostFixture {
             new ImageSaveRequest(BASIC_IMAGE2, BASIC_ORIGIN2)
     );
 
+    public static Post get(Long id){
+        return Post.builder()
+                .id(id)
+                .build();
+    }
+
     public static Post get(Long id, User user, LocalDateTime deletedAt){
         return Post.builder()
                 .id(id)
