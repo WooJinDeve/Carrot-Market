@@ -30,6 +30,7 @@ function Location () {
             SetLocations(res.data.result)
           })
           .catch((err) => {
+                console.log(err)
                 navigate("/main");
           })
         }
