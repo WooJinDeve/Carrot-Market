@@ -3,6 +3,7 @@ package com.carrot.application.user.repository;
 import com.carrot.application.user.domain.UserRegion;
 import com.carrot.global.error.CarrotRuntimeException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -23,4 +24,8 @@ public interface UserRegionRepository extends JpaRepository<UserRegion, Long> {
         return findById(id)
                 .orElseThrow(() -> new CarrotRuntimeException(USER_REGION_NOTFOUND_ERROR));
     }
+
+    @Modifying
+    @Query("UPDATE UserRegion u SET u.represent = true WHERE u.user.id = :userId")
+    void changeNewRepresent(Long userId);
 }

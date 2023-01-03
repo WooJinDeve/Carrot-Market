@@ -13,7 +13,8 @@ import static com.carrot.global.error.ErrorCode.REGION_LENGTH_VALIDATION_ERROR;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-@Table(name = "region", indexes = @Index(name = "idx__name", columnList = "region_name"))
+@Table(name = "region",
+        indexes = @Index(name = "idx__name", columnList = "region_name"))
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
@@ -30,7 +31,7 @@ public class Region extends BaseEntity {
     @Column(name = "region_name", nullable = false, length = MAX_REGION_NAME_LENGTH)
     private String name;
 
-    @Column(name = "location", columnDefinition = "POINT")
+    @Column(name = "location", columnDefinition = "GEOMETRY")
     private Point location;
 
     @Builder

@@ -19,10 +19,12 @@ public class UserRegionValidator {
 
     private final UserRegionRepository userRegionRepository;
 
-    public void validateUserRegionCounter(Long userId) {
-        if(userRegionRepository.countByUserId(userId) >= 2){
+    public Long validateUserRegionCounter(Long userId) {
+        long count = userRegionRepository.countByUserId(userId);
+        if(count >= 2){
             throw new CarrotRuntimeException(USER_REGION_MAX_ERROR);
         }
+        return count;
     }
 
     public void validateOwner(User user, UserRegion userRegion){

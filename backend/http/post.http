@@ -1,0 +1,24 @@
+### 게시물 등록
+POST {{ local-api }}/api/v1/posts
+Authorization: Bearer {{ access_token }}
+Content-Type: application/json
+
+{
+  "title": "제목입니다.",
+  "content": "내용입니다.",
+  "price": 100000,
+  "category": "디지털기기",
+  "thumbnail": "tumbnail.com",
+  "imageRequest": [
+    {
+      "imageUrl": "http://tumbnail.com/1",
+      "originName": "사진1"
+    },
+    {
+      "imageUrl": "http://tumbnail.com/2",
+      "originName": "사진2"
+    }
+  ]
+}
+
+

@@ -2,15 +2,16 @@ package com.carrot.application.user.domain;
 
 
 import com.carrot.application.common.BaseEntity;
+import com.carrot.global.error.CarrotRuntimeException;
+import com.carrot.global.error.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -19,6 +20,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Table(name = "users")
 @Getter
+@SQLDelete(sql = "UPDATE USER SET deleted_at = NOW() WHERE id = ?")
 @NoArgsConstructor(access = PROTECTED)
 public class User extends BaseEntity {
     @Id
@@ -52,7 +54,7 @@ public class User extends BaseEntity {
     private LocalDateTime deletedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserRegion> userRegions = new HashSet<>();
+    private List<UserRegion> userRegions = new ArrayList<>();
 
     @Builder
     public User(Long id, Email email, Nickname nickname, double mannerTemperature, String profileUrl,
@@ -78,6 +80,13 @@ public class User extends BaseEntity {
                 .mannerTemperature(MannerTemperature.create().getMannerTemperature())
                 .providerId(providerId)
                 .build();
+    }
+
+    public UserRegion getRepresentUserRegion(){
+        return this.userRegions.stream()
+                .filter(UserRegion::isRepresentative)
+                .findAny()
+                .orElseThrow(() -> new CarrotRuntimeException(ErrorCode.USER_REGION_NOTFOUND_ERROR));
     }
 
     public boolean isDeleted(){
