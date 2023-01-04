@@ -10,8 +10,8 @@ spring:
     properties:
       hibernate:
         default_batch_fetch_size: 1000
-        dialect: org.hibernate.spatial.dialect.mysql.MySQL5InnoDBSpatialDialect
-    database-platform: org.hibernate.spatial.dialect.mysql.MySQL5InnoDBSpatialDialect
+        dialect: org.hibernate.spatial.dialect.mysql.MySQL56SpatialDialect
+    database-platform: org.hibernate.spatial.dialect.mysql.MySQL56SpatialDialect
     hibernate:
       ddl-auto: none
     generate-ddl: false
