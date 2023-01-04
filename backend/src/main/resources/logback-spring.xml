@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <include resource="logback/console-appender.xml"/>
+    <include resource="logback/file-appender.xml"/>
+
+    <springProfile name="local, test">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE-APPENDER"/>
+        </root>
+
+        <logger name="org.hibernate.SQL" level="DEBUG">
+            <appender-ref ref="CONSOLE-DB-APPENDER"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="DEBUG">
+            <appender-ref ref="FILE_DEBUG_APPENDER"/>
+            <appender-ref ref="FILE_INFO_APPENDER"/>
+            <appender-ref ref="FILE_WARM_APPENDER"/>
+            <appender-ref ref="FILE_ERROR_APPENDER"/>
+        </root>
+    </springProfile>
+
+
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="FILE_INFO_APPENDER"/>
+            <appender-ref ref="FILE_WARM_APPENDER"/>
+            <appender-ref ref="FILE_ERROR_APPENDER"/>
+        </root>
+    </springProfile>
+</configuration>

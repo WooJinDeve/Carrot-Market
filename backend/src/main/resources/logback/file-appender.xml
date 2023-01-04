@@ -1,0 +1,79 @@
+<included>
+    <property resource="logback/logback-variables.properties" />
+
+    <appender name="FILE_DEBUG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/debug.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archive/debug.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SILE}</maxFileSize>   <!-- 로그파일의 최대 크기 -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>      <!-- 로그파일 최대 보관 주기 (단위 : 일) -->
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+
+    <appender name="FILE_INFO_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/info.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archive/info.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SILE}</maxFileSize>   <!-- 로그파일의 최대 크기 -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>      <!-- 로그파일 최대 보관 주기 (단위 : 일) -->
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+
+    <appender name="FILE_WARM_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/warm.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARM</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archive/warm.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SILE}</maxFileSize>   <!-- 로그파일의 최대 크기 -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>      <!-- 로그파일 최대 보관 주기 (단위 : 일) -->
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+
+    <appender name="FILE_ERROR_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archive/error.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SILE}</maxFileSize>   <!-- 로그파일의 최대 크기 -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>      <!-- 로그파일 최대 보관 주기 (단위 : 일) -->
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+</included>
+

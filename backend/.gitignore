@@ -27,10 +27,11 @@ out/
 !**/src/test/**/out/
 
 
-### application.yml ###
+### custom ###
 application-oauth2.yml
 http-client.env.json
 http-client.private.env.json
+logs
 
 ### NetBeans ###
 /nbproject/private/
