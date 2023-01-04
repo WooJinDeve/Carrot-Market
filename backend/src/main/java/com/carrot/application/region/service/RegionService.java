@@ -1,6 +1,7 @@
 package com.carrot.application.region.service;
 
 import com.carrot.application.region.domain.Region;
+import com.carrot.application.region.repository.RegionJdbcRepository;
 import com.carrot.application.region.repository.RegionRepository;
 import com.carrot.infrastructure.util.CsvUtil;
 import com.carrot.infrastructure.util.PointUtil;
@@ -23,6 +24,7 @@ public class RegionService {
 
     private static final String CSV_LOCATION = "/csv/location.csv";
     private final RegionRepository regionRepository;
+    private final RegionJdbcRepository regionJdbcRepository;
 
     public Slice<RegionSearchResponse> search(String state, Pageable pageable) {
         return regionRepository.findByNameContaining(state, pageable)
@@ -34,7 +36,7 @@ public class RegionService {
     public void insert(){
         if(regionRepository.count() == 0){
             List<Region> regions = convertToRegions();
-            regionRepository.saveAll(regions);
+            regionJdbcRepository.batchInsert(regions);
         }
     }
 
