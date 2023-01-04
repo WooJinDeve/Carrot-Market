@@ -14,15 +14,18 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Table(name = "region",
-        indexes = @Index(name = "idx__name", columnList = "region_name"))
+        indexes = {@Index(name = "idx__name", columnList = "region_name"),
+                @Index(name = "idx__location", columnList = "location")}
+)
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 public class Region extends BaseEntity {
     private static final int MAX_REGION_NAME_LENGTH = 50;
 
-    @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "region_id", nullable = false)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "region_id")
     private Long id;
 
     @Column(name = "region_code", unique = true, nullable = false)
@@ -43,7 +46,7 @@ public class Region extends BaseEntity {
         this.location = location;
     }
 
-    public static Region of(String regionCode, String name, Point location){
+    public static Region of(String regionCode, String name, Point location) {
         return Region.builder()
                 .regionCode(regionCode)
                 .name(name)
@@ -51,7 +54,7 @@ public class Region extends BaseEntity {
                 .build();
     }
 
-    private void validateName(String name){
+    private void validateName(String name) {
         if (name.length() > MAX_REGION_NAME_LENGTH)
             throw new CarrotRuntimeException(REGION_LENGTH_VALIDATION_ERROR);
     }
