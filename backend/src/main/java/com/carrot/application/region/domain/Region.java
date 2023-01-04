@@ -22,7 +22,7 @@ public class Region extends BaseEntity {
     private static final int MAX_REGION_NAME_LENGTH = 50;
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "region_id", nullable = false)
+    @Column(name = "region_id")
     private Long id;
 
     @Column(name = "region_code", unique = true, nullable = false)
