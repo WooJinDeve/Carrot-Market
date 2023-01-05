@@ -37,7 +37,7 @@ public class ArticleWriteService {
         articleRepository.save(Article.of(user, post, request.getSentence()));
     }
 
-    public void saveReply(final Long userId,final Long articleId,final ArticleSaveRequest request) {
+    public void saveReply(final Long userId, final Long articleId, final ArticleSaveRequest request) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -47,7 +47,7 @@ public class ArticleWriteService {
         replyRepository.save(Reply.of(user, article, request.getSentence()));
     }
 
-    public void updateArticle(final Long userId,final Long articleId,final ArticleUpdateRequest request) {
+    public void updateArticle(final Long userId, final Long articleId, final ArticleUpdateRequest request) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -59,7 +59,7 @@ public class ArticleWriteService {
         article.change(request.getSentence());
     }
 
-    public void updateReply(final Long userId,final Long replyId,final ArticleUpdateRequest request) {
+    public void updateReply(final Long userId, final Long replyId, final ArticleUpdateRequest request) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -69,18 +69,19 @@ public class ArticleWriteService {
         reply.change(request.getSentence());
     }
 
-    public void deleteArticle(final Long userId,final Long articleId) {
+    public void deleteArticle(final Long userId, final Long articleId) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
         Article article = articleRepository.getByIdWithPost(articleId);
         article.getPost().verifySoftDeleted();
         article.verifySoftDeleted();
+        article.verifyOwner(userId);
 
         verifyWhenDeleteArticle(article);
     }
 
-    public void deleteReply(final Long userId,final Long replyId) {
+    public void deleteReply(final Long userId, final Long replyId) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 

@@ -1,0 +1,7 @@
+### 1. 댓글 작성
+POST {{ local-api }}/api/v1/posts/{{ postId }}/article
+Authorization: Bearer {{ access_token }}
+
+### 2. 대댓글 작성
+POST {{ local-api }}/api/v1/article/{{ articleId }}/reply
+Authorization: Bearer {{ access_token }}
