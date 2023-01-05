@@ -1,7 +1,7 @@
 package com.carrot.infrastructure.oauth2.provider.social;
 
 import com.carrot.application.user.domain.Nickname;
-import com.carrot.infrastructure.util.Attributes;
+import com.carrot.infrastructure.oauth2.provider.Attributes;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 

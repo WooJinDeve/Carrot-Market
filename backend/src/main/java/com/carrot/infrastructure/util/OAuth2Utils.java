@@ -1,5 +1,6 @@
 package com.carrot.infrastructure.util;
 
+import com.carrot.infrastructure.oauth2.provider.Attributes;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Map;

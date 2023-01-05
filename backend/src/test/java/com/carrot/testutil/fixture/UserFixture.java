@@ -1,5 +1,6 @@
 package com.carrot.testutil.fixture;
 
+import com.carrot.application.user.domain.Email;
 import com.carrot.application.user.domain.User;
 import com.carrot.application.user.domain.UserRegion;
 
@@ -7,9 +8,12 @@ import java.time.LocalDateTime;
 
 public class UserFixture {
 
+    private static final String BASIC_EMAIL = "basic@gmail.com";
+
     public static User get(Long id){
         return User.builder()
                 .id(id)
+                .email(new Email(BASIC_EMAIL))
                 .build();
     }
 

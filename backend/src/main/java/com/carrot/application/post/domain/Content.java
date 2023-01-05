@@ -1,6 +1,7 @@
 package com.carrot.application.post.domain;
 
 import com.carrot.global.error.CarrotRuntimeException;
+import com.carrot.infrastructure.util.ClassUtils;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,9 @@ public class Content {
 
     @Builder
     public Content(String title, String content, Integer price) {
+        ClassUtils.checkNotNullParameter(title, String.class);
+        ClassUtils.checkNotNullParameter(content, String.class);
+        ClassUtils.checkNotNullParameter(price, Integer.class);
         verifyOverLengthTitle(title);
         this.title = title;
         this.price = price;

@@ -1,5 +1,6 @@
 package com.carrot.application.user.domain;
 
+import com.carrot.infrastructure.util.ClassUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,9 +19,10 @@ public class MannerTemperature {
     private static final double DEFAULT_MANNER_TEMPERATURE = 36.5;
 
     @Column(name = "manner_temperature", nullable = false)
-    private double mannerTemperature;
+    private Double mannerTemperature;
 
-    public MannerTemperature(double mannerTemperature) {
+    public MannerTemperature(Double mannerTemperature) {
+        ClassUtils.checkNotNullParameter(mannerTemperature, Double.class);
         this.mannerTemperature = mannerTemperature;
     }
 

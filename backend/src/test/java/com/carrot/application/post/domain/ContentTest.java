@@ -16,11 +16,14 @@ class ContentTest {
         //given
         String title = "title";
         String content = "content";
+        Integer price = 100;
+
 
         //when & then
         assertThatCode(() -> Content.builder()
                 .title(title)
                 .content(content)
+                .price(price)
                 .build())
                 .doesNotThrowAnyException();
     }
@@ -31,11 +34,13 @@ class ContentTest {
         //given
         String title = "title".repeat(11);
         String content = "content";
+        Integer price = 100;
 
         //when & then
         assertThatCode(() -> Content.builder()
                 .title(title)
                 .content(content)
+                .price((price))
                 .build())
                 .isInstanceOf(CarrotRuntimeException.class)
                 .hasMessage(POST_TITLE_VALIDATION_ERROR.getMessage());

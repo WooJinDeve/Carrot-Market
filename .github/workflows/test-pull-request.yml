@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - main
-      - deve
+      - dev
     paths: 'backend/**'
   pull_request:
     branches:
       - main
-      - deve
+      - dev
     paths: 'backend/**'
       
 defaults:
