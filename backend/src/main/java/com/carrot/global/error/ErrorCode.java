@@ -34,6 +34,8 @@ public enum ErrorCode {
 
     //ARTICLE
     ARTICLE_SENTENCE_LENGTH_ERROR(BAD_REQUEST, "최대 작성 범위가 초과했거나 문자를 입력하지 않았습니다."),
+    ARTICLE_NOTFOUND_ERROR(NOT_FOUND, "존재하지 않는 댓글입니다."),
+    ARTICLE_VALIDATION_ERROR(UNAUTHORIZED, "해당 댓글에 관한 권한이 없습니다."),
 
     //OAUTH2
     OAUTH2_TYPE_VALIDATION_ERROR(UNAUTHORIZED, "지원하지않는 소셜로그인입니다."),
