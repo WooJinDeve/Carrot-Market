@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static com.carrot.presentation.request.ArticleDto.ArticleSaveRequest;
 import static com.carrot.presentation.request.ArticleDto.ArticleUpdateRequest;
 
@@ -20,10 +22,10 @@ public class ArticleController {
     private final ArticleWriteService articleWriteService;
 
 
-    @PostMapping("/post/{postId}/article")
+    @PostMapping("/posts/{postId}/article")
     public Response<Void> saveArticle(@PathVariable Long postId,
                                       @AuthenticationPrincipal LoginUser loginUser,
-                                      @RequestBody ArticleSaveRequest request) {
+                                      @RequestBody @Valid ArticleSaveRequest request) {
 
         articleWriteService.saveArticle(loginUser.getId(), postId, request);
         return Response.success();
@@ -32,7 +34,7 @@ public class ArticleController {
     @PostMapping("/article/{articleId}/reply")
     public Response<Void> saveReply(@PathVariable Long articleId,
                                     @AuthenticationPrincipal LoginUser loginUser,
-                                    @RequestBody ArticleSaveRequest request) {
+                                    @RequestBody @Valid ArticleSaveRequest request) {
 
         articleWriteService.saveReply(loginUser.getId(), articleId, request);
         return Response.success();
@@ -41,7 +43,7 @@ public class ArticleController {
     @PutMapping("/article/{articleId}")
     public Response<Void> updateArticle(@PathVariable Long articleId,
                                         @AuthenticationPrincipal LoginUser loginUser,
-                                        @RequestBody ArticleUpdateRequest request){
+                                        @RequestBody @Valid ArticleUpdateRequest request){
         articleWriteService.updateArticle(loginUser.getId(), articleId, request);
         return Response.success();
     }
@@ -49,7 +51,7 @@ public class ArticleController {
     @PutMapping("/reply/{replyId}")
     public Response<Void> updateReply(@PathVariable Long replyId,
                                         @AuthenticationPrincipal LoginUser loginUser,
-                                        @RequestBody ArticleUpdateRequest request){
+                                        @RequestBody @Valid ArticleUpdateRequest request){
         articleWriteService.updateReply(loginUser.getId(), replyId, request);
         return Response.success();
     }
