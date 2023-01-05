@@ -15,15 +15,15 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
 
     @Query("SELECT r FROM Reply r JOIN FETCH r.article WHERE r.id = :id")
-    Optional<Reply> findByIdWithArticle(@Param("id") Long id);
+    Optional<Reply> findByIdWithArticle(final @Param("id") Long id);
 
-    boolean existsByArticle(Article article);
+    boolean existsByArticle(final Article article);
 
-    default Reply getByIdWithArticle(Long id){
+    default Reply getByIdWithArticle(final Long id){
         return findByIdWithArticle(id)
                 .orElseThrow(() -> new CarrotRuntimeException(ARTICLE_NOTFOUND_ERROR));
     }
-    default Reply getById(Long id){
+    default Reply getById(final Long id){
         return findById(id)
                 .orElseThrow(() -> new CarrotRuntimeException(ARTICLE_NOTFOUND_ERROR));
     }

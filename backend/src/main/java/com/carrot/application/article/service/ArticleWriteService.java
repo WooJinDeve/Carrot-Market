@@ -27,7 +27,7 @@ public class ArticleWriteService {
     private final UserValidator userValidator;
     private final PostRepository postRepository;
 
-    public void saveArticle(Long userId, Long postId, ArticleSaveRequest request){
+    public void saveArticle(final Long userId, final Long postId, final ArticleSaveRequest request) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -37,7 +37,7 @@ public class ArticleWriteService {
         articleRepository.save(Article.of(user, post, request.getSentence()));
     }
 
-    public void saveReply(Long userId, Long articleId, ArticleSaveRequest request){
+    public void saveReply(final Long userId,final Long articleId,final ArticleSaveRequest request) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -47,7 +47,7 @@ public class ArticleWriteService {
         replyRepository.save(Reply.of(user, article, request.getSentence()));
     }
 
-    public void updateArticle(Long userId, Long articleId, ArticleUpdateRequest request){
+    public void updateArticle(final Long userId,final Long articleId,final ArticleUpdateRequest request) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -59,7 +59,7 @@ public class ArticleWriteService {
         article.change(request.getSentence());
     }
 
-    public void updateReply(Long userId, Long replyId, ArticleUpdateRequest request){
+    public void updateReply(final Long userId,final Long replyId,final ArticleUpdateRequest request) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -69,7 +69,7 @@ public class ArticleWriteService {
         reply.change(request.getSentence());
     }
 
-    public void deleteArticle(Long userId, Long articleId){
+    public void deleteArticle(final Long userId,final Long articleId) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -80,7 +80,7 @@ public class ArticleWriteService {
         verifyWhenDeleteArticle(article);
     }
 
-    public void deleteReply(Long userId, Long replyId){
+    public void deleteReply(final Long userId,final Long replyId) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
@@ -91,8 +91,8 @@ public class ArticleWriteService {
         verifyWhenDeleteArticle(reply.getArticle());
     }
 
-    private void verifyWhenDeleteArticle(Article article){
-        if (replyRepository.existsByArticle(article)){
+    private void verifyWhenDeleteArticle(Article article) {
+        if (replyRepository.existsByArticle(article)) {
             articleRepository.delete(article);
             return;
         }
