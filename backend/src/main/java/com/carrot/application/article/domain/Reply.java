@@ -2,6 +2,7 @@ package com.carrot.application.article.domain;
 
 import com.carrot.application.common.BaseEntity;
 import com.carrot.application.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -32,5 +33,14 @@ public class Reply extends BaseEntity {
     @JoinColumn(name = "article_id", nullable = false)
     private Article article;
 
+    @Embedded
+    private Sentence sentence;
 
+    @Builder
+    public Reply(Long id, User user, Article article, Sentence sentence) {
+        this.id = id;
+        this.user = user;
+        this.article = article;
+        this.sentence = sentence;
+    }
 }
