@@ -57,12 +57,13 @@ public class User extends BaseEntity {
     private List<UserRegion> userRegions = new ArrayList<>();
 
     @Builder
-    public User(Long id, Email email, Nickname nickname, double mannerTemperature, String profileUrl,
+    public User(Long id, Email email, Nickname nickname, Double mannerTemperature, String profileUrl,
                 UserRole role, String provider, String providerId, LocalDateTime deletedAt) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
-        this.mannerTemperature = new MannerTemperature(mannerTemperature);
+        this.mannerTemperature = Objects.isNull(mannerTemperature) ?
+                MannerTemperature.create() : new MannerTemperature(mannerTemperature);
         this.profileUrl = profileUrl;
         this.role = role;
         this.providerId = providerId;

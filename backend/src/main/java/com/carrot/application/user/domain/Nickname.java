@@ -1,6 +1,7 @@
 package com.carrot.application.user.domain;
 
 import com.carrot.global.error.CarrotRuntimeException;
+import com.carrot.infrastructure.util.ClassUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ public class Nickname {
     private String nickname;
 
     public Nickname(String nickname) {
+        ClassUtils.checkNotNullParameter(nickname, String.class);
         validateNickname(nickname);
         this.nickname = nickname;
     }
