@@ -94,9 +94,9 @@ public class ArticleWriteService {
 
     private void verifyWhenDeleteArticle(Article article) {
         if (replyRepository.existsByArticle(article)) {
-            articleRepository.delete(article);
+            article.softDeleted();
             return;
         }
-        article.softDeleted();
+        articleRepository.delete(article);
     }
 }

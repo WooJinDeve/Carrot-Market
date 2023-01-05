@@ -22,7 +22,7 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Getter
 @Entity
-@Table(name = "article_id")
+@Table(name = "article")
 @NoArgsConstructor(access = PROTECTED)
 public class Article extends BaseEntity {
 
@@ -39,7 +39,6 @@ public class Article extends BaseEntity {
     @JoinColumn(name = "post_id", nullable = false)
     @OnDelete(action = CASCADE)
     private Post post;
-
 
     @Embedded
     private Sentence sentence;

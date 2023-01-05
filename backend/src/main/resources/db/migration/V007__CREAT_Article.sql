@@ -3,7 +3,7 @@ create table if not exists article
     article_id            bigint PRIMARY KEY AUTO_INCREMENT,
     user_id               bigint NOT NULL,
     post_id               bigint NOT NULL,
-    sentece               varchar(255)  NOT NULL,
+    sentence               varchar(255)  NOT NULL,
     deleted_at            datetime  null,
     created_at            datetime  NOT NULL,
     updated_at            datetime  NOT NULL
