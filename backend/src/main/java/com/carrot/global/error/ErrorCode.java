@@ -31,6 +31,10 @@ public enum ErrorCode {
     POST_LIKE_VALIDATION_ERROR(BAD_REQUEST, "이미 좋아요를 누르셨습니다."),
     POST_LIKE_NOTFOUND_ERROR(NOT_FOUND, "저장된 좋아요 정보가 없습니다."),
 
+
+    //ARTICLE
+    ARTICLE_SENTENCE_LENGTH_ERROR(BAD_REQUEST, "최대 작성 범위가 초과했거나 문자를 입력하지 않았습니다."),
+
     //OAUTH2
     OAUTH2_TYPE_VALIDATION_ERROR(UNAUTHORIZED, "지원하지않는 소셜로그인입니다."),
 
@@ -40,7 +44,10 @@ public enum ErrorCode {
 
 
     //SERVER
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR");
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR"),
+
+    //CLIENT
+    CLIENT_PARAMETER_ERROR(BAD_REQUEST, "사용자의 요청정보가 잘못되었습니다");
 
 
     private final HttpStatus status;
