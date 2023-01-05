@@ -15,7 +15,7 @@ public class ClassUtils {
     public static <T>void checkNotNullParameter(Object o, Class<T> clazz){
         Object parameter = getSafeCastInstance(o, clazz)
                 .orElseThrow(() -> new CarrotRuntimeException(ErrorCode.INTERNAL_SERVER_ERROR));
-        if (Objects.isNull(o))
+        if (Objects.isNull(parameter))
             throw new CarrotRuntimeException(ErrorCode.CLIENT_PARAMETER_ERROR);
     }
 }

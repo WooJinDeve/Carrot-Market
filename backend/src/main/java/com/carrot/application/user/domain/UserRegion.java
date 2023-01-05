@@ -9,7 +9,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-
 import java.util.Objects;
 
 import static javax.persistence.FetchType.LAZY;

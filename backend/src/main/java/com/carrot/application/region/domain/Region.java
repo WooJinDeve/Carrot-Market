@@ -2,6 +2,7 @@ package com.carrot.application.region.domain;
 
 import com.carrot.application.common.BaseEntity;
 import com.carrot.global.error.CarrotRuntimeException;
+import com.carrot.infrastructure.util.ClassUtils;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +40,9 @@ public class Region extends BaseEntity {
 
     @Builder
     public Region(Long id, String regionCode, String name, Point location) {
+        ClassUtils.checkNotNullParameter(regionCode, String.class);
+        ClassUtils.checkNotNullParameter(name, String.class);
+        ClassUtils.checkNotNullParameter(location, Point.class);
         validateName(name);
         this.id = id;
         this.regionCode = regionCode;
