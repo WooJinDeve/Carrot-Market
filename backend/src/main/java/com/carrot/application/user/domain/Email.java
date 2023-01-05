@@ -2,6 +2,7 @@ package com.carrot.application.user.domain;
 
 
 import com.carrot.global.error.CarrotRuntimeException;
+import com.carrot.infrastructure.util.ClassUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,11 +24,12 @@ public class Email {
     private String email;
 
     public Email(String email) {
-        validateEmail(email);
+        ClassUtils.checkNotNullParameter(email, String.class);
+        verifyEmailPattern(email);
         this.email = email;
     }
 
-    private void validateEmail(final String email){
+    private void verifyEmailPattern(final String email){
         Matcher matcher = EMAIL_PATTERN.matcher(email);
         if(!matcher.matches()){
             throw new CarrotRuntimeException(EMAIL_VALIDATION_ERROR);

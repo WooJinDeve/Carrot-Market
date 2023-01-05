@@ -10,11 +10,20 @@ import java.util.stream.IntStream;
 
 public class UserRegionFixture {
 
-
     public static UserRegion get(Long id, User user) {
         return UserRegion.builder()
                 .id(id)
                 .user(user)
+                .represent(true)
+                .build();
+    }
+
+    public static UserRegion get(Long id, User user, Region region) {
+        return UserRegion.builder()
+                .id(id)
+                .user(user)
+                .region(region)
+                .represent(true)
                 .build();
     }
 

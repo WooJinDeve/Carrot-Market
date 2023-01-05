@@ -1,0 +1,7 @@
+### 1. 게시물 좋아요
+POST {{ local-api }}/api/v1/posts/{{ postId }}/like
+Authorization: Bearer {{ access_token }}
+
+### 2. 게시물 좋아요 취소
+DELETE {{ local-api }}/api/v1/posts/{{ postId }}/like
+Authorization: Bearer {{ access_token }}

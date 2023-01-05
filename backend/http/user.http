@@ -1,0 +1,16 @@
+### 1. 사용자의 지역 조회
+GET {{ local-api }}/api/v1/users/location
+Authorization: Bearer {{ access_token }}
+Content-Type: application/json
+
+
+### 2. 사용자 지역 등록
+POST {{ local-api }}/api/v1/users/location/{{ regionId }}
+Authorization: Bearer {{ access_token }}
+Content-Type: application/json
+
+
+### 3. 사용자 지역 삭제
+DELETE {{ local-api }}/api/v1/users/location/{{ userRegionId }}
+Authorization: Bearer {{ access_token }}
+Content-Type: application/json

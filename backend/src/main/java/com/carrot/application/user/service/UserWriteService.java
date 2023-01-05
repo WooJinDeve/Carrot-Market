@@ -43,9 +43,16 @@ public class UserWriteService {
 
         Region region = regionRepository.getById(regionId);
         userRegionValidator.validateByUserIdAndRegionId(user, region);
-        userRegionValidator.validateUserRegionCounter(userId);
+        Long count = userRegionValidator.validateUserRegionCounter(userId);
 
-        userRegionRepository.save(UserRegion.of(user, region));
+        UserRegion userRegion = verifyCreateUserRegion(user, region, count);
+        userRegionRepository.save(userRegion);
+    }
+
+    private UserRegion verifyCreateUserRegion(User user, Region region, Long count){
+        if (count == 0)
+            return UserRegion.main(user, region);
+        return UserRegion.sub(user, region);
     }
 
     public void deleteRegion(Long userId, Long userRegionId){
@@ -54,6 +61,14 @@ public class UserWriteService {
 
         UserRegion userRegion = userRegionRepository.getById(userRegionId);
         userRegionValidator.validateOwner(user, userRegion);
+
+        verifyUserRegionIsRepresentation(userId, userRegion);
         userRegionRepository.delete(userRegion);
+    }
+
+    private void verifyUserRegionIsRepresentation(Long userId, UserRegion userRegion){
+        if (userRegion.isRepresentative()){
+            userRegionRepository.changeNewRepresent(userId);
+        }
     }
 }

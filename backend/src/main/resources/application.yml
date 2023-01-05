@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: database, flyway, jwt, openui, oauth2
+    include: flyway, database, jwt, openui, oauth2
 
   data:
     web:
