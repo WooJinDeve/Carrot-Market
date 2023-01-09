@@ -12,4 +12,12 @@ public class BookedHistoryFixture {
                 .post(post)
                 .build();
     }
+
+    public static BookedHistory get(User seller, User booker, Post post){
+        return BookedHistory.builder()
+                .seller(seller)
+                .booker(booker)
+                .post(post)
+                .build();
+    }
 }

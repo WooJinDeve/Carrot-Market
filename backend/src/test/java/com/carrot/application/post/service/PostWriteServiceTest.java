@@ -2,6 +2,7 @@ package com.carrot.application.post.service;
 
 import com.carrot.application.post.domain.entity.BookedHistory;
 import com.carrot.application.post.domain.entity.Post;
+import com.carrot.application.post.domain.entity.TransactionHistory;
 import com.carrot.application.post.repository.BookedHistoryRepository;
 import com.carrot.application.post.repository.PostRepository;
 import com.carrot.application.post.repository.TransactionHistoryRepository;
@@ -222,7 +223,7 @@ class PostWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 게시물 예약 요청시, 게시물의 상태가 판매중이 아닐 경우 예외 발생")
     @Test
-    void givenBookerId_whenBooked_then() {
+    void givenBookerId_whenBooked_thenThrowPostStatusIsNotSale() {
         //given
         User sellerFixture = UserFixture.get(1L);
         User bookerFixture = UserFixture.get(2L);
@@ -292,4 +293,62 @@ class PostWriteServiceTest extends ServiceTest {
                 () -> postWriteService.cancelBooked(userFixture.getId(), postFixture.getId()));
         assertThat(POST_VALIDATION_ERROR).isEqualTo(e.getErrorCode());
     }
+
+    @DisplayName("[Success] 게시물 판매 완료 요청")
+    @Test
+    void givenFixture_whenSold_thenPostSold() {
+        //given
+        User sellerFixture = UserFixture.get(1L);
+        User bookerFixture = UserFixture.get(2L);
+        Post postFixture = PostFixture.getStatue(1L, sellerFixture, BOOKED);
+        BookedHistory bookedFixture = BookedHistoryFixture.get(sellerFixture, bookerFixture, postFixture);
+
+        //when
+        when(userRepository.getById(any())).thenReturn(sellerFixture);
+        when(bookedHistoryRepository.getByPostIdWithPost(any())).thenReturn(bookedFixture);
+        when(transactionHistoryRepository.save(any())).thenReturn(mock(TransactionHistory.class));
+        doNothing().when(bookedHistoryRepository).delete(any());
+
+        //then
+        assertThatCode(() -> postWriteService.soldOut(sellerFixture.getId(), postFixture.getId()))
+                .doesNotThrowAnyException();
+    }
+
+    @DisplayName("[Error] 게시물 판매 완료 요청시, 예약 내역이 존재하지 않을 경우")
+    @Test
+    void givenFixture_whenSold_thenThrowNotExistBookedHistory() {
+        //given
+        User sellerFixture = UserFixture.get(1L);
+        Post postFixture = PostFixture.getStatue(1L, sellerFixture, SALE);
+
+        //when
+        when(userRepository.getById(any())).thenReturn(sellerFixture);
+        doThrow(new CarrotRuntimeException(BOOKED_NOTFOUND_ERROR))
+                .when(bookedHistoryRepository).getByPostIdWithPost(any());
+
+        //then
+        CarrotRuntimeException e = assertThrows(CarrotRuntimeException.class,
+                () -> postWriteService.soldOut(sellerFixture.getId(), postFixture.getId()));
+        assertThat(BOOKED_NOTFOUND_ERROR).isEqualTo(e.getErrorCode());
+    }
+
+    @DisplayName("[Error] 게시물 판매 완료 요청시, 게시물의 상태가 예약이 아닌경우 예외 발생")
+    @Test
+    void givenFixture_whenSold_thenThrowPostStatusIsNotMatchBooked() {
+        //given
+        User sellerFixture = UserFixture.get(1L);
+        User bookerFixture = UserFixture.get(2L);
+        Post postFixture = PostFixture.getStatue(1L, sellerFixture, SALE);
+        BookedHistory bookedFixture = BookedHistoryFixture.get(sellerFixture, bookerFixture, postFixture);
+
+        //when
+        when(userRepository.getById(any())).thenReturn(sellerFixture);
+        when(bookedHistoryRepository.getByPostIdWithPost(any())).thenReturn(bookedFixture);
+
+        //then
+        CarrotRuntimeException e = assertThrows(CarrotRuntimeException.class,
+                () -> postWriteService.soldOut(sellerFixture.getId(), postFixture.getId()));
+        assertThat(POST_VALIDATION_ERROR).isEqualTo(e.getErrorCode());
+    }
+
 }
