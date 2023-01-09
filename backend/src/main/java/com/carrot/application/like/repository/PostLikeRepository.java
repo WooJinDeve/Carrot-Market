@@ -1,7 +1,7 @@
 package com.carrot.application.like.repository;
 
 import com.carrot.application.like.domain.PostLike;
-import com.carrot.application.post.domain.Post;
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.user.domain.User;
 import com.carrot.global.error.CarrotRuntimeException;
 import org.springframework.data.jpa.repository.JpaRepository;

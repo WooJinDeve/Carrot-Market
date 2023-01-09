@@ -1,7 +1,7 @@
 package com.carrot.application.article.domain;
 
 import com.carrot.application.common.BaseEntity;
-import com.carrot.application.post.domain.Post;
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.user.domain.User;
 import com.carrot.global.error.CarrotRuntimeException;
 import lombok.Builder;
