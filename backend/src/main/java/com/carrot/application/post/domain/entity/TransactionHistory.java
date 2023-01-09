@@ -1,5 +1,6 @@
 package com.carrot.application.post.domain.entity;
 
+import com.carrot.application.common.BaseEntity;
 import com.carrot.application.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 @Table(name = "transaction_history")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class TransactionHistory {
+public class TransactionHistory extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -47,5 +48,14 @@ public class TransactionHistory {
         this.seller = seller;
         this.post = post;
         this.thumbnail = thumbnail;
+    }
+
+    public static TransactionHistory of(User buyer, User seller, Post post, String thumbnail){
+        return TransactionHistory.builder()
+                .buyer(buyer)
+                .seller(seller)
+                .post(post)
+                .thumbnail(thumbnail)
+                .build();
     }
 }

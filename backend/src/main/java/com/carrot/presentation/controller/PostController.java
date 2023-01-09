@@ -56,4 +56,11 @@ public class PostController {
         postWriteService.cancelBooked(loginUser.getId(), postId);
         return Response.success();
     }
+
+    @PostMapping("/{postId}/sold")
+    private Response<Void> soldOut(@AuthenticationPrincipal LoginUser loginUser,
+                                   @PathVariable Long postId){
+        postWriteService.soldOut(loginUser.getId(), postId);
+        return Response.success();
+    }
 }

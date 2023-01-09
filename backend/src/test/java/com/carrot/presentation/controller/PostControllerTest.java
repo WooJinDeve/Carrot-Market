@@ -240,4 +240,35 @@ public class PostControllerTest extends ControllerTest {
         perform.andDo(print())
                 .andExpect(status().isUnauthorized());
     }
+
+    @DisplayName("[POST] 게시물 판매 요청 - 요청 성공")
+    @Test
+    @WithMockUser
+    void givenPostId_whenSaving_thenSaveTransactionHistory() throws Exception {
+        //given
+        Long postId = 1L;
+
+        //when
+        final ResultActions perform = mockMvc.perform(post("/api/v1/posts/{postId}/sold", postId)
+                .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
+
+        //then
+        perform.andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("[POST] 게시물 판매 요청시, 로그인하지 않은 경우")
+    @Test
+    @WithAnonymousUser
+    void givenPostId_whenSaving_thenThrowNotLogin() throws Exception {
+        //given
+        Long postId = 1L;
+
+        //when
+        final ResultActions perform = mockMvc.perform(delete("/api/v1/posts/{postId}/sold", postId));
+
+        //then
+        perform.andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
 }

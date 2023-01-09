@@ -46,19 +46,24 @@ Content-Type: application/json
 }
 
 ### 게시물 삭제
-DELETE {{ local-api }}/api/v1/posts/{postId}
+DELETE {{ local-api }}/api/v1/posts/{{postId}}
 Authorization: Bearer {{ access_token }}
 
 ### 게시물 예약
-POST {{ local-api }}/api/v1/posts/{postId}/booked
+POST {{ local-api }}/api/v1/posts/{{postId}}/booked
 Authorization: Bearer {{ access_token }}
 Content-Type: application/json
 
 {
-  "bookerId" : "2L"
+  "bookerId" : "2"
 }
 
 
 ### 게시물 예약 취소
-DELETE {{ local-api }}/api/v1/posts/{postId}/booked
+DELETE {{ local-api }}/api/v1/posts/{{postId}}/booked
 Authorization: Bearer {{ access_token }}
+
+### 게시물 판매 완료
+POST {{ local-api }}/api/v1/posts/{{postId}}/sold
+Authorization: Bearer {{ access_token }}
+
