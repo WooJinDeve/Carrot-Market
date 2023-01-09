@@ -3,8 +3,10 @@ package com.carrot.application.post.service;
 import com.carrot.application.post.domain.entity.BookedHistory;
 import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.post.domain.entity.PostImage;
+import com.carrot.application.post.domain.entity.TransactionHistory;
 import com.carrot.application.post.repository.BookedHistoryRepository;
 import com.carrot.application.post.repository.PostRepository;
+import com.carrot.application.post.repository.TransactionHistoryRepository;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.region.repository.RegionRepository;
 import com.carrot.application.user.domain.User;
@@ -28,6 +30,7 @@ public class PostWriteService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final BookedHistoryRepository bookedHistoryRepository;
+    private final TransactionHistoryRepository transactionHistoryRepository;
     private final UserValidator userValidator;
     private final RegionRepository regionRepository;
 
@@ -95,13 +98,27 @@ public class PostWriteService {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
 
-        Post post = postRepository.getById(postId);
-        post.verifySoftDeleted();
-        post.verifyOwner(user.getId());
+        BookedHistory bookedHistory = bookedHistoryRepository.getByPostIdWithPost(postId);
+        bookedHistory.getPost().verifySoftDeleted();
+        bookedHistory.getPost().verifyOwner(user.getId());
 
-        BookedHistory bookedHistory = bookedHistoryRepository.getByPostId(postId);
+        bookedHistory.getPost().verifyAndStatueChangeSale();
+        bookedHistoryRepository.delete(bookedHistory);
+    }
 
-        post.verifyAndStatueChangeSale();
+    public void soldOut(Long userId, Long postId){
+        User seller = userRepository.getById(userId);
+        userValidator.validateDeleted(seller);
+
+        BookedHistory bookedHistory = bookedHistoryRepository.getByPostIdWithPost(postId);
+        User buyer = userRepository.getById(bookedHistory.getBooker().getId());
+        userValidator.validateDeleted(buyer);
+
+        bookedHistory.getPost().verifySoftDeleted();
+        bookedHistory.getPost().verifyOwner(seller.getId());
+
+        bookedHistory.getPost().verifyAndStatueChangeSoldOut();
+        transactionHistoryRepository.save(TransactionHistory.of(buyer, seller, bookedHistory.getPost(), bookedHistory.getThumbnail()));
         bookedHistoryRepository.delete(bookedHistory);
     }
 }

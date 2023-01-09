@@ -4,6 +4,7 @@ import com.carrot.application.post.domain.entity.BookedHistory;
 import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.post.repository.BookedHistoryRepository;
 import com.carrot.application.post.repository.PostRepository;
+import com.carrot.application.post.repository.TransactionHistoryRepository;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.region.repository.RegionRepository;
 import com.carrot.application.user.domain.User;
@@ -13,10 +14,7 @@ import com.carrot.application.user.service.UserValidator;
 import com.carrot.global.error.CarrotRuntimeException;
 import com.carrot.presentation.request.PostRequest.PostSaveRequest;
 import com.carrot.testutil.ServiceTest;
-import com.carrot.testutil.fixture.PostFixture;
-import com.carrot.testutil.fixture.RegionFixture;
-import com.carrot.testutil.fixture.UserFixture;
-import com.carrot.testutil.fixture.UserRegionFixture;
+import com.carrot.testutil.fixture.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -44,6 +42,9 @@ class PostWriteServiceTest extends ServiceTest {
     private UserRepository userRepository;
     @Mock
     private BookedHistoryRepository bookedHistoryRepository;
+
+    @Mock
+    private TransactionHistoryRepository transactionHistoryRepository;
     @Mock
     private RegionRepository regionRepository;
 
@@ -244,12 +245,11 @@ class PostWriteServiceTest extends ServiceTest {
         //given
         User userFixture = UserFixture.get(1L);
         Post postFixture = PostFixture.getStatue(1L, userFixture, BOOKED);
-        BookedHistory bookedFixture = mock(BookedHistory.class);
+        BookedHistory bookedFixture = BookedHistoryFixture.get(userFixture, postFixture);
 
         //when
         when(userRepository.getById(any())).thenReturn(userFixture);
-        when(postRepository.getById(any())).thenReturn(postFixture);
-        when(bookedHistoryRepository.getByPostId(any())).thenReturn(bookedFixture);
+        when(bookedHistoryRepository.getByPostIdWithPost(any())).thenReturn(bookedFixture);
         doNothing().when(bookedHistoryRepository).delete(bookedFixture);
 
         //then
@@ -262,13 +262,12 @@ class PostWriteServiceTest extends ServiceTest {
     void givenPostId_WhenDeletingBooked_thenThrowNotExistBookedHistory() {
         //given
         User userFixture = UserFixture.get(1L);
-        Post postFixture = PostFixture.getStatue(1L, userFixture, BOOKED);
+        Post postFixture = PostFixture.get(1L, userFixture, null);
 
         //when
         when(userRepository.getById(any())).thenReturn(userFixture);
-        when(postRepository.getById(any())).thenReturn(postFixture);
         doThrow(new CarrotRuntimeException(BOOKED_NOTFOUND_ERROR))
-                .when(bookedHistoryRepository).getByPostId(any());
+                .when(bookedHistoryRepository).getByPostIdWithPost(any());
 
         //then
         CarrotRuntimeException e = assertThrows(CarrotRuntimeException.class,
@@ -282,13 +281,11 @@ class PostWriteServiceTest extends ServiceTest {
         //given
         User userFixture = UserFixture.get(1L);
         Post postFixture = PostFixture.getStatue(1L, userFixture, SALE);
-        BookedHistory bookedFixture = mock(BookedHistory.class);
+        BookedHistory bookedFixture = BookedHistoryFixture.get(userFixture, postFixture);
 
         //when
         when(userRepository.getById(any())).thenReturn(userFixture);
-        when(postRepository.getById(any())).thenReturn(postFixture);
-        when(bookedHistoryRepository.getByPostId(any())).thenReturn(bookedFixture);
-
+        when(bookedHistoryRepository.getByPostIdWithPost(any())).thenReturn(bookedFixture);
 
         //then
         CarrotRuntimeException e = assertThrows(CarrotRuntimeException.class,
