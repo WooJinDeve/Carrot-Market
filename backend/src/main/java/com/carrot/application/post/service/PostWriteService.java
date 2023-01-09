@@ -1,7 +1,9 @@
 package com.carrot.application.post.service;
 
+import com.carrot.application.post.domain.entity.BookedHistory;
 import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.post.domain.entity.PostImage;
+import com.carrot.application.post.repository.BookedHistoryRepository;
 import com.carrot.application.post.repository.PostRepository;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.region.repository.RegionRepository;
@@ -25,6 +27,7 @@ public class PostWriteService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final BookedHistoryRepository bookedHistoryRepository;
     private final UserValidator userValidator;
     private final RegionRepository regionRepository;
 
@@ -64,7 +67,6 @@ public class PostWriteService {
                 request.getCategory(), request.getThumbnail());
     }
 
-
     public void delete(Long userId, Long postId) {
         User user = userRepository.getById(userId);
         Post post = postRepository.getById(postId);
@@ -75,5 +77,31 @@ public class PostWriteService {
         postRepository.delete(post);
     }
 
+    public void booked(Long sellerId, Long postId, Long bookerId){
+        User seller = userRepository.getById(sellerId);
+        User booker = userRepository.getById(bookerId);
+        userValidator.validateDeleted(seller);
+        userValidator.validateDeleted(booker);
 
+        Post post = postRepository.getById(postId);
+        post.verifySoftDeleted();
+        post.verifyOwner(seller.getId());
+
+        post.verifyAndStatueChangeBooked();
+        bookedHistoryRepository.save(BookedHistory.of(seller, booker, post, post.getThumbnail()));
+    }
+
+    public void cancelBooked(Long userId, Long postId){
+        User user = userRepository.getById(userId);
+        userValidator.validateDeleted(user);
+
+        Post post = postRepository.getById(postId);
+        post.verifySoftDeleted();
+        post.verifyOwner(user.getId());
+
+        BookedHistory bookedHistory = bookedHistoryRepository.getByPostId(postId);
+
+        post.verifyAndStatueChangeSale();
+        bookedHistoryRepository.delete(bookedHistory);
+    }
 }

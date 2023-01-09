@@ -132,4 +132,22 @@ public class Post extends BaseEntity {
         if (!Objects.equals(this.user.getId(), userId))
             throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
     }
+
+    public void verifyAndStatueChangeSale(){
+        if (this.statue == SOLD_OUT || this.statue == SALE)
+            throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
+        this.statue = SALE;
+    }
+
+    public void verifyAndStatueChangeBooked(){
+        if (this.statue != SALE)
+            throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
+        this.statue = BOOKED;
+    }
+
+    public void verifyAndStatueChangeSoldOut(){
+        if (this.statue == SALE)
+            throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
+        this.statue = SOLD_OUT;
+    }
 }
