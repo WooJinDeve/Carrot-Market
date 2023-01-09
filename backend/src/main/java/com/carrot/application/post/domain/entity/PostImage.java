@@ -1,4 +1,4 @@
-package com.carrot.application.post.domain;
+package com.carrot.application.post.domain.entity;
 
 import com.carrot.application.common.BaseEntity;
 import lombok.Builder;

@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class PostRequest {
@@ -64,5 +65,15 @@ public class PostRequest {
         @NotBlank
         private String thumbnail;
 
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PostBookedRequest{
+
+        @NotNull
+        private Long bookerId;
     }
 }

@@ -27,6 +27,9 @@ public enum ErrorCode {
     POST_HITS_OVERFLOW_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "조회수가 최대값을 초과했습니다."),
     POST_CATEGORY_NOTFOUND_ERROR(NOT_FOUND, "존재하지 않는 카테고리입니다."),
 
+    BOOKED_NOTFOUND_ERROR(NOT_FOUND, "해당 포스트는 예약된 내역이 없습니다."),
+
+
     //POST LIKE
     POST_LIKE_VALIDATION_ERROR(BAD_REQUEST, "이미 좋아요를 누르셨습니다."),
     POST_LIKE_NOTFOUND_ERROR(NOT_FOUND, "저장된 좋아요 정보가 없습니다."),

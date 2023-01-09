@@ -2,7 +2,7 @@ package com.carrot.application.like.service;
 
 import com.carrot.application.like.domain.PostLike;
 import com.carrot.application.like.repository.PostLikeRepository;
-import com.carrot.application.post.domain.Post;
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.post.repository.PostRepository;
 import com.carrot.application.user.domain.User;
 import com.carrot.application.user.repository.UserRepository;

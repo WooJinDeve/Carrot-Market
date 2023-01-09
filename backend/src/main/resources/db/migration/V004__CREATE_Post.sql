@@ -8,6 +8,7 @@ create table if not exists post
     price                  int NOT NULL,
     thumbnail              varchar(255) NOT NULL,
     category               varchar(255) NOT NULL,
+    status                 varchar(255) NOT NULL,
     hits                   int NOT NULL,
     chat_num               int NOT NULL,
     article_num            int NOT NULL,
