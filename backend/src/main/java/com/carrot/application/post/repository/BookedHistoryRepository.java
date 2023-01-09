@@ -9,7 +9,6 @@ import java.util.Optional;
 import static com.carrot.global.error.ErrorCode.BOOKED_NOTFOUND_ERROR;
 
 public interface BookedHistoryRepository extends JpaRepository<BookedHistory, Long> {
-
     Optional<BookedHistory> findByPostId(Long postId);
 
     default BookedHistory getByPostId(Long postId){

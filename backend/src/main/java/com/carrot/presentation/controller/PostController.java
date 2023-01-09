@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.carrot.presentation.request.PostRequest.PostSaveRequest;
-import static com.carrot.presentation.request.PostRequest.PostUpdateRequest;
+import static com.carrot.presentation.request.PostRequest.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,6 +39,21 @@ public class PostController {
     private Response<Void> delete(@AuthenticationPrincipal LoginUser loginUser,
                                   @PathVariable Long postId){
         postWriteService.delete(loginUser.getId(), postId);
+        return Response.success();
+    }
+
+    @PostMapping("/{postId}/booked")
+    private Response<Void> booked(@AuthenticationPrincipal LoginUser loginUser,
+                                  @PathVariable Long postId,
+                                  @RequestBody PostBookedRequest request){
+        postWriteService.booked(loginUser.getId(), postId, request.getBookerId());
+        return Response.success();
+    }
+
+    @DeleteMapping("/{postId}/booked")
+    private Response<Void> cancelBooked(@AuthenticationPrincipal LoginUser loginUser,
+                                        @PathVariable Long postId){
+        postWriteService.cancelBooked(loginUser.getId(), postId);
         return Response.success();
     }
 }
