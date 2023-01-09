@@ -49,7 +49,7 @@ public class PostFixture {
         return Post.builder()
                 .id(id)
                 .user(user)
-                .statue(statue)
+                .status(statue)
                 .build();
     }
 

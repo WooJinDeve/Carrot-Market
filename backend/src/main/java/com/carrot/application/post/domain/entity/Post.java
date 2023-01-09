@@ -49,7 +49,7 @@ public class Post extends BaseEntity {
     private Content content;
 
     @Enumerated(STRING)
-    private PostStatue statue;
+    private PostStatue status;
 
     @Column(name = "hits", nullable = false)
     private Integer hits;
@@ -75,13 +75,13 @@ public class Post extends BaseEntity {
 
 
     @Builder
-    public Post(Long id, User user, Region region, Content content, PostStatue statue, Integer hits,
+    public Post(Long id, User user, Region region, Content content, PostStatue status, Integer hits,
                 String thumbnail, Category category, Integer chatNum, Integer articleNum, LocalDateTime deletedAt) {
         this.id = id;
         this.user = user;
         this.region = region;
         this.content = content;
-        this.statue = Objects.isNull(statue) ? SALE : statue;
+        this.status = Objects.isNull(status) ? SALE : status;
         this.hits = Objects.isNull(hits) ? 0 : hits;
         this.thumbnail = thumbnail;
         this.category = category;
@@ -133,20 +133,20 @@ public class Post extends BaseEntity {
     }
 
     public void verifyAndStatueChangeSale(){
-        if (this.statue == SOLD_OUT || this.statue == SALE)
+        if (this.status != BOOKED)
             throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
-        this.statue = SALE;
+        this.status = SALE;
     }
 
     public void verifyAndStatueChangeBooked(){
-        if (this.statue != SALE)
+        if (this.status != SALE)
             throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
-        this.statue = BOOKED;
+        this.status = BOOKED;
     }
 
     public void verifyAndStatueChangeSoldOut(){
-        if (this.statue == SALE)
+        if (this.status != BOOKED)
             throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
-        this.statue = SOLD_OUT;
+        this.status = SOLD_OUT;
     }
 }
