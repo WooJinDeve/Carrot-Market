@@ -1,6 +1,7 @@
 package com.carrot.application.post.service;
 
 import com.carrot.application.post.domain.entity.Post;
+import com.carrot.application.post.repository.BookedHistoryRepository;
 import com.carrot.application.post.repository.PostRepository;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.region.repository.RegionRepository;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 
 import static com.carrot.global.error.ErrorCode.*;
 import static com.carrot.presentation.request.PostRequest.PostUpdateRequest;
@@ -38,9 +40,11 @@ class PostWriteServiceTest extends ServiceTest {
     @Mock
     private UserRepository userRepository;
     @Mock
+    private BookedHistoryRepository bookedHistoryRepository;
+    @Mock
     private RegionRepository regionRepository;
 
-    @Mock
+    @Spy
     private UserValidator userValidator;
 
     @DisplayName("[Success] 게시물 생성 요청")
