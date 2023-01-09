@@ -1,6 +1,9 @@
-package com.carrot.application.post.domain;
+package com.carrot.application.post.domain.entity;
 
 import com.carrot.application.common.BaseEntity;
+import com.carrot.application.post.domain.Category;
+import com.carrot.application.post.domain.Content;
+import com.carrot.application.post.domain.PostStatue;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.user.domain.User;
 import com.carrot.global.error.CarrotRuntimeException;

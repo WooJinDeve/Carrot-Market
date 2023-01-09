@@ -1,6 +1,6 @@
 package com.carrot.application.post.service;
 
-import com.carrot.application.post.domain.Post;
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.post.repository.PostRepository;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.region.repository.RegionRepository;

@@ -4,7 +4,7 @@ import com.carrot.application.article.domain.Article;
 import com.carrot.application.article.domain.Reply;
 import com.carrot.application.article.repository.ArticleRepository;
 import com.carrot.application.article.repository.ReplyRepository;
-import com.carrot.application.post.domain.Post;
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.post.repository.PostRepository;
 import com.carrot.application.user.domain.User;
 import com.carrot.application.user.repository.UserRepository;

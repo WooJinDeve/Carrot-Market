@@ -3,7 +3,7 @@ package com.carrot.testutil.fixture;
 import com.carrot.application.article.domain.Article;
 import com.carrot.application.article.domain.Reply;
 import com.carrot.application.article.domain.Sentence;
-import com.carrot.application.post.domain.Post;
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.user.domain.User;
 
 import static com.carrot.presentation.request.ArticleDto.ArticleSaveRequest;

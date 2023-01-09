@@ -1,5 +1,6 @@
 package com.carrot.application.post.domain;
 
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.user.domain.User;
 import com.carrot.global.error.CarrotRuntimeException;
 import com.carrot.testutil.fixture.UserFixture;

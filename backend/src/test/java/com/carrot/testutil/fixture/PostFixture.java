@@ -1,7 +1,7 @@
 package com.carrot.testutil.fixture;
 
 import com.carrot.application.post.domain.Category;
-import com.carrot.application.post.domain.Post;
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.user.domain.User;
 
