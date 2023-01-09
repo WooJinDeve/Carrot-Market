@@ -43,12 +43,12 @@ public class ArticleReadService {
 
     private ArticleItemResponse convertToArticleItemResponses(Article article){
         if (article.isDeleted()){
-            return ArticleItemResponse.softRemoveOf(article, getPageReplies(article.getId(), DEFAULT_PAGE_REQUEST));
+            return ArticleItemResponse.softRemoveOf(article, getReplies(article.getId(), DEFAULT_PAGE_REQUEST));
         }
-        return ArticleItemResponse.of(article, article.getUser(), getPageReplies(article.getId(), DEFAULT_PAGE_REQUEST));
+        return ArticleItemResponse.of(article, article.getUser(), getReplies(article.getId(), DEFAULT_PAGE_REQUEST));
     }
 
-    public ReplyResponses getPageReplies(Long articleId, Pageable pageable){
+    public ReplyResponses getReplies(Long articleId, Pageable pageable){
         Slice<Reply> replies = replyRepository.findAllByArticleIdOrderByIdDesc(articleId, pageable);
         return ReplyResponses.builder()
                 .replies(convertToReplyItemResponses(replies.getContent()))

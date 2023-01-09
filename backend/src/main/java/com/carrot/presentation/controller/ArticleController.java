@@ -33,11 +33,11 @@ public class ArticleController {
         return Response.success(response);
     }
 
-    @GetMapping("/article/{articleId}")
+    @GetMapping("/article/{articleId}/reply")
     public Response<ReplyResponses> getReplies(@PathVariable Long articleId,
                                                 @AuthenticationPrincipal LoginUser loginUser,
                                                 Pageable pageable) {
-        ReplyResponses response = articleReadService.getPageReplies(articleId, pageable);
+        ReplyResponses response = articleReadService.getReplies(articleId, pageable);
         return Response.success(response);
     }
 

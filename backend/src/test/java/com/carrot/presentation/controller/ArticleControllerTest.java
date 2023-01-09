@@ -13,13 +13,17 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
 import static com.carrot.presentation.request.ArticleRequest.ArticleUpdateRequest;
+import static com.carrot.presentation.response.ArticleResponse.ArticleResponses;
+import static com.carrot.presentation.response.ArticleResponse.ReplyResponses;
 import static com.carrot.testutil.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
 import static com.carrot.testutil.fixture.TokenFixture.BEARER_TOKEN;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,6 +37,100 @@ class ArticleControllerTest extends ControllerTest {
 
     @MockBean
     private ArticleReadService articleReadService;
+
+    @DisplayName("[GET] 댓글 조회 - 요청성공")
+    @Test
+    @WithMockUser
+    void givenPostId_whenFinding_thenFindArticleList() throws Exception {
+        //given
+        Long postId = 1L;
+        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
+        query_param.add("size", "20");
+        query_param.add("page", "0");
+
+        ArticleResponses fixture = ArticleFixture.getArticleResponses(20, true);
+
+        //when
+        when(articleReadService.getArticles(eq(postId), any())).thenReturn(fixture);
+
+        final ResultActions perform = mockMvc.perform(get("/api/v1/posts/{postId}/article", postId)
+                .params(query_param)
+                .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
+
+        //then
+        perform.andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("[GET] 댓글 조회시, 로그인하지 않은 경우 - 요청성공")
+    @Test
+    @WithAnonymousUser
+    void givenPostId_whenFinding_thenThrowNotLogin() throws Exception {
+        //given
+        Long postId = 1L;
+        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
+        query_param.add("size", "20");
+        query_param.add("page", "0");
+
+        ArticleResponses fixture = ArticleFixture.getArticleResponses(20, true);
+
+        //when
+        when(articleReadService.getArticles(eq(postId), any())).thenReturn(fixture);
+
+        final ResultActions perform = mockMvc.perform(get("/api/v1/posts/{postId}/article", postId)
+                .params(query_param));
+
+        //then
+        perform.andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @DisplayName("[GET] 대댓글 조회 - 요청성공")
+    @Test
+    @WithMockUser
+    void givenArticleId_whenFinding_thenFindReplyList() throws Exception {
+        //given
+        Long articleId = 1L;
+        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
+        query_param.add("size", "20");
+        query_param.add("page", "0");
+
+        ReplyResponses fixture = ArticleFixture.getReplyResponses(20, true);
+
+        //when
+        when(articleReadService.getReplies(eq(articleId), any())).thenReturn(fixture);
+
+        final ResultActions perform = mockMvc.perform(get("/api/v1/article/{articleId}/reply", articleId)
+                .params(query_param)
+                .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
+
+        //then
+        perform.andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("[GET] 대댓글 조회시, 로그인 하지않은 경우 - 요청성공")
+    @Test
+    @WithAnonymousUser
+    void givenArticleId_whenFinding_thenThrowNotLogin() throws Exception {
+        //given
+        Long articleId = 1L;
+        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
+        query_param.add("size", "20");
+        query_param.add("page", "0");
+
+        ReplyResponses fixture = ArticleFixture.getReplyResponses(20, true);
+
+        //when
+        when(articleReadService.getReplies(eq(articleId), any())).thenReturn(fixture);
+
+        final ResultActions perform = mockMvc.perform(get("/api/v1/article/{articleId}/reply", articleId)
+                .params(query_param));
+
+        //then
+        perform.andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
 
     @DisplayName("[POST] 댓글 저장 - 요청성공")
     @Test

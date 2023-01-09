@@ -42,3 +42,11 @@ Authorization: Bearer {{ access_token }}
 ### 6. 대댓글 삭제
 DELETE {{ local-api }}/api/v1/reply/{{ replyId }}
 Authorization: Bearer {{ access_token }}
+
+### 7. 댓글 조회
+GET {{ local-api }}/api/v1/posts/{{ postId }}/article
+Authorization: Bearer {{ access_token }}
+
+### 8. 대댓글 조회
+GET {{ local-api }}/api/v1/article/{{ articleId }}/reply
+Authorization: Bearer {{ access_token }}
