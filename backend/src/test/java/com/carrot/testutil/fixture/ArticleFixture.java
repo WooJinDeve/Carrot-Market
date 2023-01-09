@@ -29,6 +29,14 @@ public class ArticleFixture {
                 .build();
     }
 
+    public static Reply getReply(Long id, User user){
+        return Reply.builder()
+                .id(id)
+                .sentence(new Sentence(DEFAULT_SENTENCE))
+                .user(user)
+                .build();
+    }
+
     public static Article getDeleted(Long id, User user, Post post){
         return Article.builder()
                 .id(id)
