@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.carrot.application.post.domain.PostStatue.*;
 import static com.carrot.global.error.ErrorCode.*;
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
@@ -44,6 +45,9 @@ public class Post extends BaseEntity {
     @Embedded
     private Content content;
 
+    @Enumerated(STRING)
+    private PostStatue statue;
+
     @Column(name = "hits", nullable = false)
     private Integer hits;
 
@@ -66,13 +70,15 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post", cascade = ALL)
     private List<PostImage> postImages = new ArrayList<>();
 
+
     @Builder
-    public Post(Long id, User user, Region region, Content content, Integer hits, String thumbnail,
-                Category category, Integer chatNum, Integer articleNum, LocalDateTime deletedAt) {
+    public Post(Long id, User user, Region region, Content content, PostStatue statue, Integer hits,
+                String thumbnail, Category category, Integer chatNum, Integer articleNum, LocalDateTime deletedAt) {
         this.id = id;
         this.user = user;
         this.region = region;
         this.content = content;
+        this.statue = statue;
         this.hits = Objects.isNull(hits) ? 0 : hits;
         this.thumbnail = thumbnail;
         this.category = category;
@@ -81,12 +87,14 @@ public class Post extends BaseEntity {
         this.deletedAt = deletedAt;
     }
 
+    /* create post*/
     public static Post of(User user, Region region, String title, String content,
                           Integer price, Category category, String thumbnail){
         return Post.builder()
                 .user(user)
                 .region(region)
                 .content(new Content(title, content, price))
+                .statue(SALE)
                 .category(category)
                 .thumbnail(thumbnail)
                 .build();
