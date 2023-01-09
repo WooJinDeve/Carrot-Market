@@ -81,7 +81,7 @@ public class Post extends BaseEntity {
         this.user = user;
         this.region = region;
         this.content = content;
-        this.statue = statue;
+        this.statue = Objects.isNull(statue) ? SALE : statue;
         this.hits = Objects.isNull(hits) ? 0 : hits;
         this.thumbnail = thumbnail;
         this.category = category;
@@ -97,7 +97,6 @@ public class Post extends BaseEntity {
                 .user(user)
                 .region(region)
                 .content(new Content(title, content, price))
-                .statue(SALE)
                 .category(category)
                 .thumbnail(thumbnail)
                 .build();

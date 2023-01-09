@@ -161,7 +161,7 @@ public class PostControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("[DELETE] 게시물 수정시, 로그인하지 않은 경우 - 요청 실패")
+    @DisplayName("[DELETE] 게시물 삭제시, 로그인하지 않은 경우 - 요청 실패")
     @Test
     @WithAnonymousUser
     void givenPostId_whenDeleting_thenThrowNotLogin() throws Exception {
