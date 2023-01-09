@@ -1,6 +1,9 @@
-package com.carrot.application.post.domain;
+package com.carrot.application.post.domain.entity;
 
 import com.carrot.application.common.BaseEntity;
+import com.carrot.application.post.domain.Category;
+import com.carrot.application.post.domain.Content;
+import com.carrot.application.post.domain.PostStatue;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.user.domain.User;
 import com.carrot.global.error.CarrotRuntimeException;
@@ -46,7 +49,7 @@ public class Post extends BaseEntity {
     private Content content;
 
     @Enumerated(STRING)
-    private PostStatue statue;
+    private PostStatue status;
 
     @Column(name = "hits", nullable = false)
     private Integer hits;
@@ -72,13 +75,13 @@ public class Post extends BaseEntity {
 
 
     @Builder
-    public Post(Long id, User user, Region region, Content content, PostStatue statue, Integer hits,
+    public Post(Long id, User user, Region region, Content content, PostStatue status, Integer hits,
                 String thumbnail, Category category, Integer chatNum, Integer articleNum, LocalDateTime deletedAt) {
         this.id = id;
         this.user = user;
         this.region = region;
         this.content = content;
-        this.statue = statue;
+        this.status = Objects.isNull(status) ? SALE : status;
         this.hits = Objects.isNull(hits) ? 0 : hits;
         this.thumbnail = thumbnail;
         this.category = category;
@@ -94,7 +97,6 @@ public class Post extends BaseEntity {
                 .user(user)
                 .region(region)
                 .content(new Content(title, content, price))
-                .statue(SALE)
                 .category(category)
                 .thumbnail(thumbnail)
                 .build();
@@ -128,5 +130,23 @@ public class Post extends BaseEntity {
     public void verifyOwner(Long userId){
         if (!Objects.equals(this.user.getId(), userId))
             throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
+    }
+
+    public void verifyAndStatueChangeSale(){
+        if (this.status != BOOKED)
+            throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
+        this.status = SALE;
+    }
+
+    public void verifyAndStatueChangeBooked(){
+        if (this.status != SALE)
+            throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
+        this.status = BOOKED;
+    }
+
+    public void verifyAndStatueChangeSoldOut(){
+        if (this.status != BOOKED)
+            throw new CarrotRuntimeException(POST_VALIDATION_ERROR);
+        this.status = SOLD_OUT;
     }
 }

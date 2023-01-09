@@ -1,7 +1,8 @@
 package com.carrot.testutil.fixture;
 
 import com.carrot.application.post.domain.Category;
-import com.carrot.application.post.domain.Post;
+import com.carrot.application.post.domain.PostStatue;
+import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.user.domain.User;
 
@@ -42,6 +43,14 @@ public class PostFixture {
     public static Post get(User user, Region region, PostSaveRequest request){
         return Post.of(user, region, request.getTitle(), request.getContent(), request.getPrice(),
                 request.getCategory(), request.getThumbnail());
+    }
+
+    public static Post getStatue(Long id, User user, PostStatue statue){
+        return Post.builder()
+                .id(id)
+                .user(user)
+                .status(statue)
+                .build();
     }
 
     public static PostSaveRequest getSaveRequest(String title, String content) {
