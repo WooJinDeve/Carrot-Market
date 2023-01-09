@@ -6,8 +6,8 @@ import com.carrot.application.article.domain.Sentence;
 import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.user.domain.User;
 
-import static com.carrot.presentation.request.ArticleDto.ArticleSaveRequest;
-import static com.carrot.presentation.request.ArticleDto.ArticleUpdateRequest;
+import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
+import static com.carrot.presentation.request.ArticleRequest.ArticleUpdateRequest;
 import static java.time.LocalDateTime.now;
 
 public class ArticleFixture {

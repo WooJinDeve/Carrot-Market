@@ -14,8 +14,8 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static com.carrot.presentation.request.ArticleDto.ArticleSaveRequest;
-import static com.carrot.presentation.request.ArticleDto.ArticleUpdateRequest;
+import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
+import static com.carrot.presentation.request.ArticleRequest.ArticleUpdateRequest;
 import static com.carrot.testutil.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
 import static com.carrot.testutil.fixture.TokenFixture.BEARER_TOKEN;
 import static org.mockito.ArgumentMatchers.eq;
