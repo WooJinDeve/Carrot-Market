@@ -1,0 +1,16 @@
+# 사용 포트 관리
+port 6379
+
+# Master 노드의 기본 사용자(default user)의 비밀번호 설정
+requirepass password
+
+
+# maxmemory 에 설정된 용량을 초과했을때 삭제할 데이터 선정 방식
+# - noeviction : 쓰기 동작에 대해 error 반환 (Default)
+# - volatile-lru : expire 가 설정된 key 들중에서 LRU algorithm 에 의해서 선택된 key 제거
+# - allkeys-lru : 모든 key 들 중 LRU algorithm에 의해서 선택된 key 제거
+# - volatile-random : expire 가 설정된 key 들 중 임의의 key 제거
+# - allkeys-random : 모든 key 들 중 임의의 key 제거
+# - volatile-ttl : expire time(TTL)이 가장 적게 남은 key 제거 (minor TTL)
+maxmemory-policy volatile-ttl
+

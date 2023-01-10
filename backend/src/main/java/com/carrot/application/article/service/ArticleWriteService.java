@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.carrot.presentation.request.ArticleDto.*;
-import static com.carrot.presentation.request.ArticleDto.ArticleSaveRequest;
+import static com.carrot.presentation.request.ArticleRequest.*;
+import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
 
 @Service
 @Transactional

@@ -29,6 +29,9 @@ jobs:
           java-version: "11"
           distribution: "temurin"
 
+      - name: build docker-compose
+        run: docker-compose up -d
+
       - name: make env file
         run: |
           cd ./src/main/resources
