@@ -9,13 +9,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
-public abstract class OAuth2ProviderUser implements ProviderUser {
+public abstract class OAuth2ProviderUser implements ProviderUser, Serializable {
 
     private Map<String, Object> attributes;
     private OAuth2User oAuth2User;

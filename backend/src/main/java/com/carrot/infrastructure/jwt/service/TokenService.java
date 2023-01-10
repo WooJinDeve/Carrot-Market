@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TokenService {
     private final TokenCreator tokenCreator;
-
     public Long extractUserId(final String accessToken) {
         return Long.parseLong(tokenCreator.extractPayload(accessToken));
     }
