@@ -14,12 +14,25 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
-  redis:
+
+  redis-cache:
+    hostname: redis-cache
+    container_name: redis-cache
     image: redis:alpine
-    container_name: redis
-    labels:
-      - "name=redis"
-      - "mode=standalone"
-    command: redis-server --requirepass password --port 6379
+    restart: always
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./docker/config/redis_cache.cnf:/etc/redis.conf
     ports:
       - 6379:6379
+
+  redis-session:
+    hostname: redis-session
+    container_name: redis-session
+    image: redis:alpine
+    restart: always
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./docker/config/redis_session.cnf:/etc/redis.conf
+    ports:
+      - 6380:6380

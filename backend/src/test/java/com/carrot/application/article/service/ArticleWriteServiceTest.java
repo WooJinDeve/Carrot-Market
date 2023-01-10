@@ -20,8 +20,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static com.carrot.global.error.ErrorCode.*;
-import static com.carrot.presentation.request.ArticleDto.ArticleSaveRequest;
-import static com.carrot.presentation.request.ArticleDto.ArticleUpdateRequest;
+import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
+import static com.carrot.presentation.request.ArticleRequest.ArticleUpdateRequest;
 import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;

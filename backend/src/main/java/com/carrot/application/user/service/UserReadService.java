@@ -5,7 +5,6 @@ import com.carrot.application.user.domain.UserRegion;
 import com.carrot.application.user.dto.UserRequest;
 import com.carrot.application.user.repository.UserRegionRepository;
 import com.carrot.application.user.repository.UserRepository;
-import com.carrot.presentation.response.UserRegionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.carrot.presentation.response.UserResponse.UserRegionResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,8 @@ public class UserReadService {
     private final RegionService regionService;
 
 
-    public List<UserRegionResponse> findRegion(Long id) {
+    @Cacheable(key = "#id", cacheNames = "MEMBER_REGION")
+    public List<UserRegionResponse> getRegion(Long id) {
         return userRegionRepository.findByIdAndFetchRegion(id)
                 .stream().map(UserRegionResponse::of)
                 .collect(Collectors.toList());
@@ -39,7 +41,7 @@ public class UserReadService {
         return UserRequest.of(userRepository.getById(id));
     }
 
-    @Cacheable(key = "#id", cacheNames = "MEMBER_REGION")
+    @Cacheable(key = "#id", cacheNames = "MEMBER_REGION_SURROUND")
     public List<Long> findSurroundAreaByUserRegion(final Long id) {
         List<UserRegion> userRegions = userRegionRepository.findByIdAndFetchRegion(id);
 

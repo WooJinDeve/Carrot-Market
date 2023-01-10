@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
-public class ArticleDto {
+public class ArticleRequest {
 
     @Getter
     @Builder
