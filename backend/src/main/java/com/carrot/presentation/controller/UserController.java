@@ -4,12 +4,13 @@ import com.carrot.application.user.dto.LoginUser;
 import com.carrot.application.user.service.UserReadService;
 import com.carrot.application.user.service.UserWriteService;
 import com.carrot.global.common.Response;
-import com.carrot.presentation.response.UserRegionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.carrot.presentation.response.UserResponse.UserRegionResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class UserController {
     private final UserReadService userReadService;
 
     @GetMapping("/location")
-    public Response<List<UserRegionResponse>> findRegion(@AuthenticationPrincipal LoginUser loginUser) {
-        List<UserRegionResponse> response = userReadService.findRegion(loginUser.getId());
+    public Response<List<UserRegionResponse>> getRegion(@AuthenticationPrincipal LoginUser loginUser) {
+        List<UserRegionResponse> response = userReadService.getRegion(loginUser.getId());
         return Response.success(response);
     }
 

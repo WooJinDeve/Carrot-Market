@@ -24,14 +24,14 @@ public class TestSecurityConfig {
     private TokenService tokenService;
 
     @BeforeTestMethod
-    public void securitySetup(){
+    public void securitySetup() {
         given(tokenService.extractUserId(anyString()))
                 .willReturn(USER_ID);
         given(userReadService.getUser(USER_ID))
                 .willReturn(mockUser());
     }
 
-    private UserRequest mockUser(){
+    private UserRequest mockUser() {
         return UserRequest.builder()
                 .id(USER_ID)
                 .email("mock@naver.com")
