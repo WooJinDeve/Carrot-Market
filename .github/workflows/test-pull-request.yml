@@ -30,7 +30,7 @@ jobs:
           distribution: "temurin"
 
       - name: build docker-compose
-        run: ./docker-compose up -d
+        run: docker-compose up -d
 
       - name: make env file
         run: |
