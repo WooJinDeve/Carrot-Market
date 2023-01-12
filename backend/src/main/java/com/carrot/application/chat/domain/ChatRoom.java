@@ -3,6 +3,8 @@ package com.carrot.application.chat.domain;
 import com.carrot.application.common.BaseEntity;
 import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.user.domain.User;
+import com.carrot.global.error.CarrotRuntimeException;
+import com.carrot.global.error.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import static com.carrot.global.error.ErrorCode.CHATROOM_NOTFOUND_ERROR;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -59,5 +63,30 @@ public class ChatRoom extends BaseEntity {
         this.buyer = buyer;
         this.post = post;
         this.deletedAt = deletedAt;
+    }
+
+    public static ChatRoom of(User seller, User buyer, Post post){
+        return ChatRoom.builder()
+                .seller(seller)
+                .buyer(buyer)
+                .post(post)
+                .build();
+    }
+
+    public void verifyOrganizer(Long userId){
+        if (Objects.equals(seller.getId(), userId) || Objects.equals(buyer.getId(), userId)){
+            return;
+        }
+        throw new CarrotRuntimeException(ErrorCode.USER_NOTFOUND_ERROR);
+    }
+
+    public void verifySoftDeleted() {
+        post.verifySoftDeleted();
+        if (isDeleted())
+            throw new CarrotRuntimeException(CHATROOM_NOTFOUND_ERROR);
+    }
+
+    public boolean isDeleted(){
+        return Objects.nonNull(deletedAt);
     }
 }

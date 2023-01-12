@@ -1,0 +1,11 @@
+### 1. 채팅방 생성
+POST http://localhost:8080/api/v1/posts/{{postId}}/chatRooms
+Authorization: Bearer {{ access_token }}
+
+### 2. 채팅방 전체 조회
+GET http://localhost:8080/api/v1/chatRooms?page=0&size=20
+Authorization: Bearer {{ access_token }}
+
+### 3. 채팅방 내용 전체 조회
+GET http://localhost:8080/api/v1/chatRooms/{{chatRoomId}}/messages
+Authorization: Bearer {{ access_token }}

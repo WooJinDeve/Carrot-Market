@@ -41,6 +41,13 @@ public enum ErrorCode {
     ARTICLE_NOTFOUND_ERROR(NOT_FOUND, "존재하지 않는 댓글입니다."),
     ARTICLE_VALIDATION_ERROR(UNAUTHORIZED, "해당 댓글에 관한 권한이 없습니다."),
 
+
+    //CHAT
+    CHATROOM_NOTFOUND_ERROR(NOT_FOUND, "존재하지 않는 채팅방입니다."),
+
+    CHAT_VALIDATION_ERROR(UNAUTHORIZED, "해당 채팅방에 관한 권한이 없습니다."),
+
+
     //OAUTH2
     OAUTH2_TYPE_VALIDATION_ERROR(UNAUTHORIZED, "지원하지않는 소셜로그인입니다."),
 
