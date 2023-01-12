@@ -2,9 +2,6 @@ package com.carrot.global.config;
 
 import com.carrot.global.config.properties.RedisCacheProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.CacheManager;
@@ -30,6 +27,7 @@ import java.time.Duration;
 public class RedisCacheConfiguration extends CachingConfigurerSupport {
 
     private final RedisCacheProperties redisCacheProperties;
+    private final ObjectMapper objectMapper;
 
     @Bean(name = "redisCacheConnectionFactory")
     public RedisConnectionFactory redisCacheConnectionFactory() {
@@ -40,14 +38,6 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
         return new LettuceConnectionFactory(configuration);
     }
 
-    @Bean("cacheObjectMapper")
-    public ObjectMapper cacheObjectMapper() {
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        mapper.registerModules(new JavaTimeModule(), new Jdk8Module());
-        return mapper;
-    }
 
     @Bean
     @Override
@@ -56,7 +46,7 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
                 .defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext
                         .SerializationPair
-                        .fromSerializer(new GenericJackson2JsonRedisSerializer(cacheObjectMapper())))
+                        .fromSerializer(new GenericJackson2JsonRedisSerializer(objectMapper)))
                 .entryTtl(Duration.ofSeconds(60L));
 
         return RedisCacheManager.RedisCacheManagerBuilder
@@ -66,8 +56,7 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
     }
 
     @Bean(name = "redisCacheTemplate")
-    public RedisTemplate<String, Object> redisCacheTemplate(@Qualifier(value = "redisCacheConnectionFactory") RedisConnectionFactory redisConnectionFactory,
-                                                            @Qualifier(value = "cacheObjectMapper") ObjectMapper objectMapper) {
+    public RedisTemplate<String, Object> redisCacheTemplate(@Qualifier(value = "redisCacheConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
@@ -76,8 +65,7 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
     }
 
     @Bean("stringRedisCacheTemplate")
-    public StringRedisTemplate cacheStrRedisTemplate(@Qualifier(value = "redisCacheConnectionFactory") RedisConnectionFactory redisConnectionFactory,
-                                                     @Qualifier(value = "cacheObjectMapper") ObjectMapper objectMapper) {
+    public StringRedisTemplate cacheStrRedisTemplate(@Qualifier(value = "redisCacheConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
 
         StringRedisTemplate strRedisTemplate = new StringRedisTemplate();
         strRedisTemplate.setConnectionFactory(redisConnectionFactory);

@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.carrot.presentation.response.ChatResponse.RecentChatMessageResponse;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -20,6 +22,8 @@ public class ChatWriteService {
 
     private final ChatMessageRepository chatMessageRepository;
     private final ChatRoomRepository chatRoomRepository;
+    private final RedisMessageBrokerService redisMessageBrokerService;
+
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final UserValidator userValidator;
@@ -45,6 +49,8 @@ public class ChatWriteService {
         chatRoom.verifySoftDeleted();
         chatRoom.verifyOrganizer(userId);
 
-        chatMessageRepository.save(ChatMessage.of(chatRoom, sender, message));
+        ChatMessage chatMessage = chatMessageRepository.save(ChatMessage.of(chatRoom, sender, message));
+        redisMessageBrokerService.sender(RecentChatMessageResponse.of(chatMessage));
+
     }
 }
