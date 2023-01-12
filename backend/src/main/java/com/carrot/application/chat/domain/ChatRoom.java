@@ -10,10 +10,11 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
@@ -47,6 +48,9 @@ public class ChatRoom extends BaseEntity {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatMessage> chatMessages = new ArrayList<>();
 
     @Builder
     public ChatRoom(Long id, User seller, User buyer, Post post, LocalDateTime deletedAt) {

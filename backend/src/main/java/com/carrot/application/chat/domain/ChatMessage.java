@@ -15,9 +15,9 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Getter
 @Entity
-@Table(name = "chatting")
+@Table(name = "chat_message")
 @NoArgsConstructor(access = PROTECTED)
-public class Chatting extends BaseEntity {
+public class ChatMessage extends BaseEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "chat_id")
@@ -36,7 +36,7 @@ public class Chatting extends BaseEntity {
     private String message;
 
     @Builder
-    public Chatting(Long id, ChatRoom chatRoom, User user, String message) {
+    public ChatMessage(Long id, ChatRoom chatRoom, User user, String message) {
         this.id = id;
         this.chatRoom = chatRoom;
         this.user = user;
