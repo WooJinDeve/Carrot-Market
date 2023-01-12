@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.carrot.presentation.response.UserResponse.UserProfileResponse;
+
 public class ChatResponse {
 
     @Getter
@@ -20,7 +22,7 @@ public class ChatResponse {
     public static class RecentChatMessageResponse implements Serializable {
         private Long chatRoomId;
         private Long chatId;
-        private Long userId;
+        private UserProfileResponse userProfile;
         private String message;
         private LocalDateTime createdAt;
 
@@ -28,7 +30,7 @@ public class ChatResponse {
             return RecentChatMessageResponse.builder()
                     .chatRoomId(chatMessage.getChatRoom().getId())
                     .chatId(chatMessage.getId())
-                    .userId(chatMessage.getUser().getId())
+                    .userProfile(UserProfileResponse.of(chatMessage.getUser()))
                     .message(chatMessage.getMessage())
                     .createdAt(chatMessage.getCreatedAt())
                     .build();
@@ -43,6 +45,7 @@ public class ChatResponse {
     public static class ChatMessageResponses{
         private Long chatRoomId;
         private List<ChatMessageResponse> responses;
+        private boolean hasNext;
     }
 
     @Getter
@@ -52,13 +55,14 @@ public class ChatResponse {
     public static class ChatMessageResponse {
         private Long chatId;
         private Long userId;
+        private UserProfileResponse user;
         private String message;
         private LocalDateTime createdAt;
 
         public static ChatMessageResponse of(ChatMessage chatMessage){
             return ChatMessageResponse.builder()
                     .chatId(chatMessage.getId())
-                    .userId(chatMessage.getUser().getId())
+                    .user(UserProfileResponse.of(chatMessage.getUser()))
                     .message(chatMessage.getMessage())
                     .createdAt(chatMessage.getCreatedAt())
                     .build();
@@ -79,17 +83,20 @@ public class ChatResponse {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ChatRoomResponse{
-        private Long chatRoomId;
-        private Long sellerId;
-        private Long buyerId;
+    public static class ChatRoomResponse {
 
-        public static ChatRoomResponse of(ChatRoom chatRoom){
+
+        private Long chatRoomId;
+        private UserProfileResponse seller;
+        private UserProfileResponse buyer;
+
+        public static ChatRoomResponse of(ChatRoom chatRoom) {
             return ChatRoomResponse.builder()
                     .chatRoomId(chatRoom.getId())
-                    .sellerId(chatRoom.getSeller().getId())
-                    .buyerId(chatRoom.getBuyer().getId())
+                    .seller(UserProfileResponse.of(chatRoom.getSeller()))
+                    .buyer(UserProfileResponse.of(chatRoom.getBuyer()))
                     .build();
         }
+
     }
 }

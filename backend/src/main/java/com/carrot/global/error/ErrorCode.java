@@ -52,6 +52,7 @@ public enum ErrorCode {
     OAUTH2_TYPE_VALIDATION_ERROR(UNAUTHORIZED, "지원하지않는 소셜로그인입니다."),
 
     //JWT
+    TOKEN_NOTFOUND_ERROR(NOT_FOUND, "인증 토큰이 존재하지 않습니다."),
     TOKEN_VALIDATION_ERROR(UNAUTHORIZED, "회원의 리프레시 토큰이 아닙니다."),
     HEADER_NOTFOUND_ERROR(BAD_REQUEST, "헤더가 존재하지 않습니다."),
 

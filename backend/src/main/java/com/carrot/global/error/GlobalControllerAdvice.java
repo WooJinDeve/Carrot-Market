@@ -13,7 +13,7 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(CarrotRuntimeException.class)
     public ResponseEntity<?> applicationHandler(CarrotRuntimeException e){
-        log.error("[Error]  ", e);
+        log.error("[Error]  {} ", e.getMessage());
         return ResponseEntity.status(e.getErrorCode().getStatus())
                 .body(Response.error(e.getErrorCode().name()));
     }

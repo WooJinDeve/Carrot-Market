@@ -12,20 +12,11 @@ import java.util.Optional;
 
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
 
-    @Query("SELECT cr FROM ChatRoom cr JOIN FETCH cr.chatMessages WHERE cr.id = :id")
-    Optional<ChatRoom> findByIdWithChatMessage(Long id);
-
-    @Query("SELECT cr FROM ChatRoom cr WHERE cr.seller.id = :userId OR cr.buyer.id = :userId")
+    @Query("SELECT cr FROM ChatRoom cr JOIN FETCH cr.buyer JOIN FETCH cr.seller WHERE cr.seller.id = :userId OR cr.buyer.id = :userId")
     Slice<ChatRoom> findAllBySenderIdOrReceiverIdOrderByUpdatedAt(Long userId, Pageable pageable);
 
     @Query("SELECT cr FROM ChatRoom cr JOIN FETCH cr.post WHERE cr.id = :id")
     Optional<ChatRoom> findByIdWithPost(Long id);
-
-
-    default ChatRoom getByIdWithChatMessage(Long id){
-        return findByIdWithChatMessage(id)
-                .orElseThrow(() -> new CarrotRuntimeException(ErrorCode.CHATROOM_NOTFOUND_ERROR));
-    }
 
     default ChatRoom getByIdWithPost(Long id){
         return findByIdWithPost(id)

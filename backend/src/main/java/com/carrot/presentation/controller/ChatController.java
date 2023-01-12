@@ -22,7 +22,7 @@ public class ChatController {
 
     @PostMapping("/posts/{postId}/chatRooms")
     public Response<Void> create(@PathVariable Long postId,
-                             @AuthenticationPrincipal LoginUser loginUser){
+                                 @AuthenticationPrincipal LoginUser loginUser) {
         chatWriteService.create(loginUser.getId(), postId);
         return Response.success();
     }
@@ -37,8 +37,9 @@ public class ChatController {
 
     @GetMapping("/chatRooms/{chatRoomId}/messages")
     public Response<ChatMessageResponses> getByMessage(@PathVariable Long chatRoomId,
-                                                       @AuthenticationPrincipal LoginUser loginUser){
-        ChatMessageResponses responses = chatReadService.getByChatRoomIdWithMessage(chatRoomId);
+                                                       @AuthenticationPrincipal LoginUser loginUser,
+                                                       Pageable pageable) {
+        ChatMessageResponses responses = chatReadService.getByChatRoomIdWithMessage(chatRoomId, pageable);
         return Response.success(responses);
     }
 }

@@ -31,6 +31,7 @@ public class RedisMessageConfiguration {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
         configuration.setHostName(redisMessageProperties.getHost());
         configuration.setPort(redisMessageProperties.getPort());
+        configuration.setPassword(redisMessageProperties.getPassword());
         return new LettuceConnectionFactory(configuration);
     }
 
