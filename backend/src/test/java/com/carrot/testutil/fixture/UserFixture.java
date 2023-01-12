@@ -11,12 +11,14 @@ public class UserFixture {
 
     private static final String BASIC_EMAIL = "basic@gmail.com";
     private static final String BASIC_NICKNAME = "BASIC_NICKNAME";
+    private static final String BASIC_PROFILE_IMAGE = "BASIC_PROFILE_IMAGE";
 
     public static User get(Long id){
         return User.builder()
                 .id(id)
                 .email(new Email(BASIC_EMAIL))
                 .nickname(new Nickname(BASIC_NICKNAME))
+                .profileUrl(BASIC_PROFILE_IMAGE)
                 .build();
     }
 

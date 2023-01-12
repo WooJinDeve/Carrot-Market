@@ -23,7 +23,6 @@ public class ChatWriteService {
     private final ChatMessageRepository chatMessageRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final RedisMessageBrokerService redisMessageBrokerService;
-
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final UserValidator userValidator;
@@ -51,6 +50,16 @@ public class ChatWriteService {
 
         ChatMessage chatMessage = chatMessageRepository.save(ChatMessage.of(chatRoom, sender, message));
         redisMessageBrokerService.sender(RecentChatMessageResponse.of(chatMessage));
+    }
 
+
+    public void delete(Long userId, Long chatRoomId) {
+        User user = userRepository.getById(userId);
+        userValidator.validateDeleted(user);
+
+        ChatRoom chatRoom = chatRoomRepository.getById(chatRoomId);
+        chatRoom.verifyOrganizer(userId);
+
+        chatRoomRepository.delete(chatRoom);
     }
 }

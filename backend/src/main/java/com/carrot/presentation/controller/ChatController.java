@@ -42,4 +42,11 @@ public class ChatController {
         ChatMessageResponses responses = chatReadService.getByChatRoomIdWithMessage(chatRoomId, pageable);
         return Response.success(responses);
     }
+
+    @DeleteMapping("/chatRooms/{chatRoomId}")
+    public Response<Void> delete(@PathVariable Long chatRoomId,
+                                 @AuthenticationPrincipal LoginUser loginUser){
+        chatWriteService.delete(loginUser.getId(), chatRoomId);
+        return Response.success();
+    }
 }

@@ -54,7 +54,6 @@ public class ChatResponse {
     @AllArgsConstructor
     public static class ChatMessageResponse {
         private Long chatId;
-        private Long userId;
         private UserProfileResponse user;
         private String message;
         private LocalDateTime createdAt;
