@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class CustomObjectMapperConfiguration {
 
     @Bean
-    public ObjectMapper objectMapper() {
+    public ObjectMapper ObjectMapper() {
         return new ObjectMapper()
                 .findAndRegisterModules()
                 .enable(SerializationFeature.INDENT_OUTPUT)

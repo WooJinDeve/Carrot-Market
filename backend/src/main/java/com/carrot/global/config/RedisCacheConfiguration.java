@@ -14,12 +14,13 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
+
+import static org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair;
 
 @Configuration
 @EnableCaching
@@ -28,6 +29,7 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
 
     private final RedisCacheProperties redisCacheProperties;
     private final ObjectMapper objectMapper;
+
 
     @Bean(name = "redisCacheConnectionFactory")
     public RedisConnectionFactory redisCacheConnectionFactory() {
@@ -44,10 +46,10 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
     public CacheManager cacheManager() {
         org.springframework.data.redis.cache.RedisCacheConfiguration redisConfiguration = org.springframework.data.redis.cache.RedisCacheConfiguration
                 .defaultCacheConfig()
-                .serializeValuesWith(RedisSerializationContext
-                        .SerializationPair
-                        .fromSerializer(new GenericJackson2JsonRedisSerializer(objectMapper)))
-                .entryTtl(Duration.ofSeconds(60L));
+                .disableCachingNullValues()
+                .entryTtl(Duration.ofMinutes(10))
+                .serializeKeysWith(SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(SerializationPair.fromSerializer(new JdkSerializationRedisSerializer()));
 
         return RedisCacheManager.RedisCacheManagerBuilder
                 .fromConnectionFactory(redisCacheConnectionFactory())
@@ -64,12 +66,5 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
         return redisTemplate;
     }
 
-    @Bean("stringRedisCacheTemplate")
-    public StringRedisTemplate cacheStrRedisTemplate(@Qualifier(value = "redisCacheConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
 
-        StringRedisTemplate strRedisTemplate = new StringRedisTemplate();
-        strRedisTemplate.setConnectionFactory(redisConnectionFactory);
-        strRedisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer(objectMapper));
-        return strRedisTemplate;
-    }
 }

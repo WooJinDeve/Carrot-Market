@@ -26,6 +26,7 @@ public class RedisMessageConfiguration {
     private final RedisMessageProperties redisMessageProperties;
     private final ObjectMapper objectMapper;
 
+
     @Bean(name = "redisMessageConnectionFactory")
     public RedisConnectionFactory redisMessageConnectionFactory() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
