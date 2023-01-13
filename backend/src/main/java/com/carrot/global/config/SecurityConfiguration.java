@@ -54,6 +54,7 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests()
                     .antMatchers("**/swagger", "**/swagger-ui.html", "**/swagger-ui/**").permitAll()
+                    .antMatchers("**/location/**", "**/location").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin().disable()

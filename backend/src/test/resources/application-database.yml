@@ -26,3 +26,8 @@ spring:
       host: localhost
       port: 6380
       password: password
+
+    message:
+      host: localhost
+      port: 6381
+      password: password

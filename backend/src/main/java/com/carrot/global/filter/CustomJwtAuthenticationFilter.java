@@ -1,6 +1,7 @@
 package com.carrot.global.filter;
 
 import com.carrot.application.user.dto.LoginUser;
+import com.carrot.application.user.dto.UserRequest;
 import com.carrot.application.user.service.UserReadService;
 import com.carrot.global.error.CarrotRuntimeException;
 import com.carrot.infrastructure.jwt.service.TokenExtractor;
@@ -45,7 +46,8 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
         final String token = TokenExtractor.extract(request);
         final Long userId = tokenService.extractUserId(token);
 
-        LoginUser loginUser = LoginUser.of(userReadService.getUser(userId));
+        UserRequest user = userReadService.getUser(userId);
+        LoginUser loginUser = LoginUser.of(user);
 
         return new UsernamePasswordAuthenticationToken(
                 loginUser, null,

@@ -24,7 +24,7 @@ services:
     volumes:
       - ./docker/config/redis_cache.cnf:/etc/redis.conf
     ports:
-      - 6379:6379
+      - "6379:6379"
 
   redis-session:
     hostname: redis-session
@@ -35,4 +35,15 @@ services:
     volumes:
       - ./docker/config/redis_session.cnf:/etc/redis.conf
     ports:
-      - 6380:6380
+      - "6380:6380"
+
+  redis-message:
+    hostname: redis-message
+    container_name: redis-message
+    image: redis:alpine
+    restart: always
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./docker/config/redis_message.cnf:/etc/redis.conf
+    ports:
+      - "6381:6381"
