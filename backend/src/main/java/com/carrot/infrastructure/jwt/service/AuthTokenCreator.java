@@ -1,10 +1,13 @@
 package com.carrot.infrastructure.jwt.service;
 
 
-import com.carrot.infrastructure.jwt.token.AuthToken;
+import com.carrot.global.error.CarrotRuntimeException;
 import com.carrot.infrastructure.jwt.repository.TokenRepository;
+import com.carrot.infrastructure.jwt.token.AuthToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import static com.carrot.global.error.ErrorCode.TOKEN_NOTFOUND_ERROR;
 
 @Component
 @RequiredArgsConstructor
@@ -44,6 +47,14 @@ public class AuthTokenCreator implements TokenCreator{
     @Override
     public String extractPayload(String accessToken) {
         tokenProvider.validateToken(accessToken);
-        return tokenProvider.getPayload(accessToken);
+        String id = tokenProvider.getPayload(accessToken);
+        validateExistToken(id);
+        return id;
+    }
+
+    private void validateExistToken(String id){
+        if (!tokenRepository.exist(id)){
+            throw new CarrotRuntimeException(TOKEN_NOTFOUND_ERROR);
+        }
     }
 }
