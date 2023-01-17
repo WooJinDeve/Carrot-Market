@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NotificationArgs {
 
-    //알람을 발생시킨 사람
+    //알람을 발생시킨 사람 userId
     private Long senderId;
     //알람을 발생시킨 주체 ex) postId, likeId
     private Long targetId;

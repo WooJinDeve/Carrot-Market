@@ -11,5 +11,4 @@ import org.springframework.transaction.annotation.Transactional;
 public class NotificationReadService {
 
     private final NotificationRepository notificationRepository;
-
 }
