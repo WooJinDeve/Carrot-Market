@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import static com.carrot.presentation.response.NotificationResponse.NotifyResponses;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -20,10 +22,10 @@ public class NotificationController {
     private final NotificationWriteService notificationWriteService;
 
     @GetMapping("/notification")
-    public Response<?> alarm(@AuthenticationPrincipal LoginUser loginUser,
-                             Pageable pageable){
-
-        return null;
+    public Response<NotifyResponses> notification(@AuthenticationPrincipal LoginUser loginUser,
+                                                  Pageable pageable){
+        NotifyResponses responses = notificationReadService.getNotifications(loginUser.getId(), pageable);
+        return Response.success(responses);
     }
 
     @GetMapping("/notification/subscribe")
