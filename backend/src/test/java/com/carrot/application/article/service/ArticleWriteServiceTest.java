@@ -10,6 +10,7 @@ import com.carrot.application.user.domain.User;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.application.user.service.UserValidator;
 import com.carrot.global.error.CarrotRuntimeException;
+import com.carrot.infrastructure.kafka.producer.NotificationProducer;
 import com.carrot.testutil.ServiceTest;
 import com.carrot.testutil.fixture.ArticleFixture;
 import com.carrot.testutil.fixture.PostFixture;
@@ -18,6 +19,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
+import org.springframework.context.ApplicationEventPublisher;
 
 import static com.carrot.global.error.ErrorCode.*;
 import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
@@ -46,6 +49,8 @@ class ArticleWriteServiceTest extends ServiceTest {
     @Mock
     private PostRepository postRepository;
 
+    @Spy
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @DisplayName("[Success] 댓글 등록 요청 성공")
     @Test

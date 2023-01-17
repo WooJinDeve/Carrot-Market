@@ -2,6 +2,8 @@ package com.carrot.application.article.service;
 
 import com.carrot.application.article.domain.Article;
 import com.carrot.application.article.domain.Reply;
+import com.carrot.application.article.event.NewCommentNotificationEvent;
+import com.carrot.application.article.event.NewReplyNotificationEvent;
 import com.carrot.application.article.repository.ArticleRepository;
 import com.carrot.application.article.repository.ReplyRepository;
 import com.carrot.application.post.domain.entity.Post;
@@ -10,11 +12,12 @@ import com.carrot.application.user.domain.User;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.application.user.service.UserValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.carrot.presentation.request.ArticleRequest.*;
 import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
+import static com.carrot.presentation.request.ArticleRequest.ArticleUpdateRequest;
 
 @Service
 @Transactional
@@ -27,6 +30,8 @@ public class ArticleWriteService {
     private final UserValidator userValidator;
     private final PostRepository postRepository;
 
+    private final ApplicationEventPublisher publisher;
+
     public void saveArticle(final Long userId, final Long postId, final ArticleSaveRequest request) {
         User user = userRepository.getById(userId);
         userValidator.validateDeleted(user);
@@ -34,7 +39,8 @@ public class ArticleWriteService {
         Post post = postRepository.getById(postId);
         post.verifySoftDeleted();
 
-        articleRepository.save(Article.of(user, post, request.getSentence()));
+        Article article = articleRepository.save(Article.of(user, post, request.getSentence()));
+        publisher.publishEvent(new NewCommentNotificationEvent(userId, post.getUser().getId(), article.getId()));
     }
 
     public void saveReply(final Long userId, final Long articleId, final ArticleSaveRequest request) {
@@ -44,7 +50,8 @@ public class ArticleWriteService {
         Article article = articleRepository.getByIdWithPost(articleId);
         article.getPost().verifySoftDeleted();
 
-        replyRepository.save(Reply.of(user, article, request.getSentence()));
+        Reply reply = replyRepository.save(Reply.of(user, article, request.getSentence()));
+        publisher.publishEvent(new NewReplyNotificationEvent(userId, article.getUser().getId(), reply.getId()));
     }
 
     public void updateArticle(final Long userId, final Long articleId, final ArticleUpdateRequest request) {
