@@ -19,7 +19,7 @@ public class NotificationController {
     private final NotificationReadService notificationReadService;
     private final NotificationWriteService notificationWriteService;
 
-    @GetMapping("/alarm")
+    @GetMapping("/notification")
     public Response<?> alarm(@AuthenticationPrincipal LoginUser loginUser,
                              Pageable pageable){
 
@@ -28,6 +28,6 @@ public class NotificationController {
 
     @GetMapping("/notification/subscribe")
     public SseEmitter subscribe(@AuthenticationPrincipal LoginUser loginUser){
-        return null;
+        return notificationWriteService.connect(loginUser.getId());
     }
 }

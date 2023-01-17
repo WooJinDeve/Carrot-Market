@@ -47,6 +47,8 @@ public enum ErrorCode {
 
     CHAT_VALIDATION_ERROR(UNAUTHORIZED, "해당 채팅방에 관한 권한이 없습니다."),
 
+    //NOTIFICATION
+    NOTIFICATION_CONNECT_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Connecting alarm occurs error"),
 
     //OAUTH2
     OAUTH2_TYPE_VALIDATION_ERROR(UNAUTHORIZED, "지원하지않는 소셜로그인입니다."),
