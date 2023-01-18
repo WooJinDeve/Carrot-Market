@@ -16,6 +16,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.Optional;
 
@@ -40,12 +42,15 @@ class PostLikeWriteServiceTest extends ServiceTest {
     @Mock
     private UserValidator userValidator;
 
+    @Spy
+    private ApplicationEventPublisher publisher;
+
     @DisplayName("[Success] 게시물 좋아요 요청")
     @Test
     void 게시물_좋아요_요청() {
         //given
         User userFixture = UserFixture.get(1L);
-        Post postFixture = PostFixture.get(1L);
+        Post postFixture = PostFixture.get(1L, userFixture, null);
 
         //when
         when(userRepository.getById(any())).thenReturn(userFixture);

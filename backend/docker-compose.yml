@@ -47,3 +47,23 @@ services:
       - ./docker/config/redis_message.cnf:/etc/redis.conf
     ports:
       - "6381:6381"
+
+  zookeeper:
+    container_name: zookeeper
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    container_name: kafka
+    image: wurstmeister/kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_CREATE_TOPICS: "notification_topic:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

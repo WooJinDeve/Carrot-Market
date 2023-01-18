@@ -1,0 +1,13 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: notification
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic:
+      notification: notification_topic

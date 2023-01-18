@@ -18,6 +18,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
+import org.springframework.context.ApplicationEventPublisher;
 
 import static com.carrot.global.error.ErrorCode.*;
 import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
@@ -46,6 +48,8 @@ class ArticleWriteServiceTest extends ServiceTest {
     @Mock
     private PostRepository postRepository;
 
+    @Spy
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @DisplayName("[Success] 댓글 등록 요청 성공")
     @Test
@@ -54,7 +58,7 @@ class ArticleWriteServiceTest extends ServiceTest {
         ArticleSaveRequest request = ArticleFixture.getSaveRequest("sentence");
 
         User userFixture = UserFixture.get(1L);
-        Post postFixture = PostFixture.get(1L);
+        Post postFixture = PostFixture.get(1L, userFixture, null);
 
         //when
         when(userRepository.getById(any())).thenReturn(userFixture);
