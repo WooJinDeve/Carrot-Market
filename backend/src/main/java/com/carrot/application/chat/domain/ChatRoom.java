@@ -26,7 +26,7 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 @Getter
 @Entity
 @Table(name = "chat_room")
-@SQLDelete(sql = "UPDATE USER SET deleted_at = NOW() WHERE id = ?")
+@SQLDelete(sql = "UPDATE ChatRoom SET deleted_at = NOW() WHERE id = ?")
 @NoArgsConstructor(access = PROTECTED)
 public class ChatRoom extends BaseEntity {
 

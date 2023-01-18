@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: database, jwt, oauth2
+    include: database, jwt, oauth2, kafka
 
   flyway:
     enabled: false

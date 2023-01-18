@@ -33,6 +33,9 @@ dependencies {
 
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
+	//kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+
 	//api spec
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
 

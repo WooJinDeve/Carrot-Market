@@ -9,6 +9,8 @@ import static org.springframework.http.HttpStatus.*;
 public enum ErrorCode {
     //USER
     EMAIL_VALIDATION_ERROR(BAD_REQUEST, "이메일 형식이 잘못되었습니다."),
+    MANNERTEMPERATURE_OVERFLOW_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "매너온도가 최대값을 초과했습니다."),
+
     NICKNAME_LENGTH_VALIDATION_ERROR(BAD_REQUEST, "닉네임의 길이가 15을 초과했습니다."),
     USER_NOTFOUND_ERROR(NOT_FOUND, "존재하지 않는 회원입니다."),
     USER_REGION_NOT_SAVE_REGION(UNAUTHORIZED, "저장된 지역 정보가 존재하지 않습니다"),
@@ -47,6 +49,8 @@ public enum ErrorCode {
 
     CHAT_VALIDATION_ERROR(UNAUTHORIZED, "해당 채팅방에 관한 권한이 없습니다."),
 
+    //NOTIFICATION
+    NOTIFICATION_CONNECT_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Connecting alarm occurs error"),
 
     //OAUTH2
     OAUTH2_TYPE_VALIDATION_ERROR(UNAUTHORIZED, "지원하지않는 소셜로그인입니다."),

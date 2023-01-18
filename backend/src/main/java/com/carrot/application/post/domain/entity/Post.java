@@ -29,7 +29,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Table(name = "post")
 @Getter
-@SQLDelete(sql = "UPDATE USER SET deleted_at = NOW() WHERE id = ?")
+@SQLDelete(sql = "UPDATE POST SET deleted_at = NOW() WHERE id = ?")
 @NoArgsConstructor(access = PROTECTED)
 public class Post extends BaseEntity {
 

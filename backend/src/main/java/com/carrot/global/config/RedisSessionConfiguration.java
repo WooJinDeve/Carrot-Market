@@ -14,6 +14,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -38,6 +39,15 @@ public class RedisSessionConfiguration extends AbstractHttpSessionApplicationIni
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
+        return redisTemplate;
+    }
+
+    @Bean(name = "redisSessionSseEmitterTemplate")
+    public RedisTemplate<String, SseEmitter> redisSessionSseEmitterTemplate(@Qualifier("redisSessionConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, SseEmitter> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        redisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
+        redisTemplate.setKeySerializer(new GenericJackson2JsonRedisSerializer());
         return redisTemplate;
     }
 }
