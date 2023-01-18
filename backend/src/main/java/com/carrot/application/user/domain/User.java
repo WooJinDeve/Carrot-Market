@@ -3,7 +3,6 @@ package com.carrot.application.user.domain;
 
 import com.carrot.application.common.BaseEntity;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.global.error.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +10,11 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+import static com.carrot.global.error.ErrorCode.USER_REGION_NOTFOUND_ERROR;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -87,7 +89,7 @@ public class User extends BaseEntity {
         return this.userRegions.stream()
                 .filter(UserRegion::isRepresentative)
                 .findAny()
-                .orElseThrow(() -> new CarrotRuntimeException(ErrorCode.USER_REGION_NOTFOUND_ERROR));
+                .orElseThrow(() -> new CarrotRuntimeException(USER_REGION_NOTFOUND_ERROR));
     }
 
     public boolean isDeleted(){

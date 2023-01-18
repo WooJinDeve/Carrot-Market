@@ -1,5 +1,7 @@
 package com.carrot.application.user.domain;
 
+import com.carrot.global.error.CarrotRuntimeException;
+import com.carrot.global.error.ErrorCode;
 import com.carrot.infrastructure.util.ClassUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +25,14 @@ public class MannerTemperature {
 
     public MannerTemperature(Double mannerTemperature) {
         ClassUtils.checkNotNullParameter(mannerTemperature, Double.class);
+        verifyOverflowCheck(mannerTemperature);
         this.mannerTemperature = mannerTemperature;
+    }
+
+    private void verifyOverflowCheck(Double mannerTemperature){
+        if (mannerTemperature > MAX_MANNER_TEMPERATURE || mannerTemperature < MIN_MANNER_TEMPERATURE){
+            throw new CarrotRuntimeException(ErrorCode.MANNERTEMPERATURE_OVERFLOW_ERROR);
+        }
     }
 
     public static MannerTemperature create(){
