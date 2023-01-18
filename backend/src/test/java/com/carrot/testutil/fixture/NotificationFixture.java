@@ -1,6 +1,9 @@
 package com.carrot.testutil.fixture;
 
+import com.carrot.application.notification.domain.Notification;
 import com.carrot.application.notification.domain.NotificationArgs;
+import com.carrot.application.notification.domain.NotificationType;
+import com.carrot.application.user.domain.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +15,15 @@ import static com.carrot.presentation.response.NotificationResponse.NotifyRespon
 import static com.carrot.presentation.response.NotificationResponse.NotifyResponses;
 
 public class NotificationFixture {
+
+
+    public static Notification get(User receiver, NotificationType type, NotificationArgs args){
+        return Notification.builder()
+                .receiver(receiver)
+                .type(type)
+                .args(args)
+                .build();
+    }
 
 
     public static NotifyResponses getNotifyResponses(long size, boolean hasNext){

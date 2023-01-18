@@ -8,7 +8,6 @@ import com.carrot.application.notification.repository.NotificationRepository;
 import com.carrot.application.user.domain.User;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+
+import static com.carrot.global.error.ErrorCode.NOTIFICATION_CONNECT_ERROR;
 
 @Slf4j
 @Service
@@ -35,14 +36,21 @@ public class NotificationWriteService {
         User receiver = userRepository.getById(userId);
         Notification notification = notificationRepository.save(Notification.of(receiver, type, args));
 
-        emitterRepository.get(userId).ifPresentOrElse(sseEmitter -> {
-            try {
-                sseEmitter.send(SseEmitter.event().id(notification.getId().toString()).name(NOTIFICATION_NAME).data("new alarm"));
-            } catch (IOException e) {
-                emitterRepository.delete(userId);
-                throw new CarrotRuntimeException(ErrorCode.NOTIFICATION_CONNECT_ERROR);
-            }
-        }, () -> log.info("[INFO] No emitter founded : {}", userId));
+        emitterRepository.get(userId)
+                .ifPresentOrElse(sseEmitter -> sendToClient(sseEmitter, notification.getId(), userId, notification.getType().name()),
+                        () -> log.info("[INFO] No emitter founded : {}", userId));
+    }
+
+    private void sendToClient(SseEmitter sseEmitter, Long notifyId, Long userId, Object data) {
+        try {
+            sseEmitter.send(SseEmitter.event()
+                    .id(String.valueOf(notifyId))
+                    .name(NOTIFICATION_NAME)
+                    .data(data));
+        } catch (IOException e) {
+            emitterRepository.delete(userId);
+            throw new CarrotRuntimeException(NOTIFICATION_CONNECT_ERROR);
+        }
     }
 
     @SneakyThrows

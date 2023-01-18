@@ -14,7 +14,4 @@ class NotificationReadServiceTest extends ServiceTest {
 
     @Mock
     private NotificationRepository notificationRepository;
-
-
-
 }
