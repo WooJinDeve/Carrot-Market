@@ -23,7 +23,7 @@ class MannerTemperatureTest {
     @DisplayName("[Success] 매너온도 생성 요청")
     @ParameterizedTest
     @ValueSource(doubles = {99, 0, 1, 98})
-    void givenEmail_whenConstruct_thenConstructedEmail(final Double mannerTemperature) {
+    void givenMannerTemperature_whenConstruct_thenConstructedMannerTemperature(final Double mannerTemperature) {
         Assertions.assertThatCode(() -> new MannerTemperature(mannerTemperature))
                 .doesNotThrowAnyException();
     }
