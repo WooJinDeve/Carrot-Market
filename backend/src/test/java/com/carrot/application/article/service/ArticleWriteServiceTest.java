@@ -10,7 +10,6 @@ import com.carrot.application.user.domain.User;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.application.user.service.UserValidator;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.infrastructure.kafka.producer.NotificationProducer;
 import com.carrot.testutil.ServiceTest;
 import com.carrot.testutil.fixture.ArticleFixture;
 import com.carrot.testutil.fixture.PostFixture;
@@ -59,7 +58,7 @@ class ArticleWriteServiceTest extends ServiceTest {
         ArticleSaveRequest request = ArticleFixture.getSaveRequest("sentence");
 
         User userFixture = UserFixture.get(1L);
-        Post postFixture = PostFixture.get(1L);
+        Post postFixture = PostFixture.get(1L, userFixture, null);
 
         //when
         when(userRepository.getById(any())).thenReturn(userFixture);
