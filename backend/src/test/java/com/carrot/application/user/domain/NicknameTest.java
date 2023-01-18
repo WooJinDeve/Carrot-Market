@@ -14,7 +14,7 @@ class NicknameTest {
     @DisplayName("[Error] 닉네임 길이가가 최대범위를 넘어가면 오류가 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"aaaaaaaaaaaaaaaa"})
-    void givenMannerTemperature_whenConstruct_thenThrowValidateMannerTemperature(final String nickname) {
+    void givenNickname_whenConstruct_thenThrowValidateNickname(final String nickname) {
         Assertions.assertThatCode(() -> new Nickname(nickname))
                 .isInstanceOf(CarrotRuntimeException.class)
                 .hasMessage(NICKNAME_LENGTH_VALIDATION_ERROR.getMessage());
@@ -23,7 +23,7 @@ class NicknameTest {
     @DisplayName("[Success] 닉네임 생성 요청")
     @ParameterizedTest
     @ValueSource(strings = {"a", "aaaaaaaaaaaaaaa"})
-    void givenEmail_whenConstruct_thenConstructedEmail(final String nickname) {
+    void givenNickname_whenConstruct_thenConstructedNickname(final String nickname) {
         Assertions.assertThatCode(() -> new Nickname(nickname))
                 .doesNotThrowAnyException();
     }
