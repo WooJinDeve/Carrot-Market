@@ -11,11 +11,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 import static com.carrot.presentation.response.ChatResponse.ChatMessageResponses;
 import static com.carrot.presentation.response.ChatResponse.ChatRoomResponses;
+import static com.carrot.support.QueryParamUtil.QueryParam;
 import static com.carrot.support.fixture.ChatFixture.getChatMessageResponses;
 import static com.carrot.support.fixture.ChatFixture.getChatRoomResponses;
 import static com.carrot.support.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
@@ -112,9 +111,6 @@ public class ChatControllerTest extends ControllerTest {
     void givenUserId_whenFinding_thenFindChatRoomList() throws Exception {
         //given
         Long userId = 1L;
-        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
-        query_param.add("size", "20");
-        query_param.add("page", "0");
 
         ChatRoomResponses fixture = getChatRoomResponses(userId, 20L, true);
 
@@ -122,7 +118,7 @@ public class ChatControllerTest extends ControllerTest {
         when(chatReadService.getPageChatRoom(eq(userId), any())).thenReturn(fixture);
 
         final ResultActions perform = mockMvc.perform(get("/api/v1/chatRooms")
-                .params(query_param)
+                .params(QueryParam())
                 .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
 
         //then
@@ -151,9 +147,6 @@ public class ChatControllerTest extends ControllerTest {
         //given
         Long chatRoomId = 1L;
         Long userId = 1L;
-        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
-        query_param.add("size", "20");
-        query_param.add("page", "0");
 
         ChatMessageResponses fixture = getChatMessageResponses(chatRoomId, userId, 20L, true);
 
@@ -161,7 +154,7 @@ public class ChatControllerTest extends ControllerTest {
         when(chatReadService.getByChatRoomIdWithMessage(eq(chatRoomId), any())).thenReturn(fixture);
 
         final ResultActions perform = mockMvc.perform(get("/api/v1/chatRooms/{chatRoomId}/messages", chatRoomId)
-                .params(query_param)
+                .params(QueryParam())
                 .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
 
         //then

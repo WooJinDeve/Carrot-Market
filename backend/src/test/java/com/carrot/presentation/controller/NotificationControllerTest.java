@@ -12,11 +12,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import static com.carrot.presentation.response.NotificationResponse.NotifyResponses;
+import static com.carrot.support.QueryParamUtil.QueryParam;
 import static com.carrot.support.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
 import static com.carrot.support.fixture.TokenFixture.BEARER_TOKEN;
 import static org.mockito.ArgumentMatchers.any;
@@ -44,9 +43,6 @@ public class NotificationControllerTest extends ControllerTest {
     void givenUserId_whenFinding_thenFindNotifyResponses() throws Exception {
         //given
         Long userId = 1L;
-        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
-        query_param.add("size", "20");
-        query_param.add("page", "0");
 
         NotifyResponses fixture = NotificationFixture.getNotifyResponses(20, true);
 
@@ -54,7 +50,7 @@ public class NotificationControllerTest extends ControllerTest {
         when(notificationReadService.getNotifications(eq(userId), any())).thenReturn(fixture);
 
         final ResultActions perform = mockMvc.perform(get("/api/v1/notifications")
-                .params(query_param)
+                .params(QueryParam())
                 .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
 
         //then
@@ -65,15 +61,10 @@ public class NotificationControllerTest extends ControllerTest {
     @DisplayName("[GET] 알림 페이징 조회시, 로그인하지 않은 경우 - 요청실패")
     @Test
     @WithAnonymousUser
-    void given_whenFinding_thenThrowNotLogin() throws Exception {
-        //given
-        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
-        query_param.add("size", "20");
-        query_param.add("page", "0");
-
+    void whenFinding_thenThrowNotLogin() throws Exception {
         //when
         final ResultActions perform = mockMvc.perform(get("/api/v1/notifications")
-                .params(query_param));
+                .params(QueryParam()));
 
         //then
         perform.andDo(print())

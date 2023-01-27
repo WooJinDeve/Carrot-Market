@@ -36,8 +36,8 @@ public class PostLikeControllerTest extends ControllerTest {
     @DisplayName("[POST] 게시물 좋아요 - 요청성공")
     @Test
     @WithMockUser
-    void 게시물_좋아요 () throws Exception {
-        //then
+    void givenUserIdAndPostId_whenSaving_thenSaveOfLike () throws Exception {
+        //given
         Long userId = 1L;
         Long postId = 1L;
 
@@ -55,8 +55,8 @@ public class PostLikeControllerTest extends ControllerTest {
     @DisplayName("[POST] 게시물 좋아요 요청시, 로그인 하지않은 유저의 경우 - 요청실패")
     @Test
     @WithAnonymousUser
-    void 게시물_좋아요시_로그인_하지않은_유저의_경우() throws Exception {
-        //then
+    void givenUserIdAndPostId_whenSaving_thenThrowNotLogin() throws Exception {
+        //given
         Long postId = 1L;
 
         //when
@@ -70,8 +70,8 @@ public class PostLikeControllerTest extends ControllerTest {
     @DisplayName("[DELETE] 게시물 좋아요 취소 - 요청 성공")
     @Test
     @WithMockUser
-    void 게시물_좋아요_취소() throws Exception {
-        //then
+    void givenUserIdAndPostId_whenCancel_thenCancelOfLike() throws Exception {
+        //given
         Long userId = 1L;
         Long postId = 1L;
 
@@ -89,8 +89,8 @@ public class PostLikeControllerTest extends ControllerTest {
     @DisplayName("[DELETE] 게시물 좋아요 취소시, 로그인 하지않은 유저의 경우 - 요청실패")
     @Test
     @WithAnonymousUser
-    void 게시물_좋아요_취소시_로그인_하지않은_유저의_경우() throws Exception {
-        //then
+    void givenUserIdAndPostId_whenCancel_thenThrowNotLogin() throws Exception {
+        //given
         Long postId = 1L;
 
         //when

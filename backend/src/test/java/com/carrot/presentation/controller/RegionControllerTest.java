@@ -33,7 +33,7 @@ class RegionControllerTest extends ControllerTest {
     @DisplayName("[GET] 지역명으로 지역정보 검색 - 요청성공")
     @Test
     @WithMockUser
-    void 지역명으로_지역정보_검색() throws Exception {
+    void givenParam_whenSearching_thenRegionList() throws Exception {
         //given
         MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
         query_param.add("state", "none");
@@ -54,7 +54,7 @@ class RegionControllerTest extends ControllerTest {
     @DisplayName("[GET]지역명으로 지역정보 검색 요청시 로그인하지 않은 경우")
     @Test
     @WithAnonymousUser
-    void 지역명으로_지역정보_검색시_로그인하지_않은_경우() throws Exception {
+    void givenParam_whenSearching_thenThrowNotLogin() throws Exception {
         //given
         MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
         query_param.add("state", "none");
