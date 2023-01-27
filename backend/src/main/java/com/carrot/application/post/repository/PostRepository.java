@@ -9,7 +9,10 @@ import java.util.Optional;
 
 import static com.carrot.global.error.ErrorCode.*;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long>, PostCustomRepository {
+
+    @Query("SELECT p FROM Post p JOIN FETCH p.region, p.user, p.postImages WHERE p.id = :id")
+    Optional<Post> findByIdWithRegionAndUserAndImage(Long id);
 
     @Query("SELECT p FROM Post p JOIN FETCH p.user WHERE p.id = :id")
     Optional<Post> findByIdWithUser(Long id);
