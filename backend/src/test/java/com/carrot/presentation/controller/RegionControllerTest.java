@@ -2,7 +2,7 @@ package com.carrot.presentation.controller;
 
 import com.carrot.application.region.service.RegionService;
 import com.carrot.config.TestSecurityConfig;
-import com.carrot.testutil.ControllerTest;
+import com.carrot.support.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import static com.carrot.testutil.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
-import static com.carrot.testutil.fixture.TokenFixture.BEARER_TOKEN;
+import static com.carrot.support.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
+import static com.carrot.support.fixture.TokenFixture.BEARER_TOKEN;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

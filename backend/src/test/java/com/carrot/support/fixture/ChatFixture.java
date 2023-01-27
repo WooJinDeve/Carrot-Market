@@ -1,4 +1,4 @@
-package com.carrot.testutil.fixture;
+package com.carrot.support.fixture;
 
 import com.carrot.application.chat.domain.ChatMessage;
 import com.carrot.application.chat.domain.ChatRoom;

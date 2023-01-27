@@ -1,7 +1,7 @@
 package com.carrot.application.region.service;
 
 import com.carrot.application.region.repository.RegionRepository;
-import com.carrot.testutil.ServiceTest;
+import com.carrot.support.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,8 +1,8 @@
 package com.carrot.application.article.domain;
 
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.testutil.fixture.ArticleFixture;
-import com.carrot.testutil.fixture.UserFixture;
+import com.carrot.support.fixture.ArticleFixture;
+import com.carrot.support.fixture.UserFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

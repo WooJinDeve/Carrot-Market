@@ -1,4 +1,4 @@
-package com.carrot.testutil;
+package com.carrot.support;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

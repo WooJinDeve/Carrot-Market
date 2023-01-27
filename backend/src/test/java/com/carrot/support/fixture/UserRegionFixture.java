@@ -1,4 +1,4 @@
-package com.carrot.testutil.fixture;
+package com.carrot.support.fixture;
 
 import com.carrot.application.region.domain.Region;
 import com.carrot.application.user.domain.User;

@@ -1,4 +1,4 @@
-package com.carrot.testutil.fixture;
+package com.carrot.support.fixture;
 
 import com.carrot.application.post.domain.Category;
 import com.carrot.application.post.domain.PostStatue;

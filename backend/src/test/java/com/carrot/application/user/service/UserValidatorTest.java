@@ -2,8 +2,8 @@ package com.carrot.application.user.service;
 
 import com.carrot.application.user.domain.User;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.testutil.ServiceTest;
-import com.carrot.testutil.fixture.UserFixture;
+import com.carrot.support.ServiceTest;
+import com.carrot.support.fixture.UserFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

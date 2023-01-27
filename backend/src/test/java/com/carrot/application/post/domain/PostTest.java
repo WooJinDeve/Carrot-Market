@@ -3,7 +3,7 @@ package com.carrot.application.post.domain;
 import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.user.domain.User;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.testutil.fixture.UserFixture;
+import com.carrot.support.fixture.UserFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
