@@ -1,6 +1,6 @@
 package com.carrot.presentation.controller;
 
-import com.carrot.application.post.service.PostReadService;
+import com.carrot.application.post.service.TransactionHistoryReadService;
 import com.carrot.application.user.dto.LoginUser;
 import com.carrot.global.common.Response;
 import lombok.RequiredArgsConstructor;
@@ -17,19 +17,19 @@ import static com.carrot.presentation.response.TransactionHistoryResponse.Transa
 @RequestMapping("/api/v1")
 public class TransactionHistoryController {
 
-    private final PostReadService postReadService;
+    private final TransactionHistoryReadService transactionHistoryReadService;
 
     @GetMapping("/purchase-history")
     public Response<TransactionHistoryListResponses> getBuyingHistories(@AuthenticationPrincipal LoginUser loginUser,
                                                                         final Pageable pageable){
-        TransactionHistoryListResponses responses = postReadService.findByPurchaseHistories(loginUser.getId(), pageable);
+        TransactionHistoryListResponses responses = transactionHistoryReadService.findByPurchaseHistories(loginUser.getId(), pageable);
         return Response.success(responses);
     }
 
     @GetMapping("/sale-history")
     public Response<TransactionHistoryListResponses> getSalesHistories(@AuthenticationPrincipal LoginUser loginUser,
                                                                        final Pageable pageable){
-        TransactionHistoryListResponses responses = postReadService.findBySalesHistories(loginUser.getId(), pageable);
+        TransactionHistoryListResponses responses = transactionHistoryReadService.findBySalesHistories(loginUser.getId(), pageable);
         return Response.success(responses);
     }
 }
