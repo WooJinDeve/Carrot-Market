@@ -41,7 +41,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Sucess] OAuth2 회원가입을 진행하고, 회원의 ID를 반환한다.")
     @Test
-    void OAuth2_회원가입을_진행한다(){
+    void givenUserId_whenSaving_thenRegisterOAuth2User(){
         //given
         ProviderUser mock = mock(ProviderUser.class);
         Long id = 1L;
@@ -57,7 +57,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Sucess] 유저 지역정보를 저장한다")
     @Test
-    void 유저_지역정보를_저장한다(){
+    void givenUserIdAndRegionId_whenSaving_thenSaveUserRegionInformation(){
         //given
         Long userid = 1L;
         Long regionId = 1L;
@@ -77,7 +77,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 유저 지역정보 저장시, 탈퇴 회원을 검증한다.")
     @Test
-    void 유저_지역정보_저장시_탈퇴_회원을_검증() {
+    void givenUserIdAndRegionId_whenVerifying_thenThrowValidDeletedUser() {
         //given
         Long userid = 1L;
         Long regionId = 1L;
@@ -97,7 +97,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 유저 지역정보 저장시, 지역이 없는 경우")
     @Test
-    void 유저_지역정보_저장시_지역이_없는_경우() {
+    void givenUserIdAndRegionId_whenVerify_thenThrowValidNotExistUserRegion() {
         //given
         Long userid = 1L;
         Long regionId = 1L;
@@ -117,7 +117,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 유저 지역정보 저장시, 이미 해당 지역이 저장된 경우")
     @Test
-    void 유저_지역정보_저장시_이미_해당_지역이_저장된_경우() {
+    void givenUserIdAndRegionId_whenVerify_thenThrowValidDuplicatedRegion() {
         //given
         Long userid = 1L;
         Long regionId = 1L;
@@ -139,7 +139,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 유저 지역정보 저장시, 사용자의 지역 정보가 2개 이상 저장된 경우")
     @Test
-    void 유저_지역정보_저장시_사용자의_지역_정보가_2개_이상_저장된_경우() {
+    void givenUserIdAndRegionId_whenVerify_thenThrowValidNotOverTwoUserRegion() {
         //given
         Long userid = 1L;
         Long regionId = 1L;
@@ -161,7 +161,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Success] 사용자 지역 삭제 요청")
     @Test
-    void 사용자_지역_삭제_요청() {
+    void givenUserIdAndUserRegionId_whenDeleting_thenDeletedUser() {
         //given
         Long userid = 1L;
         Long userRegionId = 1L;
@@ -181,7 +181,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 사용자 지역 삭제 요청시, 탈퇴 회원을 검증한다.")
     @Test
-    void 사용자_지역_삭제_요청시_탈퇴_회원을_검증한다() {
+    void givenUserIdAndUserRegionId_whenDeleting_thenThrowValidSoftDeletedUser() {
         //given
         Long userid = 1L;
         Long userRegionId = 1L;
@@ -200,7 +200,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 사용자 지역 삭제 요청시, 저장된 지역정보가 없는 경우")
     @Test
-    void 사용자_지역_삭제_요청시_저장된_지역정보가_없는_경우() {
+    void givenUserIdAndUserRegionId_whenDeleting_thenThrowValidNotExistUserRegionInformation() {
         //given
         Long userid = 1L;
         Long userRegionId = 1L;
@@ -221,7 +221,7 @@ class UserWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 사용자 지역 삭제 요청시, 해당 사용자와 지역정보의 회원이 일치하지 않은 경우")
     @Test
-    void 사용자_지역_삭제_요청시_지역정보의_회원이_일치하지_않은_경우() {
+    void givenUserIdAndUserRegionId_whenDeleting_thenThrowValidNotMatchRegionInformation() {
         //given
         Long userid = 1L;
         Long userRegionId = 1L;

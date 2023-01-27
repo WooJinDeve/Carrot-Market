@@ -23,7 +23,7 @@ public class RegionServiceTest extends ServiceTest {
 
     @DisplayName("[Success] 행정동 기반 지역 검색 요청")
     @Test
-    void 행정동_기반_지역_검색_요청() {
+    void givenState_whenSearching_thenRegionList() {
         //given
         String state = "노은";
         Pageable pageable = mock(Pageable.class);
