@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static com.carrot.presentation.request.PostRequest.*;
+import static com.carrot.presentation.response.PostResponse.PostDetailResponse;
 import static com.carrot.presentation.response.PostResponse.PostListResponses;
 
 @RestController
@@ -32,6 +33,13 @@ public class PostController {
                 request.getTitle(),
                 pageable);
         return Response.success(responses);
+    }
+
+    @GetMapping("/{postId}")
+    public Response<PostDetailResponse> getById(@AuthenticationPrincipal LoginUser loginUser,
+                                                @PathVariable Long postId) {
+        PostDetailResponse response = postReadService.findById(postId);
+        return Response.success(response);
     }
 
     @PostMapping

@@ -13,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.carrot.presentation.response.PostResponse.PostListResponse;
-import static com.carrot.presentation.response.PostResponse.PostListResponses;
+import static com.carrot.presentation.response.PostResponse.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,6 +22,12 @@ public class PostReadService {
 
     private final PostRepository postRepository;
     private final UserReadService userReadService;
+
+    public PostDetailResponse findById(final Long postId){
+        final Post post = postRepository.getByIdByIdWithRegionAndUserAndImage(postId);
+        post.verifySoftDeleted();
+        return PostDetailResponse.of(post);
+    }
 
     public PostListResponses findBySearchConditions(final Long userId, final Category category,
                                                     final String title, final Pageable pageable) {
@@ -36,7 +41,7 @@ public class PostReadService {
 
     private List<PostListResponse> convertToPostListResponse(List<Post> posts) {
         return posts.stream()
-                .map(PostListResponse::new)
+                .map(PostListResponse::of)
                 .collect(Collectors.toList());
     }
 }
