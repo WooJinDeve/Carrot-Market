@@ -2,8 +2,8 @@ package com.carrot.application.user.service;
 
 import com.carrot.application.user.domain.User;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.testutil.ServiceTest;
-import com.carrot.testutil.fixture.UserFixture;
+import com.carrot.support.ServiceTest;
+import com.carrot.support.fixture.UserFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -20,7 +20,7 @@ public class UserValidatorTest extends ServiceTest {
 
     @DisplayName("[Success] 유저 재가입을 검증한 후, 재가입을 시도한다.")
     @Test
-    void 유저_재가입검증() {
+    void givenUser_whenSave_thenReRegister() {
         //given
         User fixture = UserFixture.get(1L, now());
 
@@ -33,7 +33,7 @@ public class UserValidatorTest extends ServiceTest {
 
     @DisplayName("[Success] 유저 재가입을 검증한 후, 탈퇴회원이 아닌 경우 로직을 실행하지 않는다.")
     @Test
-    void 유저_재가입검증_탈퇴회원아닌_경우_리턴() {
+    void givenUser_whenSave_thenThrowValidUserStateIdNotDeleted() {
         //given
         User fixture = UserFixture.get(1L);
 
@@ -46,7 +46,7 @@ public class UserValidatorTest extends ServiceTest {
 
     @DisplayName("[Error] 탈퇴 회원을 검증한다")
     @Test
-    void 탈퇴_회원을_검증한다() throws Exception {
+    void givenUser_whenVerify_thenValid() {
         //then
         User fixture = UserFixture.get(1L, now());
 
@@ -58,7 +58,7 @@ public class UserValidatorTest extends ServiceTest {
 
     @DisplayName("[Success] 탈퇴 회원을 검증시, 탈퇴 회원아 아닌경우 리턴한다.")
     @Test
-    void 탈퇴_회원을_검증시_탈퇴회원이_아닌경우() throws Exception {
+    void givenUser_whenVerify_thenThrowValidUserStateIdNotDeleted() {
         //then
         User fixture = UserFixture.get(1L);
 

@@ -1,0 +1,7 @@
+### 1. 구매 이력 조회
+GET http://localhost:8080/api/v1/purchase-history
+Authorization: Bearer {{ access_token }}
+
+### 1. 판매 이력 조회
+GET http://localhost:8080/api/v1/sale-history
+Authorization: Bearer {{ access_token }}

@@ -18,6 +18,15 @@ public class PostRequest {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class PostSearchRequest {
+        private String title;
+        private Category category;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class PostSaveRequest {
         @NotBlank
         @Length(max = 50)

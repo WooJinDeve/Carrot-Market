@@ -1,4 +1,4 @@
-package com.carrot.testutil;
+package com.carrot.support;
 
 import com.carrot.global.config.JpaConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

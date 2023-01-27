@@ -21,6 +21,20 @@ Content-Type: application/json
   ]
 }
 
+### 게시물 조회
+GET {{ local-api }}/api/v1/posts
+Authorization: Bearer {{ access_token }}
+Content-Type: application/json
+
+{
+  "title": ""
+}
+
+### 게시물 조회 단건
+GET {{ local-api }}/api/v1/posts/{{postId}}
+Authorization: Bearer {{ access_token }}
+Content-Type: application/json
+
 
 ### 게시물 수정
 PUT {{ local-api }}/api/v1/posts/{postId}

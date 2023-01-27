@@ -67,6 +67,9 @@ public class Post extends BaseEntity {
     @Column(name = "article_num", nullable = false)
     private Integer articleNum;
 
+    @Column(name = "like_num", nullable = false)
+    private Integer likeNum;
+
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
@@ -76,7 +79,8 @@ public class Post extends BaseEntity {
 
     @Builder
     public Post(Long id, User user, Region region, Content content, PostStatue status, Integer hits,
-                String thumbnail, Category category, Integer chatNum, Integer articleNum, LocalDateTime deletedAt) {
+                String thumbnail, Category category, Integer chatNum, Integer articleNum, Integer likeNum,
+                LocalDateTime deletedAt) {
         this.id = id;
         this.user = user;
         this.region = region;
@@ -87,6 +91,7 @@ public class Post extends BaseEntity {
         this.category = category;
         this.chatNum = Objects.isNull(chatNum) ? 0 : chatNum;
         this.articleNum = Objects.isNull(articleNum) ? 0 : articleNum;
+        this.likeNum = Objects.isNull(likeNum) ? 0 : likeNum;
         this.deletedAt = deletedAt;
     }
 

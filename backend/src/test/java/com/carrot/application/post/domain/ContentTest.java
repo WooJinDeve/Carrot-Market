@@ -12,7 +12,7 @@ class ContentTest {
 
     @DisplayName("[Success] Content 생성 요청")
     @Test
-    void Content_생성_요청() {
+    void givenContentRequest_whenCreating_thenCreatedContent() {
         //given
         String title = "title";
         String content = "content";
@@ -30,7 +30,7 @@ class ContentTest {
 
     @DisplayName("[Error] 제목이 50자를 초과할 경우 예외발생")
     @Test
-    void 제목이_50자를_초과할_경우_예외발생() throws Exception {
+    void givenContentRequest_whenVerify_thenThrowValidTitleIsOverFifty() {
         //given
         String title = "title".repeat(11);
         String content = "content";
