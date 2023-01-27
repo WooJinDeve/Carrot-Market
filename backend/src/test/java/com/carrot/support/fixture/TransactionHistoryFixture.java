@@ -1,5 +1,9 @@
 package com.carrot.support.fixture;
 
+import com.carrot.application.post.domain.entity.Post;
+import com.carrot.application.post.domain.entity.TransactionHistory;
+import com.carrot.application.user.domain.User;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -8,6 +12,15 @@ import static com.carrot.presentation.response.TransactionHistoryResponse.Transa
 import static com.carrot.presentation.response.TransactionHistoryResponse.TransactionHistoryListResponses;
 
 public class TransactionHistoryFixture {
+
+    public static TransactionHistory get(Long id, User buyer, User seller, Post post){
+        return TransactionHistory.builder()
+                .id(id)
+                .buyer(buyer)
+                .seller(seller)
+                .post(post)
+                .build();
+    }
 
     public static TransactionHistoryListResponses getTransactionHistoryListResponses(long size, boolean hasNext){
         return TransactionHistoryListResponses.builder()

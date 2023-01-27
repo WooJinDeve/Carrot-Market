@@ -1,6 +1,7 @@
 package com.carrot.support.fixture;
 
 import com.carrot.application.post.domain.Category;
+import com.carrot.application.post.domain.Content;
 import com.carrot.application.post.domain.PostStatue;
 import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.region.domain.Region;
@@ -20,6 +21,7 @@ public class PostFixture {
     private static final String BASIC_ORIGIN1 = "BASIC_IMAGE1";
     private static final String BASIC_IMAGE2 = "http://BASIC_IMAGE2.com";
     private static final String BASIC_ORIGIN2 = "BASIC_IMAGE2";
+    private static final Content BASIC_CONTENT = new Content("TITLE", "CONTENT", 100);
 
     private static final List<ImageSaveRequest> BASIC_IMAGES = List.of(
             new ImageSaveRequest(BASIC_IMAGE1, BASIC_ORIGIN1),
@@ -29,6 +31,10 @@ public class PostFixture {
     public static Post get(Long id){
         return Post.builder()
                 .id(id)
+                .content(BASIC_CONTENT)
+                .status(PostStatue.SALE)
+                .category(Category.DIGITAL)
+                .thumbnail(BASIC_THUMBNAIL)
                 .build();
     }
 
