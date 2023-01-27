@@ -3,8 +3,8 @@ package com.carrot.presentation.controller;
 import com.carrot.application.article.service.ArticleReadService;
 import com.carrot.application.article.service.ArticleWriteService;
 import com.carrot.config.TestSecurityConfig;
-import com.carrot.testutil.ControllerTest;
-import com.carrot.testutil.fixture.ArticleFixture;
+import com.carrot.support.ControllerTest;
+import com.carrot.support.fixture.ArticleFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,15 +13,14 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 import static com.carrot.presentation.request.ArticleRequest.ArticleSaveRequest;
 import static com.carrot.presentation.request.ArticleRequest.ArticleUpdateRequest;
 import static com.carrot.presentation.response.ArticleResponse.ArticleResponses;
 import static com.carrot.presentation.response.ArticleResponse.ReplyResponses;
-import static com.carrot.testutil.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
-import static com.carrot.testutil.fixture.TokenFixture.BEARER_TOKEN;
+import static com.carrot.support.QueryParamUtil.QueryParam;
+import static com.carrot.support.fixture.TokenFixture.AUTHORIZATION_HEADER_NAME;
+import static com.carrot.support.fixture.TokenFixture.BEARER_TOKEN;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -44,9 +43,6 @@ class ArticleControllerTest extends ControllerTest {
     void givenPostId_whenFinding_thenFindArticleList() throws Exception {
         //given
         Long postId = 1L;
-        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
-        query_param.add("size", "20");
-        query_param.add("page", "0");
 
         ArticleResponses fixture = ArticleFixture.getArticleResponses(20, true);
 
@@ -54,7 +50,7 @@ class ArticleControllerTest extends ControllerTest {
         when(articleReadService.getArticles(eq(postId), any())).thenReturn(fixture);
 
         final ResultActions perform = mockMvc.perform(get("/api/v1/posts/{postId}/article", postId)
-                .params(query_param)
+                .params(QueryParam())
                 .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
 
         //then
@@ -68,9 +64,6 @@ class ArticleControllerTest extends ControllerTest {
     void givenPostId_whenFinding_thenThrowNotLogin() throws Exception {
         //given
         Long postId = 1L;
-        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
-        query_param.add("size", "20");
-        query_param.add("page", "0");
 
         ArticleResponses fixture = ArticleFixture.getArticleResponses(20, true);
 
@@ -78,7 +71,7 @@ class ArticleControllerTest extends ControllerTest {
         when(articleReadService.getArticles(eq(postId), any())).thenReturn(fixture);
 
         final ResultActions perform = mockMvc.perform(get("/api/v1/posts/{postId}/article", postId)
-                .params(query_param));
+                .params(QueryParam()));
 
         //then
         perform.andDo(print())
@@ -91,9 +84,6 @@ class ArticleControllerTest extends ControllerTest {
     void givenArticleId_whenFinding_thenFindReplyList() throws Exception {
         //given
         Long articleId = 1L;
-        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
-        query_param.add("size", "20");
-        query_param.add("page", "0");
 
         ReplyResponses fixture = ArticleFixture.getReplyResponses(20, true);
 
@@ -101,7 +91,7 @@ class ArticleControllerTest extends ControllerTest {
         when(articleReadService.getReplies(eq(articleId), any())).thenReturn(fixture);
 
         final ResultActions perform = mockMvc.perform(get("/api/v1/article/{articleId}/reply", articleId)
-                .params(query_param)
+                .params(QueryParam())
                 .header(AUTHORIZATION_HEADER_NAME, BEARER_TOKEN));
 
         //then
@@ -115,9 +105,6 @@ class ArticleControllerTest extends ControllerTest {
     void givenArticleId_whenFinding_thenThrowNotLogin() throws Exception {
         //given
         Long articleId = 1L;
-        MultiValueMap<String, String> query_param = new LinkedMultiValueMap<>();
-        query_param.add("size", "20");
-        query_param.add("page", "0");
 
         ReplyResponses fixture = ArticleFixture.getReplyResponses(20, true);
 
@@ -125,7 +112,7 @@ class ArticleControllerTest extends ControllerTest {
         when(articleReadService.getReplies(eq(articleId), any())).thenReturn(fixture);
 
         final ResultActions perform = mockMvc.perform(get("/api/v1/article/{articleId}/reply", articleId)
-                .params(query_param));
+                .params(QueryParam()));
 
         //then
         perform.andDo(print())

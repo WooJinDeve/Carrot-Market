@@ -5,9 +5,9 @@ import com.carrot.application.user.domain.User;
 import com.carrot.application.user.domain.UserRegion;
 import com.carrot.application.user.repository.UserRegionRepository;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.testutil.ServiceTest;
-import com.carrot.testutil.fixture.UserFixture;
-import com.carrot.testutil.fixture.UserRegionFixture;
+import com.carrot.support.ServiceTest;
+import com.carrot.support.fixture.UserFixture;
+import com.carrot.support.fixture.UserRegionFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,7 +35,7 @@ public class UserRegionValidatorTest extends ServiceTest {
     @DisplayName("[Error] 사용자의 지역정보가 2개 이상경우 오류를 발생시킨다.")
     @ParameterizedTest
     @ValueSource(longs = {2L, 3L, 5L})
-    void 사용자의_지역정보가_2개_이상일경우_오류를_발생시킨다(long count) {
+    void givenUserId_whenVerify_thenThrowValidNotOverTwoUserRegion(long count) {
         //given
         Long userId = 1L;
 
@@ -50,7 +50,7 @@ public class UserRegionValidatorTest extends ServiceTest {
 
     @DisplayName("[Success] 사용자의 지역정보가 1개 이하일 경우 리턴한다")
     @Test
-    void 사용자의_지역정보가_1개_이하일경우_리턴() {
+    void givenUserIdAndRegionId_whenVerify_thenPassing() {
         //given
         Long userId = 1L;
         Long count = 1L;
@@ -65,7 +65,7 @@ public class UserRegionValidatorTest extends ServiceTest {
 
     @DisplayName("[Error] 사용자의 지역정보와 요청한 사용자의 정보가 일치하지 않는 경우")
     @Test
-    void 사용자의_지역정보와_요청한_사용자의_정보가_일치하지_않는_경우() {
+    void givenUser_whenVerify_thenThrowValidNotMatchUser() {
         //given
         User requestUserFixture = UserFixture.get(1L);
         User ownerUserFixture = UserFixture.get(2L);
@@ -80,7 +80,7 @@ public class UserRegionValidatorTest extends ServiceTest {
 
     @DisplayName("[Success] 사용자의 지역정보와 요청한 사용자의 정보가 일치할시, 리턴한다.")
     @Test
-    void 사용자의_지역정보와_요청한_사용자의_정보가_일치하시_리턴() {
+    void givenUser_whenVerify_thenPassing() {
         //given
         User userFixture = UserFixture.get(1L);
         UserRegion userRegionFixture = UserRegionFixture.get(1L, userFixture);

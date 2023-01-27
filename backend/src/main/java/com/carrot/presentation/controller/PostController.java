@@ -5,12 +5,15 @@ import com.carrot.application.post.service.PostWriteService;
 import com.carrot.application.user.dto.LoginUser;
 import com.carrot.global.common.Response;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 import static com.carrot.presentation.request.PostRequest.*;
+import static com.carrot.presentation.response.PostResponse.PostDetailResponse;
+import static com.carrot.presentation.response.PostResponse.PostListResponses;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +22,25 @@ public class PostController {
 
     private final PostWriteService postWriteService;
     private final PostReadService postReadService;
+
+    @GetMapping
+    public Response<PostListResponses> getSearch(@AuthenticationPrincipal LoginUser loginUser,
+                                                 @RequestBody PostSearchRequest request,
+                                                 final Pageable pageable) {
+        PostListResponses responses = postReadService.findBySearchConditions(
+                loginUser.getId(),
+                request.getCategory(),
+                request.getTitle(),
+                pageable);
+        return Response.success(responses);
+    }
+
+    @GetMapping("/{postId}")
+    public Response<PostDetailResponse> getById(@AuthenticationPrincipal LoginUser loginUser,
+                                                @PathVariable Long postId) {
+        PostDetailResponse response = postReadService.findById(postId);
+        return Response.success(response);
+    }
 
     @PostMapping
     private Response<Long> create(@AuthenticationPrincipal LoginUser loginUser,

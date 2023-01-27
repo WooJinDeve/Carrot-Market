@@ -1,4 +1,4 @@
-package com.carrot.testutil;
+package com.carrot.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

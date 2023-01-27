@@ -1,9 +1,9 @@
 package com.carrot.application.article.domain;
 
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.testutil.fixture.ArticleFixture;
-import com.carrot.testutil.fixture.PostFixture;
-import com.carrot.testutil.fixture.UserFixture;
+import com.carrot.support.fixture.ArticleFixture;
+import com.carrot.support.fixture.PostFixture;
+import com.carrot.support.fixture.UserFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ import static com.carrot.global.error.ErrorCode.ARTICLE_VALIDATION_ERROR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-@DisplayName("[Domain] Sentence")
+@DisplayName("[Domain] Article")
 class ArticleTest {
 
     @DisplayName("[Error] 댓글의 작성자가 아닌경우 접근 권한 검증")

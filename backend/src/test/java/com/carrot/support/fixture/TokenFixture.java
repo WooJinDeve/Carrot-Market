@@ -1,4 +1,4 @@
-package com.carrot.testutil.fixture;
+package com.carrot.support.fixture;
 
 public class TokenFixture {
     public static final String ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjcyNjQxMzM0LCJleHAiOjE2NzM4NTEzMzR9.13hh2Z9Rtjjcblhy0qSlRXLk6P4EXy_FfhbT4APiv6k";

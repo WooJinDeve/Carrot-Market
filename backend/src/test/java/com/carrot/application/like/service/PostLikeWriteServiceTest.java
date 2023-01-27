@@ -8,9 +8,9 @@ import com.carrot.application.user.domain.User;
 import com.carrot.application.user.repository.UserRepository;
 import com.carrot.application.user.service.UserValidator;
 import com.carrot.global.error.CarrotRuntimeException;
-import com.carrot.testutil.ServiceTest;
-import com.carrot.testutil.fixture.PostFixture;
-import com.carrot.testutil.fixture.UserFixture;
+import com.carrot.support.ServiceTest;
+import com.carrot.support.fixture.PostFixture;
+import com.carrot.support.fixture.UserFixture;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ class PostLikeWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Success] 게시물 좋아요 요청")
     @Test
-    void 게시물_좋아요_요청() {
+    void givenUserAndPost_whenSaving_thenSavedLike() {
         //given
         User userFixture = UserFixture.get(1L);
         Post postFixture = PostFixture.get(1L, userFixture, null);
@@ -65,7 +65,7 @@ class PostLikeWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 게시물 좋아요 요청시, 이미 좋아요를 했을 경우")
     @Test
-    void 게시물_좋아요_요청시_이미_좋아요를_했을_경우() {
+    void givenUserAndPost_whenSaving_thenThrowValidDuplicatedLike() {
         //given
         User userFixture = UserFixture.get(1L);
         Post postFixture = PostFixture.get(1L);
@@ -84,7 +84,7 @@ class PostLikeWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Success] 게시물 좋아요 취소 요청")
     @Test
-    void 게시물_좋아요_취소_요청() {
+    void givenUserAndPost_whenCanceling_thenDeletedListInformation() {
         //given
         User userFixture = UserFixture.get(1L);
         Post postFixture = PostFixture.get(1L);
@@ -103,7 +103,7 @@ class PostLikeWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Error] 게시물 좋아요 취소 요청시, 저장된 좋아요 요청 기록이 없는 경우")
     @Test
-    void 게시물_좋아요_취소_요청시_저장된_요청이_없는_경우() {
+    void givenUserAndPost_whenCanceling_thenValidNotExistHistory() {
         //given
         User userFixture = UserFixture.get(1L);
         Post postFixture = PostFixture.get(1L);
