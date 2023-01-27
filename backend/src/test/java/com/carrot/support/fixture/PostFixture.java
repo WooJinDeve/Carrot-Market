@@ -46,9 +46,16 @@ public class PostFixture {
                 .build();
     }
 
-    public static Post get(User user, Region region, PostSaveRequest request){
-        return Post.of(user, region, request.getTitle(), request.getContent(), request.getPrice(),
-                request.getCategory(), request.getThumbnail());
+    public static Post get(User user, Region region){
+        return Post.builder()
+                .id(1L)
+                .user(user)
+                .region(region)
+                .content(BASIC_CONTENT)
+                .thumbnail(BASIC_THUMBNAIL)
+                .category(Category.DIGITAL)
+                .status(PostStatue.SALE)
+                .build();
     }
 
     public static Post getStatue(Long id, User user, PostStatue statue){
