@@ -3,6 +3,7 @@ package com.carrot.application.post.service;
 import com.carrot.application.post.domain.Category;
 import com.carrot.application.post.domain.entity.Post;
 import com.carrot.application.post.repository.PostRepository;
+import com.carrot.application.post.repository.TransactionHistoryRepository;
 import com.carrot.application.user.service.UserReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ public class PostReadService {
 
     private final PostRepository postRepository;
     private final UserReadService userReadService;
-
+    private final TransactionHistoryRepository transactionHistoryRepository;
     public PostDetailResponse findById(final Long postId){
         final Post post = postRepository.getByIdByIdWithRegionAndUserAndImage(postId);
         post.verifySoftDeleted();
@@ -39,7 +40,17 @@ public class PostReadService {
                 .build();
     }
 
-    private List<PostListResponse> convertToPostListResponse(List<Post> posts) {
+    public PostListResponses findByPurchaseHistories(final Long userId) {
+
+        return null;
+    }
+
+    public PostListResponses findBySalesHistories(final Long userId) {
+
+        return null;
+    }
+
+    private List<PostListResponse> convertToPostListResponse(final List<Post> posts) {
         return posts.stream()
                 .map(PostListResponse::of)
                 .collect(Collectors.toList());
